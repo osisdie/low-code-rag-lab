@@ -1,0 +1,39 @@
+# --- secrets / env ---
+.env
+.env.*
+!.env.example
+*.key
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# --- LightRAG / Dify local data (Stage 3 lab) ---
+lab-assets/graphrag/rag_storage/
+lab-assets/graphrag/inputs/
+*.graphml
+*.parquet
+storage/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# --- screenshots / scratch ---
+.playwright-mcp/
+
+# --- 講師教案：不對學員/外界公開，僅保留本機 ---
+docs/instructor/

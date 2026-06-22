@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 客服機器人 — 三階段工作坊</title>
+<style>
+  :root{
+    --teal:#5eead4; --orange:#ff9070; --bg0:#050b1f; --bg1:#0a1535;
+    --ink:#e8eef8; --ink2:#a8c5e8; --muted:#6f86ad;
+    --card:rgba(255,255,255,.05); --line:rgba(120,160,220,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    background:radial-gradient(1200px 800px at 80% -10%, #1a2a4f 0%, transparent 55%),
+               radial-gradient(900px 700px at -10% 110%, #3a2418 0%, transparent 50%),
+               linear-gradient(160deg,var(--bg0),var(--bg1));
+    color:var(--ink); overflow:hidden;
+  }
+  .deck{position:fixed;inset:0}
+  .slide{
+    position:absolute;inset:0;display:none;flex-direction:column;
+    justify-content:center;padding:6vh 9vw;opacity:0;
+    transition:opacity .35s ease;
+  }
+  .slide.active{display:flex;opacity:1}
+  .kicker{color:var(--teal);font-weight:700;letter-spacing:.18em;
+    font-size:clamp(13px,1.5vw,18px);text-transform:uppercase;margin-bottom:18px;
+    text-shadow:0 0 18px rgba(94,234,212,.4)}
+  h1{font-size:clamp(40px,7vw,92px);line-height:1.05;font-weight:800;letter-spacing:-.01em}
+  h1 .sub{display:block;color:var(--orange);font-size:clamp(22px,3.4vw,44px);margin-top:14px;
+    text-shadow:0 0 22px rgba(255,144,112,.35)}
+  h2{font-size:clamp(30px,4.6vw,58px);line-height:1.12;font-weight:800;margin-bottom:8px}
+  h2 .tag{color:var(--teal)}
+  .lead{color:var(--ink2);font-size:clamp(17px,2.1vw,26px);margin:10px 0 30px;max-width:60ch;line-height:1.5}
+  ul{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:8px}
+  li{font-size:clamp(16px,2vw,25px);line-height:1.4;padding-left:34px;position:relative;color:var(--ink)}
+  li::before{content:"";position:absolute;left:0;top:.55em;width:12px;height:12px;border-radius:50%;
+    background:var(--teal);box-shadow:0 0 14px rgba(94,234,212,.6)}
+  li.x::before{background:var(--orange);box-shadow:0 0 14px rgba(255,144,112,.6)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;
+    backdrop-filter:blur(8px)}
+  .card .n{color:var(--teal);font-weight:800;font-size:clamp(15px,1.6vw,20px);letter-spacing:.12em}
+  .card h3{font-size:clamp(20px,2.3vw,30px);margin:8px 0 12px}
+  .card p{color:var(--ink2);font-size:clamp(14px,1.6vw,19px);line-height:1.45}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start;margin-top:10px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px}
+  .panel.win{border-color:rgba(94,234,212,.5)}
+  .panel.lose{border-color:rgba(255,144,112,.4)}
+  .panel h3{font-size:clamp(19px,2.2vw,28px);margin-bottom:14px}
+  .flow{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;font-size:clamp(15px,1.8vw,22px)}
+  .node{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 22px}
+  .node.t{border-color:rgba(94,234,212,.5);color:var(--teal)}
+  .node.o{border-color:rgba(255,144,112,.5);color:var(--orange)}
+  .arrow{color:var(--muted);font-size:1.4em}
+  .quote{font-size:clamp(22px,3vw,40px);line-height:1.35;font-weight:700;max-width:24ch;
+    border-left:5px solid var(--teal);padding-left:26px}
+  .time{position:absolute;top:5vh;right:9vw;color:var(--muted);font-size:clamp(13px,1.4vw,17px);
+    letter-spacing:.08em}
+  table{border-collapse:collapse;margin-top:14px;width:100%;font-size:clamp(14px,1.6vw,21px)}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  th{color:var(--teal);font-weight:700}
+  td .o{color:var(--orange)}
+  .foot{position:fixed;bottom:3.2vh;left:0;right:0;display:flex;justify-content:space-between;
+    align-items:center;padding:0 9vw;color:var(--muted);font-size:13px;letter-spacing:.06em}
+  .bar{position:fixed;bottom:0;left:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--orange));
+    transition:width .35s ease;box-shadow:0 0 12px rgba(94,234,212,.5)}
+  .hint{opacity:.7}
+  kbd{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 cover -->
+  <section class="slide">
+    <div class="kicker">B-Time · 半日動手實作 · 限額 20 人</div>
+    <h1>AI 客服機器人<span class="sub">No-Code → Low-Code → Advanced RAG，一個下午做出來</span></h1>
+    <div class="lead" style="margin-top:34px">對象：老闆 / PM / 客服主管 · 不用會寫程式 ·
+      講師 Kevin Wu（AI 顧問）· 2026/6/27 13:30–17:30</div>
+  </section>
+
+  <!-- 2 value -->
+  <section class="slide">
+    <div class="kicker">今天你會帶走</div>
+    <h2>不是聽課，是<span class="tag">親手做出</span>一隻 bot</h2>
+    <ul>
+      <li>一個自己做出來的 AI 客服 bot 雛形（ChatGPT + Dify）</li>
+      <li>「公司適合哪種做法」判斷工具</li>
+      <li>三層次 system prompt 範本</li>
+      <li>可帶回家自架的<b>向量 + 圖譜 RAG 實驗室</b></li>
+      <li>四套預算範本 + 1 週 / 1 個月 / 3 個月 行動清單</li>
+    </ul>
+  </section>
+
+  <!-- 3 三做法定位 -->
+  <section class="slide">
+    <div class="time">13:30–14:00</div>
+    <div class="kicker">Opening · 先定位</div>
+    <h2>三種做法，先看你<span class="tag">今天落在哪</span></h2>
+    <div class="lead">第一個問題不是「AI 強不強」，是「你公司現在該選哪一種」。</div>
+    <div class="grid">
+      <div class="card"><div class="n">No-Code</div><h3>ChatGPT 做法</h3>
+        <p>上傳即用。&lt;50 頁、PM 一下午。限 ChatGPT 視窗。</p></div>
+      <div class="card"><div class="n">Low-Code</div><h3>Dify 做法</h3>
+        <p>向量 RAG + 多通路。50–10,000 頁、半工程一週。最務實甜蜜點。</p></div>
+      <div class="card"><div class="n">Advanced</div><h3>工程 / 圖譜</h3>
+        <p>關係 / 多跳、合規、高量。向量補圖譜。該用才用。</p></div>
+    </div>
+  </section>
+
+  <!-- 4 Stage1 what/why/how -->
+  <section class="slide">
+    <div class="time">14:00–14:45 · 動手</div>
+    <div class="kicker">Stage 1 · No-Code</div>
+    <h2>用 ChatGPT 做 AI 客服</h2>
+    <div class="two">
+      <div class="panel"><h3>WHY 為什麼</h3>
+        <ul><li>門檻最低、最快有成就感</li><li>建立「上傳資料→AI 會答」直覺</li><li>親手撞天花板，自然帶出下一段</li></ul></div>
+      <div class="panel"><h3>HOW 怎麼做</h3>
+        <ul><li>建 Project → 上傳餐廳 FAQ</li><li>貼新手 prompt（4 句不要亂答）</li><li>兩人互測：能答 / 答不出 / 挑釁</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 5 Stage1 ceiling -->
+  <section class="slide">
+    <div class="kicker">Stage 1 · 天花板</div>
+    <h2>它<span style="color:var(--orange)">出不了</span> ChatGPT 視窗</h2>
+    <ul>
+      <li class="x">沒辦法嵌到網站 / LINE</li>
+      <li class="x">不能查資料庫（無 tool calling）</li>
+      <li class="x">文件大就慢、太大會被截斷</li>
+      <li class="x">資料會進 OpenAI</li>
+    </ul>
+    <div class="lead" style="margin-top:26px">👉 下一段，用 Dify 一次解掉。</div>
+  </section>
+
+  <!-- 6 Stage2 what/why/how -->
+  <section class="slide">
+    <div class="time">14:45–16:00 · 動手</div>
+    <div class="kicker">Stage 2 · Low-Code</div>
+    <h2>用 Dify 串 LINE（<span class="tag">向量 RAG</span>）</h2>
+    <div class="two">
+      <div class="panel"><h3>WHY 為什麼</h3>
+        <ul><li>補齊通路整合 + 知識庫 + 工具</li><li>不必養工程團隊就能上線</li><li>植入關鍵詞：<b>向量 RAG</b></li></ul></div>
+      <div class="panel"><h3>HOW 怎麼做</h3>
+        <ul><li>建知識庫（chunk / Top-K / Hybrid）</li><li>貼進階 prompt + 查訂單 + 轉真人</li><li>串網站 widget / LINE OA</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 7 vector vs graph WHY -->
+  <section class="slide">
+    <div class="time">16:15–17:15 · demo + 帶回家</div>
+    <div class="kicker">Stage 3 · Advanced</div>
+    <h2>向量的盲區：<span style="color:var(--orange)">關係 / 多跳問題</span></h2>
+    <div class="two">
+      <div class="panel lose"><h3>🟠 向量 RAG</h3>
+        <p style="color:var(--ink2);font-size:clamp(15px,1.8vw,22px);line-height:1.5">
+        「找<b>像的句子</b>」。問「跟這支豆<b>同供應商</b>的還有哪些？」常只回你問到的那一支。</p></div>
+      <div class="panel win"><h3>🟢 圖譜 RAG</h3>
+        <p style="color:var(--ink2);font-size:clamp(15px,1.8vw,22px);line-height:1.5">
+        「走<b>通的關係</b>」。沿 商品─供應商─產線─政策 的邊走，一次撈齊相關實體。</p></div>
+    </div>
+    <div class="quote" style="margin-top:30px">圖譜不是炫技，<br>是補向量的盲區。</div>
+  </section>
+
+  <!-- 8 architecture -->
+  <section class="slide">
+    <div class="kicker">Stage 3 · 架構</div>
+    <h2>同一個 app，<span class="tag">兩個知識庫</span></h2>
+    <div class="lead">Dify 用標準契約 <kbd>POST /retrieval</kbd> 外掛任何 GraphRAG 服務。</div>
+    <div class="flow">
+      <div class="node">Dify 客服 app</div>
+      <span class="arrow">→</span>
+      <div class="node t">內建知識庫（向量）</div>
+    </div>
+    <div class="flow">
+      <div class="node" style="visibility:hidden">Dify 客服 app</div>
+      <span class="arrow">↘</span>
+      <div class="node o">外部知識庫 /retrieval</div>
+      <span class="arrow">→</span>
+      <div class="node o">LightRAG（向量 + 圖譜 · mix）</div>
+    </div>
+  </section>
+
+  <!-- 9 對照查詢 -->
+  <section class="slide">
+    <div class="kicker">Stage 3 · 對照主秀</div>
+    <h2>同一題，<span style="color:var(--orange)">向量漏</span> vs <span class="tag">圖譜齊</span></h2>
+    <table>
+      <tr><th>問題</th><th>圖譜補上的答案</th></tr>
+      <tr><td>跟耶加雪菲同供應商的還有哪些豆？</td><td>西達摩</td></tr>
+      <tr><td>跟冷萃黑咖啡同產線且同政策的有哪些？</td><td>氮氣冷萃</td></tr>
+      <tr><td>La Esperanza 斷貨影響哪些商品和促銷組合？</td><td>P3、P4 + 入門淺焙組</td></tr>
+      <tr><td>夏日冷萃組用到哪些產區的豆？</td><td>瓜地馬拉、台灣阿里山</td></tr>
+    </table>
+    <div class="lead" style="margin-top:22px">動手自架版在講義 <kbd>lab-assets/graphrag/</kbd> — 帶回家練。</div>
+  </section>
+
+  <!-- 10 收尾 預算 -->
+  <section class="slide">
+    <div class="time">17:15–17:30</div>
+    <div class="kicker">收尾 · 正式導入</div>
+    <h2>要花多少？要不要<span class="tag">自建</span>？</h2>
+    <table>
+      <tr><th>方案</th><th>對應做法</th><th>月費</th><th>一次性</th></tr>
+      <tr><td>A · MVP 試水</td><td>ChatGPT</td><td>~1,400</td><td>30,000</td></tr>
+      <tr><td>B · 正式上線</td><td>Dify</td><td>~11,000</td><td>80,000</td></tr>
+      <tr><td>C · 規模化</td><td>自架 Dify</td><td>~135,000</td><td>250,000</td></tr>
+      <tr><td>D · 企業級</td><td>完全自建</td><td>~320,000</td><td>1,100,000</td></tr>
+    </table>
+    <div class="lead" style="margin-top:18px">方案 B 第一年 ≈ 21.2 萬，省 1 個客服 → <span style="color:var(--teal)">4 個月回本</span>。</div>
+  </section>
+
+  <!-- 11 closing -->
+  <section class="slide">
+    <div class="kicker">帶走</div>
+    <h2>你帶走的不是 bot，是一張<span class="tag">地圖</span></h2>
+    <ul>
+      <li>1 週：做內部 FAQ bot、清點文件、分類客服意圖</li>
+      <li>1 個月：定做法、做 PoC、收 50 通對話 log</li>
+      <li>3 個月：小規模上線、設 3 指標、判斷是否該上圖譜</li>
+    </ul>
+    <div class="quote" style="margin-top:34px">知道自己站在哪、<br>下一步往哪、<br>什麼時候別走太遠。</div>
+  </section>
+
+</div>
+
+<div class="foot">
+  <span class="hint">← → / 空白鍵翻頁 · F 全螢幕</span>
+  <span><span id="cur">1</span> / <span id="tot">11</span></span>
+</div>
+<div class="bar" id="bar"></div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  const tot=slides.length;
+  document.getElementById('tot').textContent=tot;
+  function show(n){
+    i=Math.max(0,Math.min(tot-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    document.getElementById('cur').textContent=i+1;
+    document.getElementById('bar').style.width=((i+1)/tot*100)+'%';
+  }
+  function next(){show(i+1)} function prev(){show(i-1)}
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();next()}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();prev()}
+    else if(e.key==='Home'){show(0)} else if(e.key==='End'){show(tot-1)}
+    else if(e.key==='f'||e.key==='F'){
+      if(!document.fullscreenElement)document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+  document.addEventListener('click',e=>{ if(e.clientX < window.innerWidth*0.25) prev(); else next(); });
+  show(0);
+</script>
+</body>
+</html>

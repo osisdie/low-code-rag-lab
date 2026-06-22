@@ -1,0 +1,12 @@
+# 別把這些烤進 image（尤其是 .env，避免金鑰外洩到映像層）
+.env
+.env.*
+!.env.example
+rag_storage/
+inputs/
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.graphml
+*.parquet

@@ -1,0 +1,21 @@
+# Stage 3 GraphRAG 實驗室
+# 用法：
+#   cp .env.example .env  並填好 OPENAI_API_KEY
+#   docker compose run --rm graphrag python ingest.py    # 先灌資料、建圖譜
+#   docker compose up -d                                  # 啟動 Dify 相容 retrieval 端點
+#   Dify 外掛知識庫 endpoint 填： http://<本機IP>:8000
+
+services:
+  graphrag:
+    build: .
+    container_name: lcrl-graphrag
+    env_file:
+      - .env
+    ports:
+      - "${ADAPTER_PORT:-8000}:8000"
+    volumes:
+      # 圖譜/向量索引持久化到本機，重啟不必重灌
+      - ./rag_storage:/app/rag_storage
+      # 知識庫掛進容器，ingest.py 讀得到（ingest 以 /app/../knowledge-base = /knowledge-base 解析）
+      - ../knowledge-base:/knowledge-base:ro
+    restart: unless-stopped

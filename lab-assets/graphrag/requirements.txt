@@ -1,0 +1,8 @@
+# Stage 3 GraphRAG lab — Python 相依
+# 固定主要版本，避免 LightRAG API 變動導致範例失效（如需升級請同步檢查 adapter 的 init 寫法）
+lightrag-hku==1.3.0
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+openai==1.59.0
+python-dotenv==1.0.1
+tenacity==9.0.0
