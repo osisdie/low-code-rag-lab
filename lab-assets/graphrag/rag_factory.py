@@ -23,9 +23,15 @@ EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 API_KEY = os.getenv("OPENAI_API_KEY")
 API_BASE = os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1")
 
-# text-embedding-3-small 維度；換模型時一併調整
-EMBEDDING_DIM = 1536
+# 嵌入維度依模型而定：text-embedding-3-small=1536、BGE-M3=1024。用 env 切換。
+EMBEDDING_DIM = int(os.getenv("EMBEDDING_DIM", "1536"))
 MAX_TOKEN_SIZE = 8192
+
+# 圖儲存後端：設了 NEO4J_URI 就用 Neo4j（課堂 GCP 環境，可視覺化）；
+# 否則用 LightRAG 預設的檔案式 NetworkX（公開 take-home 輕量模式）。
+# Neo4j 連線參數（NEO4J_URI / NEO4J_USERNAME / NEO4J_PASSWORD / NEO4J_DATABASE）
+# 由 LightRAG 的 Neo4JStorage 直接讀取環境變數。
+GRAPH_STORAGE = "Neo4JStorage" if os.getenv("NEO4J_URI") else "NetworkXStorage"
 
 
 async def _llm_complete(prompt, system_prompt=None, history_messages=None, **kwargs):
@@ -60,6 +66,7 @@ async def build_rag() -> LightRAG:
             max_token_size=MAX_TOKEN_SIZE,
             func=_embed,
         ),
+        graph_storage=GRAPH_STORAGE,
     )
     await rag.initialize_storages()
     await initialize_pipeline_status()

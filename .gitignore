@@ -37,3 +37,15 @@ Thumbs.db
 
 # --- 講師教案：不對學員/外界公開，僅保留本機 ---
 docs/instructor/
+
+# --- Terraform / infra secrets ---
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+infra/terraform/keys/
+# 含真實密碼的帳密本（範本 accounts.md 可進版控，真值另存）
+accounts.local.md
+*.local.md

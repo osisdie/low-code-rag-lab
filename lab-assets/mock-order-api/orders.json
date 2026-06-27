@@ -1,0 +1,30 @@
+{
+  "A1001": {
+    "status": "已出貨",
+    "eta": "預計明天送達",
+    "carrier": "黑貓宅急便",
+    "tracking_no": "8888-1234-5678",
+    "items": ["耶加雪菲 日曬 半磅 x1", "安提瓜 火山 半磅 x1"]
+  },
+  "A1002": {
+    "status": "烘焙中",
+    "eta": "今晚烘焙完成，48 小時內出貨",
+    "carrier": null,
+    "tracking_no": null,
+    "items": ["夏日冷萃組 x1"]
+  },
+  "A1003": {
+    "status": "已送達",
+    "eta": "已於昨日簽收",
+    "carrier": "7-11 店到店",
+    "tracking_no": "7-11-0099-2211",
+    "items": ["哥倫比亞 低因 半磅 x2"]
+  },
+  "A1004": {
+    "status": "待付款",
+    "eta": "付款後 48 小時內出貨",
+    "carrier": null,
+    "tracking_no": null,
+    "items": ["入門淺焙組 x1"]
+  }
+}

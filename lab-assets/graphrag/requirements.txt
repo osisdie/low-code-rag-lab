@@ -6,3 +6,5 @@ uvicorn[standard]==0.34.0
 openai==1.59.0
 python-dotenv==1.0.1
 tenacity==9.0.0
+# 課堂模式 B 用 Neo4j 圖儲存後端時需要（take-home 檔案式可略）
+neo4j==5.27.0

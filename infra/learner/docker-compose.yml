@@ -1,0 +1,57 @@
+# 每台 learner VM 的個人服務：
+#   LiteLLM(→自家專案 Vertex Gemini + 共用 TEI 的 BGE-M3) + graphrag + mock API + LINE 橋接 + Caddy
+# Dify 由其官方 compose 另外跑（見 ../../lab-assets/dify/dify-selfhost/README.md）。
+#
+# 用法：cp .env.example .env  && docker compose up -d --build
+
+services:
+  litellm:
+    image: ghcr.io/berriai/litellm:main-stable
+    container_name: lcrl-litellm
+    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    env_file: .env # VERTEX_PROJECT / VERTEX_LOCATION / TEI_BASE / LITELLM_MASTER_KEY
+    ports:
+      - "4000:4000" # Dify 模型供應商指 http://<本機>:4000/v1
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml:ro
+    restart: unless-stopped
+
+  graphrag:
+    build: ../../lab-assets/graphrag
+    container_name: lcrl-graphrag
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../../lab-assets/graphrag/rag_storage:/app/rag_storage
+      - ../../lab-assets/knowledge-base:/knowledge-base:ro
+    depends_on:
+      - litellm
+    restart: unless-stopped
+
+  mock-order-api:
+    build: ../../lab-assets/mock-order-api
+    container_name: lcrl-mock-order
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  line-bridge:
+    build: ../../lab-assets/line-bridge
+    container_name: lcrl-line-bridge
+    env_file: .env
+    ports:
+      - "8090:8090"
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    container_name: lcrl-caddy
+    network_mode: host
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+    restart: unless-stopped
+
+volumes:
+  caddy-data:

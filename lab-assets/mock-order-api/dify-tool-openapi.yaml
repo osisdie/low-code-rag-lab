@@ -1,0 +1,42 @@
+# Dify 自訂工具用的 OpenAPI schema
+# 在 Dify →「工具」→「建立自訂工具」→ 貼上本檔，
+# 把 servers.url 改成你的 mock API 對外網址（self-host 時通常是 http://<lab-vm>:8080）。
+openapi: 3.0.0
+info:
+  title: 醇焙手沖咖啡 Mock 訂單 API
+  description: 查詢訂單狀態，供客服 bot 呼叫
+  version: 1.0.0
+servers:
+  - url: http://CHANGE-ME:8080
+    description: 改成你的 mock API 網址（learner VM 內網/外網皆可）
+paths:
+  /order/{order_id}:
+    get:
+      operationId: get_order_status
+      summary: 查詢訂單狀態
+      description: 依訂單編號查詢出貨狀態、預計到貨、物流與品項。
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          description: 訂單編號，例如 A1001
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 訂單資訊
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order_id: { type: string }
+                  status: { type: string }
+                  eta: { type: string }
+                  carrier: { type: string }
+                  tracking_no: { type: string }
+                  items:
+                    type: array
+                    items: { type: string }
+        "404":
+          description: 查無此訂單

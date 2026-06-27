@@ -1,0 +1,41 @@
+# lab-shared 共用服務：Neo4j Enterprise（多租戶）+ TEI(BGE-M3, CPU)
+# LiteLLM 已移到每台 learner VM（用各自專案的 Vertex）；本機只提供共用的 Neo4j 與 BGE-M3。
+#
+# 用法（在 lab-shared VM）：
+#   cp .env.example .env   # 填 HF_TOKEN、NEO4J_INITIAL_PW
+#   docker compose up -d
+#   docker exec -i lcrl-neo4j cypher-shell -u neo4j -p "$NEO4J_INITIAL_PW" -d system \
+#     < ../neo4j/init-users.cypher
+
+services:
+  tei:
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.5
+    container_name: lcrl-tei
+    command: ["--model-id", "BAAI/bge-m3"]
+    environment:
+      HF_TOKEN: ${HF_TOKEN}
+    ports:
+      - "8081:80" # 各 learner 的 LiteLLM 取 BGE-M3：http://<shared-ip>:8081/v1
+    volumes:
+      - tei-data:/data
+    restart: unless-stopped
+
+  neo4j:
+    image: neo4j:5-enterprise
+    container_name: lcrl-neo4j
+    environment:
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_AUTH: neo4j/${NEO4J_INITIAL_PW}
+      NEO4J_dbms_memory_heap_max__size: 2G
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j-data:/data
+      - neo4j-logs:/logs
+    restart: unless-stopped
+
+volumes:
+  tei-data:
+  neo4j-data:
+  neo4j-logs:

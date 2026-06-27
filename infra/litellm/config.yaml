@@ -1,0 +1,37 @@
+# LiteLLM gateway 設定 — 單一 OpenAI 相容端點，同時餵 Dify 與 LightRAG。
+# 在 lab-svc VM 上以 docker 跑（見 ../svc/docker-compose.yml）。
+#
+# 認證：lab-svc VM 掛上有 roles/aiplatform.user 的 service account，
+# LiteLLM 透過 GCP metadata 的 ADC 自動取得 Vertex 憑證，不需金鑰檔。
+# （若在非 GCP 環境，改設 GOOGLE_APPLICATION_CREDENTIALS 指向 SA key。）
+
+model_list:
+  # ---- Vertex AI Gemini（主力 LLM）----
+  - model_name: gemini-2.5-flash
+    litellm_params:
+      model: vertex_ai/gemini-2.5-flash
+      vertex_project: os.environ/VERTEX_PROJECT
+      vertex_location: os.environ/VERTEX_LOCATION
+  - model_name: gemini-2.5-flash-lite
+    litellm_params:
+      model: vertex_ai/gemini-2.5-flash-lite
+      vertex_project: os.environ/VERTEX_PROJECT
+      vertex_location: os.environ/VERTEX_LOCATION
+
+  # ---- BGE-M3 embedding（TEI 容器，CPU）----
+  # TEI 提供 OpenAI 相容的 /v1/embeddings，用 openai/ provider 轉接。
+  - model_name: bge-m3
+    litellm_params:
+      model: openai/bge-m3
+      api_base: http://tei:80/v1
+      api_key: "tei-local"   # TEI 不驗證，填佔位即可
+
+litellm_settings:
+  drop_params: true          # 丟掉供應商不支援的參數，避免 Dify/LightRAG 傳入時報錯
+  num_retries: 2
+  request_timeout: 120
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  # 進階：要發每人 virtual key 做用量隔離，需接 LiteLLM 的 Postgres（DATABASE_URL）。
+  # 課堂簡化：大家共用 master_key（內部教學環境）。

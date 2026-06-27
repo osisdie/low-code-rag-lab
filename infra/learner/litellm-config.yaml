@@ -1,0 +1,26 @@
+# 每台 learner VM 的 LiteLLM：LLM 走「自家專案」的 Vertex（VM 掛的 SA 走 ADC），
+# embedding(BGE-M3) 轉到共用 lab-shared 的 TEI。
+model_list:
+  - model_name: gemini-2.5-flash
+    litellm_params:
+      model: vertex_ai/gemini-2.5-flash
+      vertex_project: os.environ/VERTEX_PROJECT
+      vertex_location: os.environ/VERTEX_LOCATION
+  - model_name: gemini-2.5-flash-lite
+    litellm_params:
+      model: vertex_ai/gemini-2.5-flash-lite
+      vertex_project: os.environ/VERTEX_PROJECT
+      vertex_location: os.environ/VERTEX_LOCATION
+  - model_name: bge-m3
+    litellm_params:
+      model: openai/bge-m3
+      api_base: os.environ/TEI_BASE # http://<shared-ip>:8081/v1
+      api_key: "tei-local"
+
+litellm_settings:
+  drop_params: true
+  num_retries: 2
+  request_timeout: 120
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

@@ -51,12 +51,19 @@ low-code-rag-lab/
 │       └── stage-3-lab-takehome.md
 ├── slides/
 │   └── index.html                ← 上課用投影片（深色科技風，鍵盤翻頁）
-└── lab-assets/
-    ├── knowledge-base/           ← 範例知識庫（餐廳 FAQ / 電商 SOP / 關係資料）
-    ├── prompts/                  ← 三層次 system prompt 範本
-    ├── dify/                     ← Dify app 設定與外掛知識庫連線說明
-    └── graphrag/                 ← Stage 3 核心：可實跑的向量 vs 圖譜 RAG
+├── lab-assets/
+│   ├── knowledge-base/           ← 範例知識庫（餐廳 FAQ / 電商 SOP / 關係資料）
+│   ├── prompts/                  ← 三層次 system prompt 範本
+│   ├── dify/                     ← Dify app 設定、self-host 指引、DSL 骨架
+│   ├── mock-order-api/           ← Lab 2 訂單查詢工具（tool calling demo）
+│   ├── line-bridge/              ← Lab 2 LINE OA ↔ Dify 橋接（真接 LINE）
+│   └── graphrag/                 ← Stage 3 核心：向量 vs 圖譜 RAG（檔案式/Neo4j 雙模式）
+├── scripts/                      ← start-all / stop-all / preflight（彩排煙霧測試）
+└── infra/                        ← GCP 授課環境（老師+8學員）：Terraform + LiteLLM + Neo4j + 佈署腳本
 ```
+
+> **授課環境（GCP 多租戶）**：見 `infra/README.md`。一鍵建出共用服務（LiteLLM→Vertex Gemini、
+> Neo4j、BGE-M3）+ 每人一台 Dify VM。彩排見 `docs/instructor/`（講師專用，未公開）。
 
 ---
 

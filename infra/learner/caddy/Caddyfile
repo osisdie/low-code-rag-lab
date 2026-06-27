@@ -1,0 +1,15 @@
+# Caddy：用 sslip.io 網域自動取 Let's Encrypt 憑證，給 Dify 與 LINE webhook HTTPS。
+# {$LAB_DOMAIN} 由環境變數帶入（例：35-1-2-3.sslip.io）。
+# Caddy 以 host 網路跑，故可反代到 host 上的服務。
+
+{$LAB_DOMAIN} {
+	# LINE webhook → line-bridge
+	handle /line/webhook* {
+		reverse_proxy localhost:8090
+	}
+
+	# 其餘 → Dify 的 nginx（Dify 官方 compose 預設聽 :80）
+	handle {
+		reverse_proxy localhost:80
+	}
+}
