@@ -44,14 +44,5 @@ services:
       - "8090:8090"
     restart: unless-stopped
 
-  caddy:
-    image: caddy:2
-    container_name: lcrl-caddy
-    network_mode: host
-    volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy-data:/data
-    restart: unless-stopped
-
-volumes:
-  caddy-data:
+# 註：不再用 Caddy。Dify 走 HTTP（外部 IP）；LINE 的 HTTPS 由 Cloud Function 處理
+# （functions/line-webhook + scripts/deploy-line-webhook.sh）。

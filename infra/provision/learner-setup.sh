@@ -34,14 +34,15 @@ git clone "$REPO_URL" /opt/lab || (cd /opt/lab && git pull)
 git clone https://github.com/langgenius/dify.git /opt/dify || (cd /opt/dify && git pull)
 cd /opt/dify/docker
 cp -n .env.example .env
+# Dify 走 HTTP（外部 IP）。LINE 由 Cloud Function 處理 HTTPS，VM 不需 Caddy/TLS。
 {
   echo ""
   echo "# --- lab overrides ---"
-  echo "CONSOLE_API_URL=https://${DOMAIN}"
-  echo "CONSOLE_WEB_URL=https://${DOMAIN}"
-  echo "SERVICE_API_URL=https://${DOMAIN}"
-  echo "APP_API_URL=https://${DOMAIN}"
-  echo "APP_WEB_URL=https://${DOMAIN}"
+  echo "CONSOLE_API_URL=http://${EXT_IP}"
+  echo "CONSOLE_WEB_URL=http://${EXT_IP}"
+  echo "SERVICE_API_URL=http://${EXT_IP}"
+  echo "APP_API_URL=http://${EXT_IP}"
+  echo "APP_WEB_URL=http://${EXT_IP}"
 } >>.env
 docker compose up -d
 
@@ -81,8 +82,8 @@ docker exec lcrl-graphrag python ingest.py || true
 
 cat >/etc/motd <<EOF
 ==== low-code-rag-lab 個人環境（專案 ${VERTEX_PROJECT}）====
-Dify 主控台 : https://${DOMAIN}        （首次登入需建管理員帳號）
-本機 LiteLLM : http://${DOMAIN%/}:4000/v1  （Dify 模型供應商填這個；key=LiteLLM master）
+Dify 主控台 : http://${EXT_IP}          （首次登入需建管理員帳號）
+本機 LiteLLM : http://${EXT_IP}:4000/v1   （Dify 模型供應商填這個；key=LiteLLM master）
 Neo4j Browser: http://${SHARED_IP}:7474   （帳號 ${NEO4J_USER} / db ${NEO4J_DB}）
 
 待辦（UI，無法自動化）:
