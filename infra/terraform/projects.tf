@@ -36,6 +36,7 @@ module "vm_shared" {
   project_id      = module.core.project_id
   name            = "lab-shared"
   zone            = var.zone
+  region          = var.region
   machine_type    = var.machine_type_svc
   subnetwork_id   = module.core.subnetwork_id
   nightly_stop_id = module.core.nightly_stop_id
@@ -56,6 +57,7 @@ module "vm_teacher" {
   project_id      = module.core.project_id
   name            = "lab-teacher"
   zone            = var.zone
+  region          = var.region
   machine_type    = var.machine_type_learner
   subnetwork_id   = module.core.subnetwork_id
   nightly_stop_id = module.core.nightly_stop_id
@@ -83,6 +85,7 @@ module "vm_student" {
   project_id      = module.students.project_id
   name            = "lab-${each.key}"
   zone            = var.zone
+  region          = var.region
   machine_type    = var.machine_type_learner
   subnetwork_id   = module.students.subnetwork_id
   nightly_stop_id = module.students.nightly_stop_id

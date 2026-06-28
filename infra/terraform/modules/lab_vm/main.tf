@@ -5,6 +5,22 @@ terraform {
 }
 
 # 此 VM 專屬 SA（走 ADC 呼叫本專案 Vertex）
+# 靜態 IP（保留），讓 VM stop/start 後 IP 不變
+resource "google_compute_address" "ext" {
+  project      = var.project_id
+  name         = "${var.name}-ext"
+  region       = var.region
+  address_type = "EXTERNAL"
+}
+
+resource "google_compute_address" "int" {
+  project      = var.project_id
+  name         = "${var.name}-int"
+  region       = var.region
+  address_type = "INTERNAL"
+  subnetwork   = var.subnetwork_id
+}
+
 resource "google_service_account" "vm" {
   project      = var.project_id
   account_id   = var.sa_account_id
@@ -37,13 +53,18 @@ resource "google_compute_instance" "vm" {
   }
   network_interface {
     subnetwork = var.subnetwork_id
-    access_config {}
+    network_ip = google_compute_address.int.address
+    access_config {
+      nat_ip = google_compute_address.ext.address
+    }
   }
   service_account {
     email  = google_service_account.vm.email
     scopes = ["cloud-platform"]
   }
-  resource_policies       = [var.nightly_stop_id]
+  # 不自動關機（彩排期間常在晚上，20:00 自動關機會打斷）。要省成本就手動停。
+  resource_policies       = []
+  desired_status          = "RUNNING"
   metadata                = merge({ ssh-keys = var.ssh_meta }, var.extra_metadata)
   metadata_startup_script = var.startup_script
 
