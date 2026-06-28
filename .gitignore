@@ -46,6 +46,7 @@ docs/instructor/
 !*.tfvars.example
 crash.log
 infra/terraform/keys/
+infra/terraform/*.log
 # 含真實密碼的帳密本（範本 accounts.md 可進版控，真值另存）
 accounts.local.md
 *.local.md

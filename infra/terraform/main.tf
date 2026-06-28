@@ -27,19 +27,20 @@ locals {
   suffix     = random_string.suffix.result
   folder_num = element(split("/", google_folder.lab.name), 1)
 
-  # teacher + student1..N，含各自的 Neo4j 帳號/資料庫（與 neo4j/init-users.cypher 對齊）
-  learners = merge(
-    { teacher = { neo4j_user = "teacher", neo4j_db = "lab_teacher" } },
-    { for i in range(var.student_count) : "student${i + 1}" => {
+  # student1..N，含各自的 Neo4j 帳號/資料庫（與 neo4j/init-users.cypher 對齊）。
+  # 老師(teacher / lab_teacher)單獨在 core 專案處理。
+  students = {
+    for i in range(var.student_count) : "student${i + 1}" => {
       neo4j_user = "student${i + 1}", neo4j_db = "lab_student_${i + 1}"
-    } }
-  )
+    }
+  }
 }
 
 # ---- 教學用 folder ----
 resource "google_folder" "lab" {
-  display_name = var.folder_name
-  parent       = "organizations/${var.org_id}"
+  display_name        = var.folder_name
+  parent              = "organizations/${var.org_id}"
+  deletion_protection = false # 讓 terraform destroy 能完整移除 folder
 }
 
 # ---- 在 folder 解除「禁止產生 SA JSON key」----

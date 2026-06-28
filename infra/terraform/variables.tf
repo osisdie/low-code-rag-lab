@@ -88,3 +88,9 @@ variable "budget_amount" {
   type    = number
   default = 300
 }
+
+variable "create_budget" {
+  type        = bool
+  default     = false
+  description = "建立預算告警（需 ADC 帳號有 billing.budgets.create；否則用 GCP Console 設）"
+}

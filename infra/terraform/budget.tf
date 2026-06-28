@@ -1,14 +1,15 @@
 # 預算告警，涵蓋 folder 下所有教學專案（shared + learners）。
 # 在 50/80/100% 門檻通知；搭配每日自動關機保護 $300 credit。
 resource "google_billing_budget" "lab" {
+  count           = var.create_budget ? 1 : 0
   billing_account = var.billing_account
   display_name    = "low-code-rag-lab budget"
 
   budget_filter {
-    projects = concat(
-      ["projects/${module.shared.project_id}"],
-      [for k, m in module.learner : "projects/${m.project_id}"]
-    )
+    projects = [
+      "projects/${module.core.project_id}",
+      "projects/${module.students.project_id}",
+    ]
   }
   amount {
     specified_amount {

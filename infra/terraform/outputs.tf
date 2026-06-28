@@ -1,26 +1,36 @@
+output "core_project" {
+  value = module.core.project_id
+}
+output "students_project" {
+  value = module.students.project_id
+}
+
 output "shared" {
-  description = "共用服務 VM"
+  description = "共用服務 VM（在 core 專案）"
   value = {
-    project       = module.shared.project_id
-    external_ip   = module.shared.external_ip
-    neo4j_browser = "http://${module.shared.external_ip}:7474"
-    tei_endpoint  = "http://${module.shared.external_ip}:8081"
+    external_ip   = module.vm_shared.external_ip
+    neo4j_browser = "http://${module.vm_shared.external_ip}:7474"
+    tei_endpoint  = "http://${module.vm_shared.external_ip}:8081"
   }
 }
 
-output "learners" {
-  description = "每人的專案、VM、Dify 網址、Neo4j db"
+output "teacher" {
+  description = "老師 VM（在 core 專案）"
   value = {
-    for k, m in module.learner : k => {
-      project     = m.project_id
+    external_ip = module.vm_teacher.external_ip
+    dify_url    = "https://${replace(module.vm_teacher.external_ip, ".", "-")}.sslip.io"
+    neo4j_db    = "lab_teacher"
+  }
+}
+
+output "students" {
+  description = "學員 VM（在 students 專案）"
+  value = {
+    for k, m in module.vm_student : k => {
       external_ip = m.external_ip
       dify_url    = "https://${replace(m.external_ip, ".", "-")}.sslip.io"
-      neo4j_user  = local.learners[k].neo4j_user
-      neo4j_db    = local.learners[k].neo4j_db
+      neo4j_user  = local.students[k].neo4j_user
+      neo4j_db    = local.students[k].neo4j_db
     }
   }
-}
-
-output "next_steps" {
-  value = "SA JSON keys 已寫到 infra/terraform/keys/（gitignored）。各 VM /etc/motd 有 UI 待辦；驗證跑 scripts/preflight.sh。"
 }
