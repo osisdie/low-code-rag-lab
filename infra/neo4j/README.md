@@ -11,7 +11,7 @@
 NEO4J_URI=bolt://<lab-svc-ip>:7687
 NEO4J_USERNAME=student1
 NEO4J_PASSWORD=（見帳密矩陣 ../accounts.md）
-NEO4J_DATABASE=lab_student_1
+NEO4J_DATABASE=labstudent1
 ```
 
 ## Neo4j Browser（視覺化 demo）

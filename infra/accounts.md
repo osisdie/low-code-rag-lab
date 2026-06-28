@@ -21,15 +21,15 @@
 
 | 人 | learner VM | Dify 網址（sslip） | Neo4j 帳號 | Neo4j database |
 |----|-----------|--------------------|-----------|----------------|
-| 老師 | lab-teacher | https://&lt;ip&gt;.sslip.io | teacher | lab_teacher |
-| 學員1 | lab-student1 | https://&lt;ip&gt;.sslip.io | student1 | lab_student_1 |
-| 學員2 | lab-student2 | https://&lt;ip&gt;.sslip.io | student2 | lab_student_2 |
-| 學員3 | lab-student3 | https://&lt;ip&gt;.sslip.io | student3 | lab_student_3 |
-| 學員4 | lab-student4 | https://&lt;ip&gt;.sslip.io | student4 | lab_student_4 |
-| 學員5 | lab-student5 | https://&lt;ip&gt;.sslip.io | student5 | lab_student_5 |
-| 學員6 | lab-student6 | https://&lt;ip&gt;.sslip.io | student6 | lab_student_6 |
-| 學員7 | lab-student7 | https://&lt;ip&gt;.sslip.io | student7 | lab_student_7 |
-| 學員8 | lab-student8 | https://&lt;ip&gt;.sslip.io | student8 | lab_student_8 |
+| 老師 | lab-teacher | https://&lt;ip&gt;.sslip.io | teacher | labteacher |
+| 學員1 | lab-student1 | https://&lt;ip&gt;.sslip.io | student1 | labstudent1 |
+| 學員2 | lab-student2 | https://&lt;ip&gt;.sslip.io | student2 | labstudent2 |
+| 學員3 | lab-student3 | https://&lt;ip&gt;.sslip.io | student3 | labstudent3 |
+| 學員4 | lab-student4 | https://&lt;ip&gt;.sslip.io | student4 | labstudent4 |
+| 學員5 | lab-student5 | https://&lt;ip&gt;.sslip.io | student5 | labstudent5 |
+| 學員6 | lab-student6 | https://&lt;ip&gt;.sslip.io | student6 | labstudent6 |
+| 學員7 | lab-student7 | https://&lt;ip&gt;.sslip.io | student7 | labstudent7 |
+| 學員8 | lab-student8 | https://&lt;ip&gt;.sslip.io | student8 | labstudent8 |
 
 - 各人 IP / sslip 網域：`terraform output learners` 取得後填入。
 - Neo4j 初始密碼：預設全部 = `neo4j_password`（distinct 帳號 + database 已做到隔離）；要更安全可登入後各自改密。

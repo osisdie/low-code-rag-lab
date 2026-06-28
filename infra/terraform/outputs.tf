@@ -19,7 +19,7 @@ output "teacher" {
   value = {
     external_ip = module.vm_teacher.external_ip
     dify_url    = "https://${replace(module.vm_teacher.external_ip, ".", "-")}.sslip.io"
-    neo4j_db    = "lab_teacher"
+    neo4j_db    = "labteacher"
   }
 }
 

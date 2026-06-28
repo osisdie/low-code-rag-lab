@@ -72,7 +72,7 @@ module "vm_teacher" {
     vertex-location    = var.vertex_location
     neo4j-user         = "teacher"
     neo4j-password     = var.neo4j_password
-    neo4j-database     = "lab_teacher"
+    neo4j-database     = "labteacher"
   }
 }
 
