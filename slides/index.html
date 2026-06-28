@@ -70,6 +70,19 @@
     transition:width .35s ease;box-shadow:0 0 12px rgba(94,234,212,.5)}
   .hint{opacity:.7}
   kbd{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px}
+
+  /* 列印 / PDF：每張投影片一頁，保留深色背景 */
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { height:auto; overflow:visible; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .deck { position:static; }
+    .slide {
+      position:relative !important; inset:auto; display:flex !important; opacity:1 !important;
+      width:1280px; height:720px; page-break-after:always; break-after:page;
+      background:linear-gradient(160deg,var(--bg0),var(--bg1));
+    }
+    .foot, .bar { display:none !important; }
+  }
 </style>
 </head>
 <body>
@@ -182,7 +195,7 @@
       <span class="arrow">↘</span>
       <div class="node o">外部知識庫 /retrieval</div>
       <span class="arrow">→</span>
-      <div class="node o">LightRAG（向量 + 圖譜 · mix）</div>
+      <div class="node o">LightRAG（向量 + 圖譜 · hybrid）</div>
     </div>
   </section>
 
