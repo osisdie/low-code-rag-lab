@@ -79,6 +79,8 @@ for i in $(seq 1 60); do
   curl -sf "http://localhost:4000/v1/models" -H "Authorization: Bearer ${LITELLM_KEY}" >/dev/null 2>&1 && break || sleep 5
 done
 docker exec lcrl-graphrag python ingest.py || true
+# adapter 啟動時載入的是空 storages；ingest 後需重啟才會載入剛灌入的圖譜/向量索引
+docker restart lcrl-graphrag || true
 
 cat >/etc/motd <<EOF
 ==== low-code-rag-lab 個人環境（專案 ${VERTEX_PROJECT}）====
