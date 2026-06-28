@@ -19,17 +19,17 @@
 
 ## 三、每人帳密矩陣（上課發給學員）
 
-| 人 | learner VM | Dify 網址（sslip） | Neo4j 帳號 | Neo4j database |
+| 人 | learner VM | Dify 網址（http） | Neo4j 帳號 | Neo4j database |
 |----|-----------|--------------------|-----------|----------------|
-| 老師 | lab-teacher | https://&lt;ip&gt;.sslip.io | teacher | labteacher |
-| 學員1 | lab-student1 | https://&lt;ip&gt;.sslip.io | student1 | labstudent1 |
-| 學員2 | lab-student2 | https://&lt;ip&gt;.sslip.io | student2 | labstudent2 |
-| 學員3 | lab-student3 | https://&lt;ip&gt;.sslip.io | student3 | labstudent3 |
-| 學員4 | lab-student4 | https://&lt;ip&gt;.sslip.io | student4 | labstudent4 |
-| 學員5 | lab-student5 | https://&lt;ip&gt;.sslip.io | student5 | labstudent5 |
-| 學員6 | lab-student6 | https://&lt;ip&gt;.sslip.io | student6 | labstudent6 |
-| 學員7 | lab-student7 | https://&lt;ip&gt;.sslip.io | student7 | labstudent7 |
-| 學員8 | lab-student8 | https://&lt;ip&gt;.sslip.io | student8 | labstudent8 |
+| 老師 | lab-teacher | http://https://&lt;ip&gt;.sslip.iolt;iphttps://&lt;ip&gt;.sslip.iogt; | teacher | labteacher |
+| 學員1 | lab-student1 | http://https://&lt;ip&gt;.sslip.iolt;iphttps://&lt;ip&gt;.sslip.iogt; | student1 | labstudent1 |
+| 學員2 | lab-student2 | http://https://&lt;ip&gt;.sslip.iolt;iphttps://&lt;ip&gt;.sslip.iogt; | student2 | labstudent2 |
+| 學員3 | lab-student3 | http://https://&lt;ip&gt;.sslip.iolt;iphttps://&lt;ip&gt;.sslip.iogt; | student3 | labstudent3 |
+| 學員4 | lab-student4 | http://https://&lt;ip&gt;.sslip.iolt;iphttps://&lt;ip&gt;.sslip.iogt; | student4 | labstudent4 |
+| 學員5 | lab-student5 | http://https://&lt;ip&gt;.sslip.iolt;iphttps://&lt;ip&gt;.sslip.iogt; | student5 | labstudent5 |
+| 學員6 | lab-student6 | http://https://&lt;ip&gt;.sslip.iolt;iphttps://&lt;ip&gt;.sslip.iogt; | student6 | labstudent6 |
+| 學員7 | lab-student7 | http://https://&lt;ip&gt;.sslip.iolt;iphttps://&lt;ip&gt;.sslip.iogt; | student7 | labstudent7 |
+| 學員8 | lab-student8 | http://https://&lt;ip&gt;.sslip.iolt;iphttps://&lt;ip&gt;.sslip.iogt; | student8 | labstudent8 |
 
 - 各人 IP / sslip 網域：`terraform output learners` 取得後填入。
 - Neo4j 初始密碼：預設全部 = `neo4j_password`（distinct 帳號 + database 已做到隔離）；要更安全可登入後各自改密。
