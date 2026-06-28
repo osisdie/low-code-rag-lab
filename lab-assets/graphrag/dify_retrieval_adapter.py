@@ -78,24 +78,31 @@ async def retrieval(req: RetrievalRequest, authorization: str | None = Header(de
     if _rag is None:
         raise HTTPException(status_code=503, detail="RAG 尚未就緒")
 
-    # 用 mix 模式：同時走向量檢索與知識圖譜，only_need_context 只回脈絡不直接生成答案
+    # 用 hybrid 模式：local(實體) + global(關係) 圖譜檢索，最適合「關聯/多跳」問題。
+    # only_need_context 只回脈絡（不生成答案），交給 Dify 的 LLM 組答案。
+    # top_k 設下限 20：圖譜實體檢索需要較多鄰居才能涵蓋多跳答案（Dify 預設 3-8 偏少）。
     param = QueryParam(
-        mode="mix",
+        mode="hybrid",
         only_need_context=True,
-        top_k=req.retrieval_setting.top_k,
+        top_k=max(req.retrieval_setting.top_k or 10, 20),
     )
     context = await _rag.aquery(req.query, param=param)
 
-    if not context or not str(context).strip():
+    # 某些 LightRAG 模式回傳 dict（kg_context/vector_context）；合併其值成字串。
+    if isinstance(context, dict):
+        context = "\n\n".join(str(v) for v in context.values() if v)
+    context = str(context).strip()
+
+    # 查無脈絡時 LightRAG 會回 "...[no-context]"，視為空結果。
+    if not context or context.endswith("[no-context]"):
         return JSONResponse({"records": []})
 
-    # LightRAG 回傳的是一段整合好的脈絡（實體 + 關係 + 相關片段）。
-    # 對 Dify 而言一筆 record 即可被注入到 prompt；score 給 1.0 表示來自圖譜檢索。
+    # LightRAG 回傳整合好的脈絡（實體 + 關係 + 相關片段）。
     records = [{
-        "content": str(context),
+        "content": context,
         "score": 1.0,
         "title": "GraphRAG context (向量 + 圖譜)",
-        "metadata": {"source": "lightrag", "mode": "mix",
+        "metadata": {"source": "lightrag", "mode": "hybrid",
                      "knowledge_id": req.knowledge_id},
     }]
     return JSONResponse({"records": records})
