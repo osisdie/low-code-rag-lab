@@ -9,11 +9,12 @@
 
 services:
   tei:
-    image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.5
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.7
     container_name: lcrl-tei
-    command: ["--model-id", "BAAI/bge-m3"]
+    command: ["--model-id", "BAAI/bge-m3", "--auto-truncate"]
     environment:
-      HF_TOKEN: ${HF_TOKEN}
+      HF_ENDPOINT: https://huggingface.co # 修掉 cpu-1.5 的「relative URL without a base」
+      HF_API_TOKEN: ${HF_TOKEN}           # TEI 用的是 HF_API_TOKEN（非 HF_TOKEN）
     ports:
       - "8081:80" # 各 learner 的 LiteLLM 取 BGE-M3：http://<shared-ip>:8081/v1
     volumes:
