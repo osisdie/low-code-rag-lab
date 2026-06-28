@@ -16,7 +16,7 @@ LINE_CHANNEL_ACCESS_TOKEN=xxxxxxxx
 
 ## 部署（部到穩定的 admin/quota 專案）
 ```bash
-PROJECT=project-12768ff4-44e3-4735-bd3        # 穩定、已開 billing 的專案
+PROJECT=YOUR_ADMIN_PROJECT_ID                 # 穩定、已開 billing 的專案（例：admin/quota project）
 REGION=asia-east1
 gcloud services enable cloudfunctions.googleapis.com cloudbuild.googleapis.com \
   run.googleapis.com artifactregistry.googleapis.com --project $PROJECT

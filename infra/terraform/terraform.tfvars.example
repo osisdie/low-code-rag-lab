@@ -1,7 +1,7 @@
 # 複製成 terraform.tfvars 後填值：cp terraform.tfvars.example terraform.tfvars
-org_id             = "695375997648"          # tsg-cs-rock-org
-billing_account    = "012F8F-1E0389-812C9E"
-quota_project      = "basic-breaker-490002-a2" # 既有專案，當 provider quota project
+org_id             = "YOUR_ORG_ID"             # GCP organization 數字 ID
+billing_account    = "XXXXXX-XXXXXX-XXXXXX"    # billing account ID
+quota_project      = "YOUR_ADMIN_PROJECT_ID"   # 既有專案，當 provider quota project
 folder_name        = "low-code-rag-lab"
 region             = "asia-east1"
 zone               = "asia-east1-b"

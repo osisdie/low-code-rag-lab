@@ -1,6 +1,6 @@
 variable "org_id" {
   type        = string
-  description = "GCP organization 數字 ID（例：695375997648）"
+  description = "GCP organization 數字 ID（例：123456789012）"
 }
 
 variable "folder_name" {
