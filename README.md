@@ -26,6 +26,7 @@
 
 | 階段 | 主題 | 工具 | RAG 類型 | 學員產出 |
 |------|------|------|----------|----------|
+| **Stage 0 · 觀念地基** | 科普今日主流 RAG 與專有名詞（純講解，不開電腦） | — | — | 一張看得懂的「名詞地圖」 |
 | **Stage 1 · No-Code** | 用 ChatGPT 做 AI 客服 | ChatGPT / Gemini / Claude Projects | 內建檔案檢索（黑盒） | 一個能回 FAQ 的 bot 雛形 |
 | **Stage 2 · Low-Code** | 用 Dify 串 LINE | Dify cloud | **向量 RAG**（語意相似） | 一個可上線、能轉真人的客服 bot |
 | **Stage 3 · Advanced** | 向量 + 圖譜 RAG | Dify 內建知識庫 + 外掛 GraphRAG | **向量 + 圖譜**（關係/多跳） | 課堂完整 demo，進階實作帶回家練習 |
@@ -46,6 +47,7 @@ low-code-rag-lab/
 │   ├── instructor/               ← 講師教案（不對外公開，未納入 public repo；見 .gitignore）
 │   └── student/                  ← 學員 Lab 手冊（步驟清楚、可重複）
 │       ├── worksheet-self-assessment.md
+│       ├── student-stage-0-concepts.md  ← Stage 0 名詞地圖（RAG 科普，給非技術學員）
 │       ├── stage-1-lab.md
 │       ├── stage-2-lab.md
 │       └── stage-3-lab-takehome.md
@@ -53,7 +55,7 @@ low-code-rag-lab/
 │   └── index.html                ← 上課用投影片（深色科技風，鍵盤翻頁）
 ├── lab-assets/
 │   ├── knowledge-base/           ← 範例知識庫（餐廳 FAQ / 電商 SOP / 關係資料）
-│   ├── prompts/                  ← 三層次 system prompt 範本
+│   ├── prompts/                  ← system prompt 範本（哪支對應哪 Stage 見 prompts/README.md）
 │   ├── dify/                     ← Dify app 設定、self-host 指引、DSL 骨架
 │   ├── mock-order-api/           ← Lab 2 訂單查詢工具（tool calling demo）
 │   ├── line-bridge/              ← Lab 2 LINE OA ↔ Dify 橋接（真接 LINE）
@@ -75,7 +77,8 @@ low-code-rag-lab/
 3. 投影片：用瀏覽器打開 `slides/index.html`，左右方向鍵翻頁。
 
 ### 給學員
-- Stage 1 / 2 在課堂跟著 `docs/student/stage-1-lab.md`、`stage-2-lab.md` 做。
+- Stage 0 開場先看 `docs/student/student-stage-0-concepts.md`（RAG／專有名詞白話地圖，動手卡關時回來查）。
+- Stage 1 / 2 在課堂跟著 `docs/student/stage-1-lab.md`、`stage-2-lab.md` 做（圖文版見 `student-onboarding-illustrated.md`）。
 - Stage 3 課堂看講師 demo，回家照 `docs/student/stage-3-lab-takehome.md` 自架練習。
 
 ### 跑 Stage 3 的 GraphRAG 實驗室（進階 / take-home）

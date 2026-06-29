@@ -111,7 +111,7 @@
 
   <!-- 3 三做法定位 -->
   <section class="slide">
-    <div class="time">13:30–14:00</div>
+    <div class="time">13:30–13:50</div>
     <div class="kicker">Opening · 先定位</div>
     <h2>三種做法，先看你<span class="tag">今天落在哪</span></h2>
     <div class="lead">第一個問題不是「AI 強不強」，是「你公司現在該選哪一種」。</div>
@@ -123,11 +123,30 @@
       <div class="card"><div class="n">Advanced</div><h3>工程 / 圖譜</h3>
         <p>關係 / 多跳、合規、高量。向量補圖譜。該用才用。</p></div>
     </div>
+    <div class="lead" style="margin-top:20px"><b style="color:var(--teal)">💡 像住的選擇：</b>ChatGPT＝<b>住飯店</b>（拎包入住、不能改裝）｜Dify＝<b>租屋自己佈置</b>（彈性大、CP 值最高）｜工程＝<b>自己蓋房</b>（最貴最自由）。</div>
+  </section>
+
+  <!-- 3b Stage0 觀念地基 -->
+  <section class="slide">
+    <div class="time">13:50–14:10 · 觀念</div>
+    <div class="kicker">Stage 0 · 觀念地基</div>
+    <h2>動手前，先記<span class="tag">一句話</span></h2>
+    <div class="lead">AI 客服 = 一個很會講話、但①<b>不知道你公司的事</b>、②<b>不確定時會亂編</b>的模型。<br>今天三段，就是一層一層把這兩個毛病補起來。</div>
+    <div class="lead" style="margin-top:-8px"><b style="color:var(--teal)">💡 一個比喻：</b>AI 自己答 =「<b>閉書考</b>」，會的就答、不會的硬掰；<b>RAG</b> =「<b>開書考</b>」，先翻你給的文件再答。今天就是把閉書考變開書考，再讓它<b>會查訂單</b>。</div>
+    <div class="grid">
+      <div class="card"><div class="n">補「私有資料」</div><h3>RAG（開書考）</h3>
+        <p>回答前先翻你的文件再答 → 不亂編、能用公司資料。Stage 1 / 2。</p></div>
+      <div class="card"><div class="n">補「即時動作」</div><h3>Tool 工具</h3>
+        <p>不只會聊天，還能查訂單、轉真人 → 補「不會做事」。Stage 2。</p></div>
+      <div class="card"><div class="n">補「關係問題」</div><h3>知識圖譜</h3>
+        <p>沿「實體＋關係」走，答得出「跟這個有關係的還有哪些」。Stage 3。</p></div>
+    </div>
+    <div class="lead" style="margin-top:18px">📄 完整名詞地圖在你的講義 <kbd>student-stage-0-concepts.md</kbd> — 動手時當字典查。</div>
   </section>
 
   <!-- 4 Stage1 what/why/how -->
   <section class="slide">
-    <div class="time">14:00–14:45 · 動手</div>
+    <div class="time">14:10–14:50 · 動手</div>
     <div class="kicker">Stage 1 · No-Code</div>
     <h2>用 ChatGPT 做 AI 客服</h2>
     <div class="two">
@@ -153,22 +172,23 @@
 
   <!-- 6 Stage2 what/why/how -->
   <section class="slide">
-    <div class="time">14:45–16:00 · 動手</div>
+    <div class="time">14:50–16:00 · 動手</div>
     <div class="kicker">Stage 2 · Low-Code</div>
     <h2>用 Dify 串 LINE（<span class="tag">向量 RAG</span>）</h2>
     <div class="two">
       <div class="panel"><h3>WHY 為什麼</h3>
-        <ul><li>補齊通路整合 + 知識庫 + 工具</li><li>不必養工程團隊就能上線</li><li>植入關鍵詞：<b>向量 RAG</b></li></ul></div>
+        <ul><li>一次補齊：通路 + 知識庫 + 查訂單</li><li>不必養工程團隊就能上線</li><li>用的是 <b>向量 RAG</b>＝比「<b>意思像不像</b>」找答案（不只比關鍵字）</li></ul></div>
       <div class="panel"><h3>HOW 怎麼做</h3>
-        <ul><li>建知識庫（chunk / Top-K / Hybrid）</li><li>貼進階 prompt + 查訂單 + 轉真人</li><li>串網站 widget / LINE OA</li></ul></div>
+        <ul><li>把公司文件切小段存進去（<span class="hint">切多細、撈幾段可微調</span>）</li><li>貼進階 prompt → 它會查訂單、會轉真人</li><li>接到網站小工具 / LINE</li></ul></div>
     </div>
   </section>
 
   <!-- 7 vector vs graph WHY -->
   <section class="slide">
-    <div class="time">16:15–17:15 · demo + 帶回家</div>
+    <div class="time">16:15–17:15 · 講師示範</div>
     <div class="kicker">Stage 3 · Advanced</div>
     <h2>向量的盲區：<span style="color:var(--orange)">關係 / 多跳問題</span></h2>
+    <div class="lead"><b style="color:var(--teal)">💡 比喻：</b>向量像「<b>Google 找相似句子</b>」；圖譜像「<b>查族譜 / 關係網</b>」——沿著線把所有相關的人事物一次抓齊。</div>
     <div class="two">
       <div class="panel lose"><h3>🟠 向量 RAG</h3>
         <p style="color:var(--ink2);font-size:clamp(15px,1.8vw,22px);line-height:1.5">
@@ -183,19 +203,19 @@
   <!-- 8 architecture -->
   <section class="slide">
     <div class="kicker">Stage 3 · 架構</div>
-    <h2>同一個 app，<span class="tag">兩個知識庫</span></h2>
-    <div class="lead">Dify 用標準契約 <kbd>POST /retrieval</kbd> 外掛任何 GraphRAG 服務。</div>
+    <h2>同一個機器人，<span class="tag">問兩個資料來源</span></h2>
+    <div class="lead">回答時同時查：①<b>向量</b>（找像的句子）②<b>圖譜</b>（走關係）。Dify 留了一個<b>標準插座</b>，任何圖譜服務都能插上來。<span class="hint">（工程細節，看懂概念即可）</span></div>
     <div class="flow">
-      <div class="node">Dify 客服 app</div>
+      <div class="node">客服機器人</div>
       <span class="arrow">→</span>
-      <div class="node t">內建知識庫（向量）</div>
+      <div class="node t">① 內建知識庫（向量＝找像的）</div>
     </div>
     <div class="flow">
-      <div class="node" style="visibility:hidden">Dify 客服 app</div>
+      <div class="node" style="visibility:hidden">客服機器人</div>
       <span class="arrow">↘</span>
-      <div class="node o">外部知識庫 /retrieval</div>
+      <div class="node o">標準插座（外部知識庫）</div>
       <span class="arrow">→</span>
-      <div class="node o">LightRAG（向量 + 圖譜 · hybrid）</div>
+      <div class="node o">② 圖譜服務（走關係）</div>
     </div>
   </section>
 
@@ -210,7 +230,7 @@
       <tr><td>La Esperanza 斷貨影響哪些商品和促銷組合？</td><td>P3、P4 + 入門淺焙組</td></tr>
       <tr><td>夏日冷萃組用到哪些產區的豆？</td><td>瓜地馬拉、台灣阿里山</td></tr>
     </table>
-    <div class="lead" style="margin-top:22px">動手自架版在講義 <kbd>lab-assets/graphrag/</kbd> — 帶回家練。</div>
+    <div class="lead" style="margin-top:22px">本段由講師示範，看懂即可。想自架的人：選讀附錄 <kbd>lab-assets/graphrag/</kbd>。</div>
   </section>
 
   <!-- 10 收尾 預算 -->
@@ -244,7 +264,7 @@
 
 <div class="foot">
   <span class="hint">← → / 空白鍵翻頁 · F 全螢幕</span>
-  <span><span id="cur">1</span> / <span id="tot">11</span></span>
+  <span><span id="cur">1</span> / <span id="tot">12</span></span>
 </div>
 <div class="bar" id="bar"></div>
 

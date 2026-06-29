@@ -44,6 +44,15 @@ cp -n .env.example .env
   echo "APP_API_URL=http://${EXT_IP}"
   echo "APP_WEB_URL=http://${EXT_IP}"
 } >>.env
+
+# Dify 的 SSRF proxy（squid）預設擋掉 private IP（10.0.0.0/8）。但本實驗的
+# 自訂工具（mock 訂單 API :8080）與外部知識庫（graphrag :8000）都在內網 10.20.0.x，
+# 會被擋。放行整個 lab VPC 子網（僅內網，不對外開放）。在 deny 規則前插入 allow。
+SQUID_TMPL=/opt/dify/docker/ssrf_proxy/squid.conf.template
+if [ -f "$SQUID_TMPL" ] && ! grep -q "lab_internal" "$SQUID_TMPL"; then
+  sed -i "/^http_access deny to_private_networks/i # --- lab: allow internal lab services (mock API :8080, graphrag :8000) ---\nacl lab_internal dst 10.20.0.0\/16\nhttp_access allow lab_internal" "$SQUID_TMPL"
+fi
+
 docker compose up -d
 
 # --- 個人服務 .env ---

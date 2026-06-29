@@ -34,6 +34,7 @@ Thumbs.db
 
 # --- screenshots / scratch ---
 .playwright-mcp/
+tmp/
 
 # --- 講師教案：不對學員/外界公開，僅保留本機 ---
 docs/instructor/
