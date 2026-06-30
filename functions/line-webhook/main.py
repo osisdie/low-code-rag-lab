@@ -15,6 +15,7 @@
 import base64
 import hashlib
 import hmac
+import json
 import os
 
 import functions_framework
@@ -37,17 +38,34 @@ def _valid_signature(body: bytes, signature: str) -> bool:
 def _ask_dify(user_id: str, text: str) -> str:
     if not (DIFY_API_BASE and DIFY_APP_KEY):
         return "（LINE 已成功連線；Dify 客服 app 尚未設定，設定後即可正常回覆。）"
+    # 用 streaming：Agent 類型的 app 不支援 blocking 模式（會回 400）。
+    # streaming 對 Agent（agent_message）與一般 Chatbot（message）都適用。
     payload = {
-        "inputs": {}, "query": text, "response_mode": "blocking",
+        "inputs": {}, "query": text, "response_mode": "streaming",
         "user": user_id, "conversation_id": _conversations.get(user_id, ""),
     }
     r = requests.post(f"{DIFY_API_BASE}/chat-messages", json=payload,
-                      headers={"Authorization": f"Bearer {DIFY_APP_KEY}"}, timeout=60)
+                      headers={"Authorization": f"Bearer {DIFY_APP_KEY}"},
+                      stream=True, timeout=120)
     r.raise_for_status()
-    data = r.json()
-    if data.get("conversation_id"):
-        _conversations[user_id] = data["conversation_id"]
-    return data.get("answer", "（目前無法回覆，請稍候）")
+    answer, conv = "", ""
+    for line in r.iter_lines(decode_unicode=True):
+        if not line or not line.startswith("data:"):
+            continue
+        try:
+            ev = json.loads(line[5:].strip())
+        except ValueError:
+            continue
+        if ev.get("conversation_id"):
+            conv = ev["conversation_id"]
+        etype = ev.get("event")
+        if etype in ("message", "agent_message"):
+            answer += ev.get("answer", "")
+        elif etype == "message_end":
+            break
+    if conv:
+        _conversations[user_id] = conv
+    return answer or "（目前無法回覆，請稍候）"
 
 
 def _reply(reply_token: str, text: str):
