@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>講師口白稿</title>
+<style>
+ :root{--fg:#1f2933;--muted:#52606d;--line:#e4e7eb;--accent:#2563eb;--code-bg:#f5f7fa;}
+ *{box-sizing:border-box;}
+ body{font-family:"Noto Sans CJK TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--fg);line-height:1.75;max-width:900px;margin:0 auto;padding:44px 34px;}
+ h1{font-size:1.85rem;border-bottom:3px solid var(--accent);padding-bottom:.3em;margin-top:1.4em;}
+ h2{font-size:1.35rem;margin-top:1.7em;border-left:5px solid var(--accent);padding-left:.5em;}
+ h3{font-size:1.1rem;margin-top:1.3em;}
+ a{color:var(--accent);}
+ table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.95rem;}
+ th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top;}
+ th{background:#f0f4f8;}
+ code{background:var(--code-bg);padding:.15em .4em;border-radius:4px;font-size:.9em;font-family:Consolas,monospace;}
+ pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;}
+ pre code{background:none;padding:0;}
+ blockquote{border-left:4px solid #cbd2d9;background:#f7f9fb;margin:1em 0;padding:.6em 1em;color:var(--muted);border-radius:0 6px 6px 0;}
+ img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin:.6em 0;display:block;}
+ hr{border:none;border-top:1px solid var(--line);margin:2em 0;}
+ @media print{body{padding:0 8px;max-width:none;}h1,h2,h3{page-break-after:avoid;}img,pre,table{page-break-inside:avoid;}}
+</style></head><body>
+<h1 id="_1">講師口白稿（超白話版）— 照著唸就不會太深</h1>
+<blockquote>
+<p>對象：會計 / 法律 / 資訊顧問等級，<strong>聰明但非 AI 背景</strong>。原則：<strong>先比喻、再（選擇性）給術語；能不講的術語就不講。</strong>
+標 🖐️＝學員動手；標 👀＝只示範、學員不做。全程不要求學員打任何指令。</p>
+</blockquote>
+<hr />
+<h2 id="0-3">0. 開場（3 分）</h2>
+<blockquote>
+<p>「今天不考試、不寫程式。你只要會<strong>複製貼上、點選</strong>，就能做出一個公司客服機器人。
+先講一句話你就懂今天在幹嘛——<strong>ChatGPT 這種 AI 很會講話，但它①不知道你公司的事、②不確定時會很有自信地亂編。今天就是把這兩個毛病補起來。</strong>」</p>
+</blockquote>
+<p><strong>開書考比喻（務必講）</strong>：</p>
+<blockquote>
+<p>「AI 自己回答＝<strong>閉書考</strong>，會的就答、不會就硬掰。我們今天做的是<strong>開書考</strong>——先把你公司的文件塞給它，它照著翻、照著答。」
+- 對會計：「就像<strong>沒憑證不能認列</strong>——沒有文件就不要它亂講。」
+- 對法律：「就像<strong>沒查到條文/判例就不給意見</strong>。」
+- 對資訊顧問：「這在業界叫 RAG，先檢索再回答，今天你會親手做一次。」</p>
+</blockquote>
+<h2 id="1-worksheet5">1. 自評 worksheet（5 分，🖐️）</h2>
+<blockquote>
+<p>「先憑直覺勾一勾：你公司資料多不多、要不要接 LINE/網站、有沒有法遵限制、有沒有工程師。等等看完你會知道自己該停在哪一段最划算。」（用 <code>student-worksheet-self-assessment.md</code>）</p>
+</blockquote>
+<h2 id="2-stage-115-1">2. Stage 1：親眼看它亂編（15 分，🖐️ 速查卡①）</h2>
+<blockquote>
+<p>「打開 ChatGPT，把我給的那段貼進去，它就假裝是一家餐廳客服。然後問它『20 人包場多少錢、能不能幫我線上訂位付訂金』。」
+（等大家問完）
+「看到沒？它<strong>很自信地編出一堆價格</strong>——但這些數字我從來沒給過。而且它<strong>根本不能真的幫你訂位</strong>。
+如果這是你公司的客服，客人被報錯價、又辦不了事。<strong>這就是天花板：很會講，但不懂你公司、不能做事。</strong>」
+- 一句收：「記住這個『亂編』的感覺，等等你會看到怎麼一次補掉。」</p>
+</blockquote>
+<h2 id="3-stage-235-2">3. Stage 2：給它公司文件就不亂編（35 分，🖐️ 速查卡②）</h2>
+<blockquote>
+<p>「現在換 Dify——一個<strong>不用寫程式</strong>的工具。我們分兩步：先做一個『文件櫃』，再做一個『照文件回答的機器人』。」</p>
+</blockquote>
+<p><strong>Part A 文件櫃（知識庫）</strong>：</p>
+<blockquote>
+<p>「Knowledge → Create → 把兩份文件拖進去 → 下一頁<strong>什麼都不用改</strong>、直接存 → 等它變 Available。這一頁上面那些設定是工程師在調的，今天用預設就很好，<strong>別碰</strong>。」</p>
+</blockquote>
+<p><strong>Part B 機器人（Chatbot）</strong>：</p>
+<blockquote>
+<p>「Studio → Create → 從空白 → <strong>選 Chatbot 這個最單純的</strong>（不要選旁邊的 Agent，那個是進階的）。貼一句指令、把剛剛的文件櫃掛上去。」
+「右邊問它『你們的退貨原則是什麼』——看，它<strong>照文件回答，下面還列出是哪份文件（出處）</strong>。這就是開書考。跟剛剛 ChatGPT 亂編完全不一樣。」
+- 對法律/會計：「重點是<strong>有出處、可追溯</strong>——它不再自己腦補。」</p>
+</blockquote>
+<h2 id="4-20">4. 👀 示範段：讓它更強（20 分，學員只看）</h2>
+<blockquote>
+<p>「接下來這幾樣<strong>你先不用動手</strong>，我做給你看，知道『長怎樣、什麼時候值得做』就好，回公司交給工程師或改天自己玩。」
+1. <strong>會查訂單（工具）</strong>：切到我先建好的進階機器人，問「訂單 A1001 到哪了」→ 它真的去查、回出貨狀態。「這叫給它一個<strong>工具</strong>，讓它會<strong>做事</strong>，不只會講。」
+2. <strong>接到 LINE</strong>：手機傳訊給我們的 LINE 官方帳號 → 機器人在 LINE 上回答。「這樣客人不用進後台，直接用 LINE 就能問。」
+3. <strong>複雜關係問題（圖譜）</strong>：用「檢索測試」頁對照——問「跟這支豆同供應商的還有哪些」，一般作法<strong>漏</strong>、加了『關係圖』就<strong>答得齊</strong>。「有大量『跟 X 有關的還有哪些』這種問題，才值得上這個；一般 FAQ 不用。」
+（若現場網路/服務不穩，直接投影備援截圖 <code>docs/instructor/img/stage3/</code>，效果一樣。）</p>
+</blockquote>
+<h2 id="5-15">5. 收尾：你該停在哪、怎麼開始（15 分）</h2>
+<blockquote>
+<p>「回到 worksheet：多數公司<strong>停在 Stage 2（Dify）就非常夠用</strong>——CP 值最高。要接很多通路、或有大量關係型問題，再往上。」
+- 三做法比喻（要就講）：「ChatGPT＝<strong>住飯店</strong>（拎包入住、不能改）；Dify＝<strong>租屋自己佈置</strong>（彈性大、最划算）；全自建＝<strong>自己蓋房</strong>（最貴最自由）。」
+「行動：這週先把公司 FAQ/SOP 整理成幾份文件；一個月內用 Dify 做個內部試用；三個月再決定要不要接通路、上進階。」</p>
+</blockquote>
+<hr />
+<h3 id="_2">現場常見狀況（助教備忘）</h3>
+<ul>
+<li>學員找不到 Agent 的 Tools？→ 超白話版<strong>本來就不做工具</strong>，請他們用 <strong>Chatbot</strong> 就好。</li>
+<li>機器人答「不確定」？→ 問題可能不在文件裡；換問「退貨原則/運費/付款方式」這種文件有的。</li>
+<li>有人問向量/webhook/Docker…→ 「那是工程師的細節，今天用不到，我課後給你進階講義。」（指到 <code>docs/student/</code> 詳版與 <code>student-line-setup.md</code>）</li>
+</ul>
+</body></html>
