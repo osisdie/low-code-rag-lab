@@ -49,8 +49,9 @@ low-code-rag-lab/
 │       ├── worksheet-self-assessment.md
 │       ├── student-stage-0-concepts.md  ← Stage 0 名詞地圖（RAG 科普，給非技術學員）
 │       ├── stage-1-lab.md
-│       ├── stage-2-lab.md
-│       └── stage-3-lab-takehome.md
+│       ├── stage-2-lab.md          ← 含「課後：用 Dify Cloud 免費版繼續練習」
+│       ├── stage-3-lab-takehome.md
+│       └── student-free-tools-menu.md  ← 課後免費 no-code 工具清單（NotebookLM / Gemini Gem / Coze…）
 ├── slides/
 │   └── index.html                ← 上課用投影片（深色科技風，鍵盤翻頁）
 ├── lab-assets/
@@ -60,6 +61,7 @@ low-code-rag-lab/
 │   ├── mock-order-api/           ← Lab 2 訂單查詢工具（tool calling demo）
 │   ├── line-bridge/              ← Lab 2 LINE OA ↔ Dify 橋接（真接 LINE）
 │   └── graphrag/                 ← Stage 3 核心：向量 vs 圖譜 RAG（檔案式/Neo4j 雙模式）
+├── obsidian/                     ← 「只答 vault」AI 客服 vault 範本 + 內部試用指南（NotebookLM／Claude Panel）
 ├── scripts/                      ← start-all / stop-all / preflight（彩排煙霧測試）
 └── infra/                        ← GCP 授課環境（老師+8學員）：Terraform + LiteLLM + Neo4j + 佈署腳本
 ```
@@ -80,6 +82,7 @@ low-code-rag-lab/
 - Stage 0 開場先看 `docs/student/student-stage-0-concepts.md`（RAG／專有名詞白話地圖，動手卡關時回來查）。
 - Stage 1 / 2 在課堂跟著 `docs/student/stage-1-lab.md`、`stage-2-lab.md` 做（圖文版見 `student-onboarding-illustrated.md`）。
 - Stage 3 課堂看講師 demo，回家照 `docs/student/stage-3-lab-takehome.md` 自架練習。
+- 課後想繼續玩：見 `docs/student/student-free-tools-menu.md`（免費 no-code 工具清單）；想要一個「只答自家文件」的本地 bot，見 `obsidian/`（`internal-trial-guide` 有 NotebookLM／Claude Panel 兩條路）。
 
 ### 跑 Stage 3 的 GraphRAG 實驗室（進階 / take-home）
 ```bash

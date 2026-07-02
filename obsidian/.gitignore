@@ -1,0 +1,8 @@
+# Obsidian app config & third-party plugin code — not versioned here.
+# (Contains plugin binaries and per-user API keys in data.json / data.json.backup*.)
+# Users install plugins per internal-trial-guide; the vault still works without this folder.
+.obsidian/
+
+# Any stray env files (Obsidian plugins do NOT read these, but keep them out of git anyway)
+.env
+.env.*

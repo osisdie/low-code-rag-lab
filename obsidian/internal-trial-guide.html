@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>綠野鮮蔬 AI 客服 — 內部試用指南</title>
+<style>
+  :root{ --ink:#1f2733; --muted:#5b6675; --line:#e3e8ef; --brand:#2e7d5b; --brand2:#eaf5ef;
+         --warn:#b06a00; --warnbg:#fff6e6; --code:#f3f5f8; --a:#2e7d5b; --b:#3b6fd4; }
+  *{box-sizing:border-box}
+  body{ font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+        color:var(--ink); line-height:1.6; max-width:820px; margin:0 auto; padding:40px 28px 60px;
+        -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  h1{ font-size:26px; margin:0 0 4px; letter-spacing:-.01em }
+  h2{ font-size:19px; margin:30px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--brand);
+      color:var(--brand) }
+  h2.pathB{ border-color:var(--b); color:var(--b) }
+  p,li{ font-size:14px } ol,ul{ padding-left:22px } li{ margin:3px 0 }
+  .lead{ color:var(--muted); background:var(--brand2); border-left:4px solid var(--brand);
+         padding:12px 16px; border-radius:8px; margin:14px 0 4px; font-size:13.5px }
+  code{ background:var(--code); border-radius:5px; padding:1px 6px; font-family:"SF Mono",Consolas,monospace;
+        font-size:12.5px; word-break:break-all }
+  kbd{ background:#fff; border:1px solid #cbd3de; border-bottom-width:2px; border-radius:5px;
+       padding:1px 6px; font-size:12px; font-family:inherit }
+  table{ border-collapse:collapse; width:100%; margin:12px 0; font-size:13px }
+  th,td{ border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top }
+  th{ background:var(--brand2); color:var(--brand); font-weight:700 }
+  tr:nth-child(even) td{ background:#fafbfc }
+  .warn{ background:var(--warnbg); border-left:4px solid var(--warn); padding:10px 14px;
+         border-radius:8px; margin:12px 0; font-size:13px }
+  .tip{ background:#eef4ff; border-left:4px solid var(--b); padding:10px 14px; border-radius:8px;
+        margin:10px 0; font-size:13px }
+  .step{ display:inline-block; color:#fff; font-size:12px; font-weight:700; width:22px; height:22px;
+         line-height:22px; text-align:center; border-radius:50%; margin-right:4px; background:var(--brand) }
+  h2.pathB ~ * .step, .stepB{ background:var(--b) }
+  .foot{ margin-top:34px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted);
+         font-size:12px; text-align:center }
+  @media print{ body{ padding:0 6mm } h2{ break-after:avoid } table,.warn,.tip{ break-inside:avoid } }
+</style>
+</head>
+<body>
+
+<h1>綠野鮮蔬 AI 客服 — 內部試用指南</h1>
+<div class="lead">我們在測一個「<b>只根據我們給的文件回答</b>」的 AI 客服（範例是「綠野鮮蔬餐廳」FAQ）。
+有兩條路，<b>依你有沒有 Claude 訂閱二選一</b>。<b>答錯沒關係——是在測工具，不是考你。</b></div>
+
+<h2>先選你的路徑</h2>
+<table>
+  <tr><th>你的情況</th><th>用哪條</th><th>門檻</th></tr>
+  <tr><td>沒有 Claude 訂閱 / 只想快速試</td><td><b>路徑 A：NotebookLM</b></td><td>最低：點連結、登入 Google</td></tr>
+  <tr><td>有 Claude 訂閱、想在本機試</td><td><b>路徑 B：Obsidian + Claude Panel</b></td><td>要裝 Obsidian ＋ Claude CLI</td></tr>
+</table>
+<div class="tip">你會體驗到：問 FAQ 裡<b>有</b>的 → 答得出來並<b>標出處</b>；問 FAQ 裡<b>沒有</b>的 → 會說「資料裡沒有」，<b>不亂編</b>。</div>
+
+<h2>路徑 A：NotebookLM（推薦，零安裝）</h2>
+<p><span class="step">1</span> 打開負責人分享給你的 <b>NotebookLM 連結</b>（用你的 Google 帳號登入）。<br>
+<span class="step">2</span> 下方輸入框<b>直接打問題</b> → 送出。<br>
+<span class="step">3</span> 它會根據來源（餐廳 FAQ）回答、每句<b>附出處</b>；FAQ 沒寫的會<b>說沒有</b>。</p>
+<div class="tip">想自己建一個？到 <code>https://notebooklm.google.com</code> → New notebook → <b>Add sources</b> → 貼上或上傳 FAQ → 就能問。免費、免 API key。</div>
+
+<h2 class="pathB">路徑 B：Obsidian + Claude Panel（需 Claude 訂閱）</h2>
+<div class="warn"><b>前置：</b>本機先裝好 <code>claude</code> CLI 並登入一次（Claude Pro/Max 或 Anthropic key）。</div>
+<p><span class="step stepB">1</span> 安裝 <b>Obsidian</b>（<code>https://obsidian.md</code>，免費）。<br>
+<span class="step stepB">2</span> 拿到「綠野鮮蔬 vault」資料夾 → Obsidian「<b>Open folder as vault</b>」→ 選它。<br>
+<span class="step stepB">3</span> 若跳出提示 → <b>信任並啟用社群外掛</b>。<br>
+<span class="step stepB">4</span> 確認 <b>Claude Panel</b> 外掛已啟用（設定 → Community plugins）。<br>
+<span class="step stepB">5</span> 開右側 <b>Claude 面板</b>（<kbd>Ctrl/Cmd</kbd>+<kbd>P</kbd> 搜 "Claude Panel"，或點側欄圖示）。<br>
+<span class="step stepB">6</span> 在面板<b>直接打問題</b>——它會讀<b>整個 vault</b> 和規則檔 <code>CLAUDE.md</code>（只答 vault、找不到說沒有、標出處、唯讀）。</p>
+<div class="tip">Claude Panel 是<b>真正的聊天面板</b>（不像之前的 chatgpt-md 要在筆記裡跑指令），也會自動讀整個 <code>knowledge-base/</code>。</div>
+
+<h2>試打這 5 題（兩條路都適用）</h2>
+<table>
+  <tr><th>#</th><th>問題</th><th>應該回答</th></tr>
+  <tr><td>1</td><td>營業時間？</td><td>週二至週日 11:30–14:30、17:30–21:00，週一公休</td></tr>
+  <tr><td>2</td><td>有素食嗎？</td><td>蛋奶素友善，多數純素、部分含蛋奶</td></tr>
+  <tr><td>3</td><td>假日有低消嗎？</td><td>平日無；假日每人低消 NT$250</td></tr>
+  <tr><td>4</td><td>可以刷卡嗎？</td><td>可，VISA/Master/JCB、LINE Pay、街口、Apple Pay</td></tr>
+  <tr><td><b>5</b></td><td><b>可以帶寵物進餐廳嗎？</b></td><td><b>FAQ 沒寫 → 應說「資料裡沒有，建議來電洽詢」（不該亂編）</b></td></tr>
+</table>
+<div class="warn">第 5 題是<b>幻覺測試</b>：若它掰出「可以／不可以」就是沒守規則——這正是要觀察的。請回報：哪題答對、哪題亂編、你走哪條路徑。</div>
+
+<h2>疑難排解</h2>
+<ul>
+  <li><b>NotebookLM 連結打不開</b>：請負責人確認已把 notebook 分享給你的 Google 帳號。</li>
+  <li><b>Claude Panel 沒反應</b>：確認 <code>claude</code> CLI 已安裝且登入；可先在終端機跑一次 <code>claude</code> 完成登入再回 Obsidian。</li>
+  <li><b>答得不準</b>：確認 FAQ 真有該內容；兩條路都是「只根據來源回答」，FAQ 沒寫就會說沒有。</li>
+</ul>
+
+<h2>提醒</h2>
+<ul>
+  <li>這是<b>虛構範例 FAQ</b>，隨意試無妨。</li>
+  <li>隱私：NotebookLM 資料存在 Google；Claude Panel 走 Claude／Anthropic。換公司真實資料前先評估。</li>
+  <li>核心目標：「<b>只答 vault、找不到就說沒有</b>」——請特別注意它有沒有守住。</li>
+</ul>
+
+<div class="foot">範例資料為虛構，僅供工具試用。</div>
+
+</body>
+</html>
