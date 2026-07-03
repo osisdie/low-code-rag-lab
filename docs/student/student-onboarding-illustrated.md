@@ -84,7 +84,7 @@
 
 ### 步驟 2-2：確認設定（多半已經幫你選好，照圖確認就好）
 - **Index Method（索引方式）**：選 **High Quality（高品質）**
-- **Embedding Model**：自動帶 **`bge-m3`**（若空白就手選它）
+- **Embedding Model**：自動帶 **`bge-m3`**（若空白就手選它）。**課堂就用這個，免費**——**別選 OpenAI**（那是回家自付、要錢的選項）。
 - **Retrieval（檢索）**：選 **Vector Search（向量檢索）**
 - 其他用預設 → 按右下 **Save & Process（儲存並處理）**
 
