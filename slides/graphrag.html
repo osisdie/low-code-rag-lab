@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GraphRAG 特別報導・來不及教，也讓你知道有這技術</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#faf7f0;--card:#fff;--ink:#20211c;--ink-soft:#5c5a50;--rule:#20211c;--vermillion:#c8341e;--green:#2c7a4b;--amber:#b9760c;--sky:#eaf3fb;--sky-line:#bcd9f2;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.85;font-size:17px;}
+  .sheet{max-width:1240px;margin:0 auto;padding:24px 30px 90px;}
+  a{color:var(--vermillion);}
+  .topline{display:flex;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--rule);padding-bottom:6px;color:var(--ink-soft);}
+  .backlink{text-decoration:none;font-weight:700;}
+  .masthead{text-align:center;padding:18px 0 6px;border-bottom:3px double var(--rule);}
+  .masthead .brand{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.24em;color:var(--vermillion);text-transform:uppercase;}
+  .masthead h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:42px;letter-spacing:.02em;line-height:1.15;margin-top:6px;}
+  .masthead .sub{font-size:15px;color:var(--ink-soft);margin-top:8px;}
+  .ribbon{background:var(--vermillion);color:#fff;text-align:center;padding:10px 16px;margin:18px 0 0;border-radius:6px 6px 0 0;font-size:14.5px;font-weight:700;letter-spacing:.04em;}
+  .stance{background:#fff5ea;border:1px solid #f0c2b8;border-top:none;border-radius:0 0 6px 6px;padding:12px 18px;font-size:13.5px;color:#5a3b32;display:flex;gap:10px;align-items:flex-start;}
+  .stance b{color:var(--vermillion);} .stance .mark{font-size:18px;line-height:1.4;flex:none;}
+  .dateline{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding:8px 4px;margin:16px 0 8px;font-size:13px;letter-spacing:.05em;}
+  .dateline .mono{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);}
+  .hero{background:var(--sky);border:1px solid var(--sky-line);border-left:6px solid var(--vermillion);border-radius:8px;padding:22px 26px;margin:22px 0 8px;}
+  .hero h2{font-family:'Noto Serif TC',serif;font-size:23px;font-weight:900;margin-bottom:10px;line-height:1.3;}
+  .hero p{font-size:16.5px;} .hero b{color:var(--vermillion);}
+  .section-bar{display:flex;align-items:center;gap:14px;margin:52px 0 8px;}
+  .section-bar::after{content:'';flex:1;border-top:2px solid var(--rule);}
+  .section-bar .tag{background:var(--ink);color:var(--paper);font-family:'Noto Serif TC',serif;font-size:16px;font-weight:900;letter-spacing:.14em;text-indent:.14em;padding:5px 16px;border-radius:3px;}
+  .section-bar .tag.red{background:var(--vermillion);} .section-bar .tag.green{background:var(--green);}
+  .week-note{font-size:14px;color:var(--ink-soft);margin:2px 0 18px;}
+  .lead{font-size:16px;margin:10px 0 6px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;align-items:start;}
+  .card{background:var(--card);border:1px solid #e4dfd2;border-radius:12px;padding:20px 22px;box-shadow:0 1px 0 #e4dfd2,0 6px 18px -14px rgba(0,0,0,.4);display:flex;flex-direction:column;}
+  .card h3{font-size:19px;font-weight:900;margin:0 0 2px;line-height:1.3;}
+  .card .eng{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);margin-bottom:12px;}
+  .card .analogy{background:#fbf3e8;border-radius:8px;padding:10px 14px;font-size:15px;margin-bottom:12px;} .card .analogy b{color:var(--vermillion);}
+  .card .desc{font-size:14.5px;color:#36352e;margin-bottom:14px;} .card .desc b{color:var(--ink);}
+  .card .impact{font-size:14px;color:var(--ink-soft);border-top:1px dashed #d8d2c2;padding-top:10px;margin-top:auto;} .card .impact b{color:var(--ink);}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+  .pill{font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 11px;letter-spacing:.02em;}
+  .pill.now{background:#e3f3ea;color:var(--green);border:1px solid #b6ddc6;}
+  .pill.soon{background:#fbf0db;color:var(--amber);border:1px solid #ecd5a6;}
+  .pill.note{background:#fbe6e2;color:var(--vermillion);border:1px solid #f0c2b8;}
+  .chart{margin:6px 0 14px;padding:13px 15px;background:#faf7f0;border:1px solid #ece5d3;border-radius:10px;}
+  .chart.onwhite{background:#fff;border-color:#cfe0d4;}
+  .crow{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:9px;margin-bottom:8px;} .crow:last-of-type{margin-bottom:0;}
+  .clabel{font-size:12px;color:var(--ink-soft);text-align:right;line-height:1.22;}
+  .ctrack{position:relative;background:#ece5d3;border-radius:5px;height:20px;overflow:hidden;}
+  .cbar{height:100%;border-radius:5px;min-width:2px;}
+  .cbar.hi{background:var(--vermillion);} .cbar.mid{background:#8a8474;} .cbar.lo{background:#cdbf9f;} .cbar.grn{background:var(--green);}
+  .cval{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.35);}
+  .ccap{font-size:11.5px;color:var(--ink-soft);margin-top:10px;line-height:1.5;} .ccap b{color:var(--vermillion);}
+  .check{background:#f2f7f3;border:1px solid #cfe0d4;border-radius:9px;padding:11px 14px;margin:12px 0 4px;font-size:13.5px;color:#2f3a32;}
+  .check .taglbl{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--green);font-weight:700;} .check b{color:var(--ink);}
+  .srcbox{margin-top:12px;} .srcbox .srclabel{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:6px;}
+  .srcbtn+.srcbtn{margin-top:8px;}
+  .srcbtn{display:flex;align-items:center;gap:9px;text-decoration:none;background:#fff8f6;border:1.5px solid var(--vermillion);border-radius:8px;padding:9px 13px;transition:background .15s;}
+  .srcbtn:hover{background:var(--vermillion);} .srcbtn:hover *{color:#fff !important;}
+  .srcbtn .ic{font-size:16px;flex:none;}
+  .srcbtn .txt{display:flex;flex-direction:column;line-height:1.35;min-width:0;}
+  .srcbtn .where{font-size:13.5px;font-weight:700;color:var(--ink);}
+  .srcbtn .url{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--vermillion);word-break:break-all;}
+  .tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;background:#fff;border:1px solid #e4dfd2;border-radius:10px;overflow:hidden;}
+  .tbl th,.tbl td{border:1px solid #e8e2d4;padding:10px 12px;text-align:left;vertical-align:top;}
+  .tbl th{background:var(--ink);color:var(--paper);font-weight:700;font-size:13px;letter-spacing:.04em;}
+  .tbl tr:nth-child(even) td{background:#faf7f0;} .tbl .hit{color:var(--green);font-weight:700;} .tbl .miss{color:var(--vermillion);font-weight:700;}
+  .tblwrap{overflow-x:auto;}
+  .callout{border-left:5px solid var(--amber);background:#fdf7ea;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:15px;}
+  .callout.red{border-color:var(--vermillion);background:#fdf1ef;} .callout.grn{border-color:var(--green);background:#f1f8f3;} .callout b{color:var(--ink);}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--vermillion);font-weight:700;}
+  .steps{counter-reset:s;display:grid;gap:10px;margin:6px 0;}
+  .step{display:flex;gap:12px;background:#fff;border:1px solid #e4dfd2;border-radius:10px;padding:12px 16px;}
+  .step::before{counter-increment:s;content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--vermillion);color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .step .st{font-size:14.5px;} .step .st b{color:var(--ink);}
+  .footer{margin-top:60px;border-top:3px double var(--rule);padding-top:16px;font-size:12.5px;color:var(--ink-soft);text-align:center;line-height:1.9;} .footer .mono{font-family:'IBM Plex Mono',monospace;}
+  @media print{ body{font-size:13px;} .sheet{max-width:none;padding:0;} .section-bar{margin-top:26px;} .card,.chart,.tbl,.step{page-break-inside:avoid;} }
+  @media (max-width:560px){ .masthead h1{font-size:28px;} .crow{grid-template-columns:110px 1fr;} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="topline">
+    <span>AI 客服工作坊 · 特別報導</span>
+    <span>Stage 3 延伸 · 來不及教也看得懂</span>
+    <a class="backlink" href="handbook.html">← 回主手冊</a>
+  </div>
+
+  <header class="masthead">
+    <div class="brand">SPECIAL REPORT · GRAPHRAG</div>
+    <h1>知識圖譜 GraphRAG：向量答不齊時的補救</h1>
+    <div class="sub">課堂時間有限、這段常常來不及動手 —— 這頁讓你至少<b>知道有這技術、什麼時候該找它</b>，回公司交給工程師時講得出需求。</div>
+  </header>
+
+  <div class="ribbon">這是「知道有這回事」的科普頁，不是操作教學。看不懂細節沒關係。</div>
+  <div class="stance">
+    <span class="mark">🧭</span>
+    <div><b>一句話先記住：</b>一般 RAG（向量）像「找相似句子」，遇到<b>「跟這個有關係的還有哪些」</b>這種要繞好幾層的問題會漏；<b>GraphRAG</b> 先把「誰跟誰有關係」畫成一張網，再沿著關係走，所以答得齊。<b>多數公司用不到——但你要知道它存在。</b></div>
+  </div>
+
+  <div class="dateline">
+    <span>對應 repo：<span class="mono">lab-assets/graphrag/</span></span>
+    <span class="mono">SPECIAL REPORT · 2026</span>
+    <span>對象：老闆 / 主管 / 顧問</span>
+  </div>
+
+  <div class="hero">
+    <h2>向量的盲區：問「關係」，它會漏</h2>
+    <p>問「耶加雪菲是什麼烘焙度？」→ 向量沒問題（單點查詢）。<br>
+    但問「<b>跟耶加雪菲同一個供應商的，還有哪些豆？</b>」→ 向量常常答不齊，因為答案不在「相似的句子」裡，而在<b>實體之間的關係</b>。GraphRAG 就是補這一塊。</p>
+  </div>
+
+  <!-- ① 它是什麼 -->
+  <div class="section-bar" id="what"><span class="tag red">① 它是什麼 · 怎麼運作</span></div>
+  <p class="lead">GraphRAG＝<b>知識圖譜（Graph）＋ 檢索生成（RAG）</b>。它讓 AI 先「讀懂關係」，再回答。微軟的做法大致四步：</p>
+  <div class="steps">
+    <div class="step"><div class="st"><b>抽實體與關係</b>：讓 AI 讀你的文件，抓出「人、公司、產品、供應商、政策…」以及它們之間<b>誰連誰</b>。</div></div>
+    <div class="step"><div class="st"><b>建圖</b>：每個實體變成一個「點」、每段關係變成一條「線」，存進圖資料庫（例如 Neo4j）。</div></div>
+    <div class="step"><div class="st"><b>分群 + 摘要</b>：用演算法（Leiden）把緊密相關的實體歸成一群，再讓 AI 幫每群寫摘要——這樣能回答「整體趨勢」這種宏觀問題。</div></div>
+    <div class="step"><div class="st"><b>兩種查法</b>：局部查（沿關係走，答「跟 X 有關的還有哪些」）＋ 全域查（用群摘要，答「這批文件整體在講什麼」）。</div></div>
+  </div>
+  <div class="callout"><b>白話：</b>向量像 Google「找相似句子」；GraphRAG 像查「族譜／關係網」——先知道誰跟誰有關，再回答。</div>
+
+  <!-- ② 為什麼需要 -->
+  <div class="section-bar" id="why"><span class="tag">② 為什麼需要它 · 數字說話</span></div>
+  <div class="cards">
+    <div class="card">
+      <div class="tags"><span class="pill soon">關係 / 多跳題</span></div>
+      <h3>多跳題：GraphRAG 大勝向量</h3>
+      <div class="eng">multi-hop benchmark</div>
+      <div class="desc">企業評測：需要「繞好幾層」的多跳題，<b>GraphRAG 86% vs 向量 32%</b>（差 54 個百分點）；需要跨 10+ 實體彙總時，向量準確度可能<b>掉到 0</b>、GraphRAG 仍可維持 &gt;70%。</div>
+      <div class="chart onwhite">
+        <div class="crow"><span class="clabel">GraphRAG（多跳）</span><span class="ctrack"><span class="cbar grn" style="width:86%"></span><span class="cval">86%</span></span></div>
+        <div class="crow"><span class="clabel">向量 RAG（多跳）</span><span class="ctrack"><span class="cbar lo" style="width:32%"></span><span class="cval">32%</span></span></div>
+        <div class="ccap">只在<b>「關係／多跳」這一類題</b>差距這麼大；單點查詢兩者都行。</div>
+      </div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://atlan.com/know/knowledge-graphs-vs-rag-for-ai/" target="_blank"><span class="ic">🕸️</span><span class="txt"><span class="where">Knowledge Graph vs RAG（2026）</span><span class="url">atlan.com/know/knowledge-graphs-vs-rag-for-ai</span></span></a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tags"><span class="pill now">已成正式技術</span></div>
+      <h3>2026：從實驗 → 正式可用</h3>
+      <div class="eng">Microsoft GraphRAG · open source</div>
+      <div class="desc">微軟把整套流程開源（<b>GitHub 約 3.16 萬星</b>）：抽實體、建圖、分群、摘要、local/global 查詢全包。2026 年 GraphRAG 已<b>從實驗技術轉為企業級正式架構</b>。輕量替代方案如 <b>LightRAG</b> 也在興起。</div>
+      <div class="impact">典型場景：法遵稽核、供應鏈、醫療、金融「關係型」查詢</div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://github.com/microsoft/graphrag" target="_blank"><span class="ic">💻</span><span class="txt"><span class="where">microsoft/graphrag（官方開源）</span><span class="url">github.com/microsoft/graphrag</span></span></a>
+        <a class="srcbtn" href="https://www.microsoft.com/en-us/research/project/graphrag/" target="_blank"><span class="ic">🔬</span><span class="txt"><span class="where">Project GraphRAG（Microsoft Research）</span><span class="url">microsoft.com/en-us/research/project/graphrag</span></span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 別過度工程 -->
+  <div class="section-bar" id="caution"><span class="tag red">③ 但別衝動 · 大多數人用不到</span></div>
+  <div class="callout red"><b>圖譜不是萬靈丹。</b>研究指出約 <b>80% 企業查詢是簡單語意查詢</b>，用快速向量搜尋最划算。GraphRAG 有<b>建置成本＋維護負擔</b>（要抽實體、建圖、持續更新），只有當「問關係」的題佔可觀比例才值得。甚至有論文發現：某些情境下<b>「簡單接鄰居」還勝過完整 GraphRAG</b>。</div>
+  <div class="check"><span class="taglbl">查證 · 給你的決策原則</span><div style="margin-top:6px;"><b>先量你真實的問題分布，再決定要不要建圖。</b>做法：把一週的客服問題抓下來，數數看「跟 X 有關的還有哪些／多條件交叉／跨文件彙總」佔幾成——低就別上，高才值得。<b>圖譜是補向量的盲區，不是拿來炫技。</b></div></div>
+
+  <!-- ④ 想動手 -->
+  <div class="section-bar" id="hands"><span class="tag green">④ 真的要動手（回家 / 交給工程師）</span></div>
+  <div class="cards">
+    <div class="card">
+      <h3>本課的 take-home 實驗室</h3>
+      <div class="eng">lab-assets/graphrag/</div>
+      <div class="desc">repo 裡的 <span class="mono">lab-assets/graphrag/</span> 提供<b>向量 vs 圖譜</b>對照範例（檔案式／Neo4j 雙模式），還有 <span class="mono">sample-queries.md</span> 的關係型題目，回家自己跑一遍就懂差別。</div>
+      <div class="impact">Dify 可用「外部知識 API」當標準插座，接任何圖譜服務</div>
+    </div>
+    <div class="card">
+      <h3>同一題：向量漏 vs 圖譜齊</h3>
+      <div class="eng">example</div>
+      <div class="tblwrap"><table class="tbl">
+        <thead><tr><th>問題</th><th>向量</th><th>圖譜</th></tr></thead>
+        <tbody>
+          <tr><td>耶加雪菲烘焙度？</td><td class="hit">✔</td><td class="hit">✔</td></tr>
+          <tr><td>同供應商還有哪些豆？</td><td class="miss">✘ 漏</td><td class="hit">✔ 齊</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- 查證 -->
+  <div class="section-bar"><span class="tag">這頁怎麼查證的</span></div>
+  <div class="callout"><b>原則：</b>①數字附<b>可點原始出處</b>（微軟官方開源、Microsoft Research、第三方比較）；②評測數字<b>集中在「關係／多跳」這一類題</b>，別當成「圖譜全面碾壓向量」；③星數會變動，看量級。</div>
+
+  <div class="footer">
+    <div class="mono">AI 客服工作坊 · GraphRAG 特別報導 · 2026</div>
+    <div><a href="handbook.html">← 回主手冊</a> · 想更簡單「看見關係」？見 <a href="obsidian.html">Obsidian 特別報導 →</a></div>
+    <div>知道它存在、知道何時該找它 —— 這頁的目的就達成了。</div>
+  </div>
+
+</div>
+</body>
+</html>

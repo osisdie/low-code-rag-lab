@@ -54,7 +54,9 @@ low-code-rag-lab/
 │       └── student-free-tools-menu.md  ← 課後免費 no-code 工具清單（NotebookLM / Gemini Gem / Coze…）
 ├── slides/
 │   ├── handbook.html             ← 上課主檔：報紙格式滾動手冊（合併全三階段＋產業數據/評測，附出處連結）
-│   └── dify.html                 ← Dify 特別報導（社群角色/為何被創建/企業採用/應用領域）
+│   ├── dify.html                 ← Dify 特別報導（社群角色/為何被創建/企業採用/應用領域＋n8n 伴讀）
+│   ├── graphrag.html             ← GraphRAG 特別報導（來不及教時的科普：知識圖譜是什麼、何時該用）
+│   └── obsidian.html             ← Obsidian 特別報導（graph view 平民版知識圖；AI 加持需算力）
 ├── lab-assets/
 │   ├── knowledge-base/           ← 範例知識庫（餐廳 FAQ / 電商 SOP / 關係資料）
 │   ├── prompts/                  ← system prompt 範本（哪支對應哪 Stage 見 prompts/README.md）

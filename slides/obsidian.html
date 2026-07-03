@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obsidian 特別報導・一個更簡單「看見關係」的方式</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#faf7f0;--card:#fff;--ink:#20211c;--ink-soft:#5c5a50;--rule:#20211c;--vermillion:#c8341e;--green:#2c7a4b;--amber:#b9760c;--sky:#eaf3fb;--sky-line:#bcd9f2;--purple:#6a3fb5;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.85;font-size:17px;}
+  .sheet{max-width:1240px;margin:0 auto;padding:24px 30px 90px;}
+  a{color:var(--vermillion);}
+  .topline{display:flex;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--rule);padding-bottom:6px;color:var(--ink-soft);}
+  .backlink{text-decoration:none;font-weight:700;}
+  .masthead{text-align:center;padding:18px 0 6px;border-bottom:3px double var(--rule);}
+  .masthead .brand{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.24em;color:var(--purple);text-transform:uppercase;}
+  .masthead h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:42px;letter-spacing:.02em;line-height:1.15;margin-top:6px;}
+  .masthead .sub{font-size:15px;color:var(--ink-soft);margin-top:8px;}
+  .ribbon{background:var(--purple);color:#fff;text-align:center;padding:10px 16px;margin:18px 0 0;border-radius:6px 6px 0 0;font-size:14.5px;font-weight:700;letter-spacing:.04em;}
+  .stance{background:#f4f0fb;border:1px solid #d6c9f0;border-top:none;border-radius:0 0 6px 6px;padding:12px 18px;font-size:13.5px;color:#3f3357;display:flex;gap:10px;align-items:flex-start;}
+  .stance b{color:var(--purple);} .stance .mark{font-size:18px;line-height:1.4;flex:none;}
+  .dateline{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding:8px 4px;margin:16px 0 8px;font-size:13px;letter-spacing:.05em;}
+  .dateline .mono{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);}
+  .hero{background:#f4f0fb;border:1px solid #d6c9f0;border-left:6px solid var(--purple);border-radius:8px;padding:22px 26px;margin:22px 0 8px;}
+  .hero h2{font-family:'Noto Serif TC',serif;font-size:23px;font-weight:900;margin-bottom:10px;line-height:1.3;}
+  .hero p{font-size:16.5px;} .hero b{color:var(--purple);}
+  .section-bar{display:flex;align-items:center;gap:14px;margin:52px 0 8px;}
+  .section-bar::after{content:'';flex:1;border-top:2px solid var(--rule);}
+  .section-bar .tag{background:var(--ink);color:var(--paper);font-family:'Noto Serif TC',serif;font-size:16px;font-weight:900;letter-spacing:.14em;text-indent:.14em;padding:5px 16px;border-radius:3px;}
+  .section-bar .tag.pur{background:var(--purple);} .section-bar .tag.green{background:var(--green);}
+  .week-note{font-size:14px;color:var(--ink-soft);margin:2px 0 18px;}
+  .lead{font-size:16px;margin:10px 0 6px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;align-items:start;}
+  .card{background:var(--card);border:1px solid #e4dfd2;border-radius:12px;padding:20px 22px;box-shadow:0 1px 0 #e4dfd2,0 6px 18px -14px rgba(0,0,0,.4);display:flex;flex-direction:column;}
+  .card h3{font-size:19px;font-weight:900;margin:0 0 2px;line-height:1.3;}
+  .card .eng{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);margin-bottom:12px;}
+  .card .analogy{background:#f4f0fb;border-radius:8px;padding:10px 14px;font-size:15px;margin-bottom:12px;} .card .analogy b{color:var(--purple);}
+  .card .desc{font-size:14.5px;color:#36352e;margin-bottom:14px;} .card .desc b{color:var(--ink);}
+  .card .impact{font-size:14px;color:var(--ink-soft);border-top:1px dashed #d8d2c2;padding-top:10px;margin-top:auto;} .card .impact b{color:var(--ink);}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+  .pill{font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 11px;letter-spacing:.02em;}
+  .pill.now{background:#e3f3ea;color:var(--green);border:1px solid #b6ddc6;}
+  .pill.soon{background:#fbf0db;color:var(--amber);border:1px solid #ecd5a6;}
+  .pill.pur{background:#efe8fb;color:var(--purple);border:1px solid #d6c9f0;}
+  .check{background:#f2f7f3;border:1px solid #cfe0d4;border-radius:9px;padding:11px 14px;margin:12px 0 4px;font-size:13.5px;color:#2f3a32;}
+  .check .taglbl{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--green);font-weight:700;} .check b{color:var(--ink);}
+  .srcbox{margin-top:12px;} .srcbox .srclabel{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:6px;}
+  .srcbtn+.srcbtn{margin-top:8px;}
+  .srcbtn{display:flex;align-items:center;gap:9px;text-decoration:none;background:#f8f6fd;border:1.5px solid var(--purple);border-radius:8px;padding:9px 13px;transition:background .15s;}
+  .srcbtn:hover{background:var(--purple);} .srcbtn:hover *{color:#fff !important;}
+  .srcbtn .ic{font-size:16px;flex:none;}
+  .srcbtn .txt{display:flex;flex-direction:column;line-height:1.35;min-width:0;}
+  .srcbtn .where{font-size:13.5px;font-weight:700;color:var(--ink);}
+  .srcbtn .url{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--purple);word-break:break-all;}
+  .tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;background:#fff;border:1px solid #e4dfd2;border-radius:10px;overflow:hidden;}
+  .tbl th,.tbl td{border:1px solid #e8e2d4;padding:10px 12px;text-align:left;vertical-align:top;}
+  .tbl th{background:var(--ink);color:var(--paper);font-weight:700;font-size:13px;letter-spacing:.04em;}
+  .tbl tr:nth-child(even) td{background:#faf7f0;}
+  .tblwrap{overflow-x:auto;}
+  .callout{border-left:5px solid var(--amber);background:#fdf7ea;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:15px;}
+  .callout.pur{border-color:var(--purple);background:#f4f0fb;} .callout.grn{border-color:var(--green);background:#f1f8f3;} .callout b{color:var(--ink);}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:700;}
+  .graphdemo{display:flex;justify-content:center;margin:10px 0;}
+  .footer{margin-top:60px;border-top:3px double var(--rule);padding-top:16px;font-size:12.5px;color:var(--ink-soft);text-align:center;line-height:1.9;} .footer .mono{font-family:'IBM Plex Mono',monospace;}
+  @media print{ body{font-size:13px;} .sheet{max-width:none;padding:0;} .section-bar{margin-top:26px;} .card,.tbl{page-break-inside:avoid;} }
+  @media (max-width:560px){ .masthead h1{font-size:28px;} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="topline">
+    <span>AI 客服工作坊 · 特別報導</span>
+    <span>延伸 · 更簡單看見「關係」</span>
+    <a class="backlink" href="handbook.html">← 回主手冊</a>
+  </div>
+
+  <header class="masthead">
+    <div class="brand">SPECIAL REPORT · OBSIDIAN</div>
+    <h1>Obsidian：用眼睛就看得到的「知識圖」</h1>
+    <div class="sub">它也有 graph view，而且比自己架 GraphRAG <b>更簡單、更直觀</b>——但要讓 AI 在上面「動腦」，就<b>需要算力</b>。</div>
+  </header>
+
+  <div class="ribbon">這是延伸閱讀：一個人人都能上手的「關係視覺化」工具。</div>
+  <div class="stance">
+    <span class="mark">🧭</span>
+    <div><b>為什麼放這頁：</b>GraphRAG 的圖藏在後台、要工程；<b>Obsidian 把「關係圖」直接畫給你看</b>——你寫筆記、用 <span style="font-family:monospace">[[連結]]</span> 互相接，它就自動長出一張網。這是最平易近人的「知識圖譜」入門。<b>純看圖免算力；要 AI 加持才需要模型/算力。</b></div>
+  </div>
+
+  <div class="dateline">
+    <span>對應 repo：<span class="mono">obsidian/</span>（「只答 vault」bot 範本）</span>
+    <span class="mono">SPECIAL REPORT · 2026</span>
+    <span>對象：老闆 / 主管 / 顧問</span>
+  </div>
+
+  <div class="hero">
+    <h2>你寫的筆記，自己連成一張關係網</h2>
+    <p>在 Obsidian 裡打 <span style="font-family:monospace">[[綠野鮮蔬]]</span>、<span style="font-family:monospace">[[退貨政策]]</span> 這種<b>雙向連結</b>，它就把每篇筆記畫成一個點、每個連結畫成一條線——<b>graph view</b> 讓你一眼看到「什麼跟什麼有關」。<br>
+    這跟 GraphRAG 的精神一樣（都是「關係網」），但 Obsidian 是<b>你手動連、用眼睛看</b>，不用建圖資料庫、不用寫程式。</p>
+  </div>
+
+  <!-- ① Obsidian 是什麼 -->
+  <div class="section-bar" id="what"><span class="tag pur">① Obsidian 是什麼</span></div>
+  <div class="cards">
+    <div class="card">
+      <div class="tags"><span class="pill pur">1.5M+ 用戶</span></div>
+      <h3>本地、Markdown、你的資料你的</h3>
+      <div class="eng">local-first · markdown · 2026</div>
+      <div class="desc">2026 初<b>突破 150 萬用戶</b>。檔案都是純文字 Markdown、<b>存在你自己電腦</b>（隱私優先、資料落地），沒有廠商鎖定。核心特色：<b>雙向連結</b>＋<b>graph view</b>。</div>
+      <div class="impact">對比雲端工具：資料不出你的機器</div>
+    </div>
+    <div class="card">
+      <h3>Graph View＝平民版知識圖譜</h3>
+      <div class="eng">graph view</div>
+      <div class="analogy">你用 <span style="font-family:monospace">[[ ]]</span> 連筆記，它<b>自動畫成一張網</b>；點一下就看到「跟這篇有關的還有哪些」——<b>不用建圖、不用工程。</b></div>
+      <div class="desc">這正是 GraphRAG 在後台做的事，只是 Obsidian <b>把它可視化、交到你手上</b>。想理解「關係型知識」，這是最快的體感入口。</div>
+      <div class="impact">簡單、直觀 → 適合先建立「關係」的概念</div>
+    </div>
+    <div class="card">
+      <div class="tags"><span class="pill now">2026 新</span></div>
+      <h3>官方 CLI＋龐大外掛生態</h3>
+      <div class="eng">CLI · plugins</div>
+      <div class="desc">2026/2 起官方推出 <b>CLI（100+ 指令）</b>，AI agent 可直接操作 vault。社群外掛約 <b>5,085 個、其中 580 個 AI 類</b>。彈性極大。</div>
+      <div class="impact">從筆記軟體 → 可接 AI 的「第二大腦」</div>
+    </div>
+  </div>
+  <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+    <a class="srcbtn" href="https://obsidian.md/" target="_blank"><span class="ic">🔮</span><span class="txt"><span class="where">Obsidian 官網</span><span class="url">obsidian.md</span></span></a>
+    <a class="srcbtn" href="https://www.obsidianstats.com/tags/graph-view" target="_blank"><span class="ic">🕸️</span><span class="txt"><span class="where">Obsidian graph-view 外掛清單</span><span class="url">obsidianstats.com/tags/graph-view</span></span></a>
+  </div>
+
+  <!-- ② 更 powerful 但需要算力 -->
+  <div class="section-bar" id="ai"><span class="tag pur">② 更 powerful，但需要算力</span></div>
+  <p class="week-note">看圖本身很輕、任何電腦都跑得動。<b>但「讓 AI 在你的 vault 上動腦」——語意搜尋、自動找關聯、問答——那一層需要模型與算力。</b></p>
+  <div class="cards">
+    <div class="card">
+      <h3>AI 不是內建，靠外掛</h3>
+      <div class="eng">AI via plugins</div>
+      <div class="desc">Obsidian 本身不含 AI；AI 從外掛來：<b>Smart Connections</b>（找相關筆記）、<b>Copilot</b>（vault 問答）、<b>InfraNodus AI Graph View</b>（AI 分群、找缺口、生研究問題）。</div>
+      <div class="impact">可「自帶金鑰」用雲端，也可接<b>本地模型</b></div>
+    </div>
+    <div class="card">
+      <div class="tags"><span class="pill soon">成本所在</span></div>
+      <h3>「需要算力」是什麼意思</h3>
+      <div class="eng">why compute</div>
+      <div class="desc">要把整個 vault 變成可語意檢索/問答，得先<b>算 embedding（向量）</b>、再跑 LLM。走雲端＝<b>付 API 費</b>；想資料不出門走<b>本地模型</b>＝需要一台夠力的機器（GPU／較大記憶體）。這就是它「更強但要算力」的代價。</div>
+      <div class="impact">純看關係圖：免算力；AI 問答：要算力</div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://infranodus.com/obsidian-plugin" target="_blank"><span class="ic">🧠</span><span class="txt"><span class="where">InfraNodus AI Graph View（Obsidian 外掛）</span><span class="url">infranodus.com/obsidian-plugin</span></span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 對照 -->
+  <div class="section-bar" id="compare"><span class="tag">③ Obsidian graph view vs GraphRAG</span></div>
+  <div class="tblwrap">
+  <table class="tbl">
+    <thead><tr><th>比較</th><th>Obsidian Graph View</th><th>GraphRAG（工程）</th></tr></thead>
+    <tbody>
+      <tr><td>關係怎麼來</td><td>你<b>手動</b>用 [[連結]] 建</td><td>AI <b>自動</b>從文件抽實體/關係</td></tr>
+      <tr><td>主要用途</td><td>用眼睛<b>看見</b>關係、個人第二大腦</td><td>讓 <b>AI 回答</b>關係/多跳問題</td></tr>
+      <tr><td>門檻</td><td>很低，裝了就會</td><td>高，要建圖、維護</td></tr>
+      <tr><td>看圖的算力</td><td>幾乎免</td><td>—</td></tr>
+      <tr><td>AI 問答的算力</td><td>要（雲端付費或本地模型）</td><td>要（建圖＋查詢都吃 LLM）</td></tr>
+      <tr><td>適合誰</td><td>個人/小團隊、想先建立概念</td><td>企業、關係型查詢量大</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout pur"><b>怎麼選：</b>想<b>快速體感「關係型知識」長怎樣</b> → 玩 Obsidian graph view（10 分鐘就有感）。要<b>把關係查詢做成客服/正式系統</b> → 那是 GraphRAG 的工程活。兩者不衝突，Obsidian 很適合當「入門的直覺」。</div>
+
+  <!-- ④ 跟本課的關係 -->
+  <div class="section-bar" id="course"><span class="tag green">④ 跟本課的關係</span></div>
+  <div class="callout grn"><b>repo 已備好 Obsidian 範本：</b>見 <span class="mono">obsidian/</span>——一個「<b>只答自家 vault</b>」的 AI 客服 vault 範本＋內部試用指南（<span class="mono">internal-trial-guide</span> 有 NotebookLM／Claude Panel 兩條路）。想要一個「只講你自己文件、不亂編」的本地 bot，這是最貼近隱私、又能玩關係圖的一條路。</div>
+
+  <!-- 查證 -->
+  <div class="section-bar"><span class="tag">這頁怎麼查證的</span></div>
+  <div class="callout"><b>原則：</b>①數字附<b>可點原始出處</b>（官網、外掛統計站、外掛頁）；②用戶數/外掛數會變動，看量級；③「需要算力」指的是<b>AI 語意層</b>（embedding＋LLM），<b>單純看 graph view 不需要</b>——別把兩件事混為一談。</div>
+
+  <div class="footer">
+    <div class="mono">AI 客服工作坊 · Obsidian 特別報導 · 2026</div>
+    <div><a href="handbook.html">← 回主手冊</a> · 想懂後台的關係技術？見 <a href="graphrag.html">GraphRAG 特別報導 →</a></div>
+    <div>先用眼睛看見關係，再決定要不要交給工程做成系統。</div>
+  </div>
+
+</div>
+</body>
+</html>
