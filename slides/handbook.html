@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 客服工作坊・完整手冊（報紙版）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf7f0; --card:#fff; --ink:#20211c; --ink-soft:#5c5a50; --rule:#20211c;
+    --vermillion:#c8341e; --green:#2c7a4b; --amber:#b9760c; --sky:#eaf3fb; --sky-line:#bcd9f2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.85;font-size:17px;}
+  .sheet{max-width:1240px;margin:0 auto;padding:24px 30px 90px;}
+  a{color:var(--vermillion);}
+
+  /* 頂線 / 刊頭 */
+  .topline{display:flex;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--rule);padding-bottom:6px;color:var(--ink-soft);}
+  .masthead{text-align:center;padding:18px 0 6px;border-bottom:3px double var(--rule);}
+  .masthead h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:44px;letter-spacing:.02em;line-height:1.15;}
+  .masthead .sub{font-size:15px;color:var(--ink-soft);margin-top:8px;}
+
+  .ribbon{background:var(--vermillion);color:#fff;text-align:center;padding:10px 16px;margin:18px 0 0;border-radius:6px 6px 0 0;font-size:14.5px;font-weight:700;letter-spacing:.04em;}
+  .stance{background:#fff5ea;border:1px solid #f0c2b8;border-top:none;border-radius:0 0 6px 6px;padding:12px 18px;font-size:13.5px;color:#5a3b32;display:flex;gap:10px;align-items:flex-start;}
+  .stance b{color:var(--vermillion);}
+  .stance .mark{font-size:18px;line-height:1.4;flex:none;}
+
+  .dateline{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding:8px 4px;margin:16px 0 8px;font-size:13px;letter-spacing:.05em;}
+  .dateline .mono{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);}
+
+  /* 目錄 */
+  .toc{background:#fff;border:1px solid #e4dfd2;border-radius:10px;padding:14px 20px;margin:18px 0 8px;}
+  .toc .th{font-size:12px;font-family:'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
+  .toc ol{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 20px;counter-reset:t;}
+  .toc li{counter-increment:t;font-size:14px;}
+  .toc li::before{content:counter(t,decimal-leading-zero) ' ';font-family:'IBM Plex Mono',monospace;color:var(--vermillion);font-weight:700;}
+  .toc a{text-decoration:none;color:var(--ink);}
+  .toc a:hover{color:var(--vermillion);}
+
+  .hero{background:var(--sky);border:1px solid var(--sky-line);border-left:6px solid var(--vermillion);border-radius:8px;padding:22px 26px;margin:22px 0 8px;}
+  .hero h2{font-family:'Noto Serif TC',serif;font-size:24px;font-weight:900;margin-bottom:10px;line-height:1.3;}
+  .hero p{font-size:16.5px;} .hero b{color:var(--vermillion);}
+
+  .section-bar{display:flex;align-items:center;gap:14px;margin:52px 0 8px;}
+  .section-bar::after{content:'';flex:1;border-top:2px solid var(--rule);}
+  .section-bar .tag{background:var(--ink);color:var(--paper);font-family:'Noto Serif TC',serif;font-size:16px;font-weight:900;letter-spacing:.14em;text-indent:.14em;padding:5px 16px;border-radius:3px;}
+  .section-bar .tag.red{background:var(--vermillion);}
+  .section-bar .tag.green{background:var(--green);}
+  .week-note{font-size:14px;color:var(--ink-soft);margin:2px 0 18px;}
+  .lead{font-size:16px;margin:10px 0 6px;}
+
+  /* 卡片 */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;align-items:start;}
+  .card{background:var(--card);border:1px solid #e4dfd2;border-radius:12px;padding:20px 22px;box-shadow:0 1px 0 #e4dfd2,0 6px 18px -14px rgba(0,0,0,.4);display:flex;flex-direction:column;}
+  .card h3{font-size:19px;font-weight:900;margin:0 0 2px;line-height:1.3;}
+  .card .eng{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);margin-bottom:12px;}
+  .card .analogy{background:#fbf3e8;border-radius:8px;padding:10px 14px;font-size:15px;margin-bottom:12px;}
+  .card .analogy b{color:var(--vermillion);}
+  .card .desc{font-size:14.5px;color:#36352e;margin-bottom:14px;}
+  .card .desc b{color:var(--ink);}
+  .card .impact{font-size:14px;color:var(--ink-soft);border-top:1px dashed #d8d2c2;padding-top:10px;margin-top:auto;}
+  .card .impact b{color:var(--ink);}
+
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+  .pill{font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 11px;letter-spacing:.02em;}
+  .pill.now{background:#e3f3ea;color:var(--green);border:1px solid #b6ddc6;}
+  .pill.soon{background:#fbf0db;color:var(--amber);border:1px solid #ecd5a6;}
+  .pill.note{background:#fbe6e2;color:var(--vermillion);border:1px solid #f0c2b8;}
+
+  /* 迷你長條圖 */
+  .chart{margin:6px 0 14px;padding:13px 15px;background:#faf7f0;border:1px solid #ece5d3;border-radius:10px;}
+  .chart.onwhite{background:#fff;border-color:#cfe0d4;}
+  .chart .ctitle{font-size:13px;font-weight:700;margin-bottom:11px;}
+  .crow{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:9px;margin-bottom:8px;}
+  .crow:last-of-type{margin-bottom:0;}
+  .clabel{font-size:12px;color:var(--ink-soft);text-align:right;line-height:1.22;}
+  .ctrack{position:relative;background:#ece5d3;border-radius:5px;height:20px;overflow:hidden;}
+  .cbar{height:100%;border-radius:5px;min-width:2px;}
+  .cbar.hi{background:var(--vermillion);} .cbar.mid{background:#8a8474;} .cbar.lo{background:#cdbf9f;} .cbar.grn{background:var(--green);}
+  .cval{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.35);}
+  .ccap{font-size:11.5px;color:var(--ink-soft);margin-top:10px;line-height:1.5;}
+  .ccap b{color:var(--vermillion);}
+
+  /* 查證區塊 */
+  .check{background:#f2f7f3;border:1px solid #cfe0d4;border-radius:9px;padding:11px 14px;margin:12px 0 4px;font-size:13.5px;color:#2f3a32;}
+  .check .taglbl{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--green);font-weight:700;}
+  .check b{color:var(--ink);}
+
+  /* 來源按鈕 */
+  .srcbox{margin-top:12px;}
+  .srcbox .srclabel{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:6px;}
+  .srcbtn+.srcbtn{margin-top:8px;}
+  .srcbtn{display:flex;align-items:center;gap:9px;text-decoration:none;background:#fff8f6;border:1.5px solid var(--vermillion);border-radius:8px;padding:9px 13px;transition:background .15s;}
+  .srcbtn:hover{background:var(--vermillion);}
+  .srcbtn:hover *{color:#fff !important;}
+  .srcbtn .ic{font-size:16px;flex:none;}
+  .srcbtn .txt{display:flex;flex-direction:column;line-height:1.35;min-width:0;}
+  .srcbtn .where{font-size:13.5px;font-weight:700;color:var(--ink);}
+  .srcbtn .url{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--vermillion);word-break:break-all;}
+
+  /* 表格 */
+  .tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;background:#fff;border:1px solid #e4dfd2;border-radius:10px;overflow:hidden;}
+  .tbl th,.tbl td{border:1px solid #e8e2d4;padding:10px 12px;text-align:left;vertical-align:top;}
+  .tbl th{background:var(--ink);color:var(--paper);font-weight:700;font-size:13px;letter-spacing:.04em;}
+  .tbl tr:nth-child(even) td{background:#faf7f0;}
+  .tbl .hit{color:var(--green);font-weight:700;} .tbl .miss{color:var(--vermillion);font-weight:700;}
+  .tblwrap{overflow-x:auto;}
+
+  /* 呼叫框 */
+  .callout{border-left:5px solid var(--amber);background:#fdf7ea;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:15px;}
+  .callout.red{border-color:var(--vermillion);background:#fdf1ef;}
+  .callout.grn{border-color:var(--green);background:#f1f8f3;}
+  .callout b{color:var(--ink);}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--vermillion);font-weight:700;}
+  h3.q{font-family:'Noto Serif TC',serif;font-size:20px;font-weight:900;margin:20px 0 6px;}
+
+  /* FAQ */
+  .faq{background:#fff;border:1px solid #e4dfd2;border-radius:10px;padding:6px 20px;margin:12px 0;}
+  .faq details{border-bottom:1px solid #efe9dc;padding:12px 0;}
+  .faq details:last-child{border-bottom:none;}
+  .faq summary{font-weight:700;font-size:15.5px;cursor:pointer;list-style:none;display:flex;gap:10px;align-items:baseline;}
+  .faq summary::before{content:'Q';font-family:'Noto Serif TC',serif;color:var(--vermillion);font-weight:900;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq .a{font-size:14.5px;color:#3a3930;margin:8px 0 2px;padding-left:22px;}
+  .faq .a b{color:var(--ink);}
+
+  /* 名詞卡 */
+  .terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+  .term{background:#fff;border:1px solid #e4dfd2;border-radius:10px;padding:14px 16px;}
+  .term .t{font-weight:900;font-size:16px;} .term .e{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);}
+  .term .d{font-size:13.5px;margin-top:6px;color:#3a3930;}
+
+  .footer{margin-top:60px;border-top:3px double var(--rule);padding-top:16px;font-size:12.5px;color:var(--ink-soft);text-align:center;line-height:1.9;}
+  .footer .mono{font-family:'IBM Plex Mono',monospace;}
+
+  @media print{ body{font-size:13px;} .sheet{max-width:none;padding:0;} .section-bar{margin-top:26px;} .card,.chart,.tbl,.faq details{page-break-inside:avoid;} .srcbtn{border-width:1px;} }
+  @media (max-width:560px){ .masthead h1{font-size:32px;} .crow{grid-template-columns:110px 1fr;} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="topline">
+    <span>AI 客服工作坊 · 完整手冊</span>
+    <span>報紙版 / 給所有人看的一張全景圖</span>
+    <span>NO-CODE → LOW-CODE → ADVANCED RAG</span>
+  </div>
+
+  <header class="masthead">
+    <h1>AI 客服機器人・工作坊全景手冊</h1>
+    <div class="sub">一個下午，親手做一個「<b>只講你公司的事、不亂編</b>」的客服 —— 從 ChatGPT 到 Dify 到知識圖譜，一路看到底</div>
+  </header>
+
+  <div class="ribbon">這是給所有人的手冊，不用寫程式、不用懂 AI，也看得懂。</div>
+  <div class="stance">
+    <span class="mark">🧭</span>
+    <div><b>怎麼讀：</b>有簡單、也有進階。看不懂的段落<b>直接往下滑過去沒關係</b>——放進來是讓你有「整張地圖」的概念。所有數字都附<b>原始出處連結</b>，而且我們老實標了哪些是廠商<b>自評、待第三方驗證</b>，哪些是<b>獨立來源</b>。</div>
+  </div>
+
+  <div class="dateline">
+    <span><b>綠野鮮蔬餐廳</b>案例貫穿全場</span>
+    <span class="mono">EDITION · WORKSHOP HANDBOOK · 2026</span>
+    <span>對象：老闆 / 主管 / 顧問 / 客服</span>
+  </div>
+
+  <nav class="toc">
+    <div class="th">本手冊路線圖 · Table of Contents</div>
+    <ol>
+      <li><a href="#industry">為什麼是現在：產業數據</a></li>
+      <li><a href="#stage0">觀念地基：閉書考 vs 開書考</a></li>
+      <li><a href="#stage1">Stage 1：ChatGPT（No-Code）</a></li>
+      <li><a href="#stage2">Stage 2：Dify（Low-Code / 向量 RAG）</a></li>
+      <li><a href="#stage3">Stage 3：知識圖譜（Advanced）</a></li>
+      <li><a href="#tools">工具選型：Dify vs n8n vs …</a></li>
+      <li><a href="#budget">要花多少：預算與 ROI</a></li>
+      <li><a href="#decide">你該停在哪：住宿比喻</a></li>
+      <li><a href="#faq">問與答 FAQ</a></li>
+      <li><a href="#terms">名詞速查</a></li>
+      <li><a href="#takehome">課後：回家繼續玩</a></li>
+      <li><a href="#method">這份手冊怎麼查證的</a></li>
+    </ol>
+  </nav>
+
+  <div class="hero">
+    <h2>AI 很會講話，但有兩個毛病 —— 今天就是把它們補起來</h2>
+    <p>① 它<b>不知道「你公司」的事</b>；② 不確定時，會<b>很有自信地亂編</b>（業界叫「幻覺 / hallucination」）。<br>
+    解法就一句話：<b>回答前，先叫它去翻你的文件再作答</b>——這叫 <b>RAG（開書考）</b>。今天你會親手做一次。</p>
+  </div>
+
+  <!-- ① 產業數據 -->
+  <div class="section-bar" id="industry"><span class="tag red">① 為什麼是現在 · 產業動態與數據</span></div>
+  <p class="week-note">先給你「大局」：這件事不是趕流行，是多數企業已經在做、而且踩過坑的方向。</p>
+  <div class="cards">
+
+    <div class="card">
+      <div class="tags"><span class="pill now">已成主流</span></div>
+      <h3>客服，是 AI 落地第二大的地方</h3>
+      <div class="eng">enterprise AI by department · 2026</div>
+      <div class="desc">2026 年企業實際用 AI 的部門排行：<b>客服 56%</b>、IT 維運 51%、行銷 48%。而且 <b>72% 企業已有至少一個 AI 應用上線</b>（2024 年才 55%、2020 年只有 20%）。</div>
+      <div class="chart onwhite">
+        <div class="crow"><span class="clabel">客服</span><span class="ctrack"><span class="cbar hi" style="width:56%"></span><span class="cval">56%</span></span></div>
+        <div class="crow"><span class="clabel">IT 維運</span><span class="ctrack"><span class="cbar mid" style="width:51%"></span><span class="cval">51%</span></span></div>
+        <div class="crow"><span class="clabel">行銷</span><span class="ctrack"><span class="cbar lo" style="width:48%"></span><span class="cval">48%</span></span></div>
+        <div class="ccap">各部門「在正式環境用 AI」的比例。<b>客服排第二，僅次於流程自動化。</b></div>
+      </div>
+      <div class="check"><span class="taglbl">查證</span><div style="margin-top:6px;">數字來自多份 2026 企業調查彙整（含 McKinsey Global AI Survey 引用）。<b>屬產業調查、非單一實驗</b>，不同報告口徑略有出入，看趨勢即可。</div></div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://www.stack-ai.com/blog/state-of-generative-ai-in-the-enterprise" target="_blank"><span class="ic">🏢</span><span class="txt"><span class="where">State of Generative AI in the Enterprise</span><span class="url">stack-ai.com/blog/state-of-generative-ai-in-the-enterprise</span></span></a>
+        <a class="srcbtn" href="https://medhacloud.com/blog/ai-adoption-statistics-2026" target="_blank"><span class="ic">📊</span><span class="txt"><span class="where">67 AI Adoption Statistics for 2026</span><span class="url">medhacloud.com/blog/ai-adoption-statistics-2026</span></span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tags"><span class="pill note">要小心</span></div>
+      <h3>AI 亂編，比你想的嚴重</h3>
+      <div class="eng">hallucination rates · 2026 benchmarks</div>
+      <div class="desc">2026 年一份橫跨 37 個模型的評測：<b>幻覺率介於 15%～52%</b>，最好的一批也還有 <b>約 17%</b>。更嚇人的一份 UC San Diego 研究：AI 生成的摘要在影響購買決策時，<b>有 60% 出現幻覺</b>。</div>
+      <div class="chart onwhite">
+        <div class="crow"><span class="clabel">最好的模型</span><span class="ctrack"><span class="cbar grn" style="width:17%"></span><span class="cval">~17%</span></span></div>
+        <div class="crow"><span class="clabel">最差的模型</span><span class="ctrack"><span class="cbar hi" style="width:52%"></span><span class="cval">52%</span></span></div>
+        <div class="crow"><span class="clabel">影響購買的摘要</span><span class="ctrack"><span class="cbar hi" style="width:60%"></span><span class="cval">60%</span></span></div>
+        <div class="ccap">幻覺率越低越好。<b>這就是為什麼客服一定要「開書考」（給它文件）</b>，不能讓它憑空講。</div>
+      </div>
+      <div class="check"><span class="taglbl">查證</span><div style="margin-top:6px;">Vectara Hallucination Leaderboard 是業界最常被引用的榜；HalluHard（2026/6/15 更新）用「抽取宣稱→網路找證據」的方式驗證。<b>各家口徑不同，別把單一數字當定論。</b></div></div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://halluhard.com/" target="_blank"><span class="ic">🔎</span><span class="txt"><span class="where">HalluHard 幻覺榜（每月更新）</span><span class="url">halluhard.com</span></span></a>
+        <a class="srcbtn" href="https://suprmind.ai/hub/ai-hallucination-rates-and-benchmarks/" target="_blank"><span class="ic">📉</span><span class="txt"><span class="where">AI Hallucination Rates · June 2026</span><span class="url">suprmind.ai/hub/ai-hallucination-rates-and-benchmarks</span></span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tags"><span class="pill now">趨勢</span><span class="pill soon">會踩坑</span></div>
+      <h3>大家從「純向量」轉向「混合檢索」</h3>
+      <div class="eng">hybrid retrieval · enterprise RAG</div>
+      <div class="desc">2026 Q1 一季內，企業想採用<b>混合檢索</b>的比例從 <b>10.3% 跳到 33.3%（三倍）</b>。原因：純文件檢索的架構<b>撐不到 agent 規模</b>就出問題。但同時仍有 <b>22% 受訪企業「連一個正式 RAG 都還沒上線」</b>——先做，就贏一半。</div>
+      <div class="check"><span class="taglbl">查證</span><div style="margin-top:6px;">來自 VentureBeat 引述的企業調查。<b>「意向」不等於「已上線」</b>——這是想做的比例，不是已完成的比例。</div></div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://venturebeat.com/data/the-retrieval-rebuild-why-hybrid-retrieval-intent-tripled-as-enterprise-rag-programs-hit-the-scale-wall" target="_blank"><span class="ic">📰</span><span class="txt"><span class="where">The Retrieval Rebuild（VentureBeat）</span><span class="url">venturebeat.com/data/the-retrieval-rebuild-…</span></span></a>
+        <a class="srcbtn" href="https://www.grandviewresearch.com/industry-analysis/retrieval-augmented-generation-rag-market-report" target="_blank"><span class="ic">💹</span><span class="txt"><span class="where">RAG Market Size Report（Grand View）</span><span class="url">grandviewresearch.com/…/rag-market-report</span></span></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Stage 0 -->
+  <div class="section-bar" id="stage0"><span class="tag">② 觀念地基 · 動手前先記一句話</span></div>
+  <div class="callout"><b>閉書考 vs 開書考。</b>AI 自己回答＝閉書考，會的就答、不會就硬掰；我們今天做的是<b>開書考</b>——先把你公司的文件塞給它，它照著翻、照著答，還會列出「出處」。這就是 RAG。</div>
+  <div class="cards">
+    <div class="card">
+      <h3>RAG＝開書考</h3>
+      <div class="eng">Retrieval-Augmented Generation</div>
+      <div class="analogy">🖐️ <b>回答前先去翻相關文件再作答。</b>問「退貨原則」，它先撈出你的退貨政策那幾段，再照著答。</div>
+      <div class="desc">對會計：像<b>沒憑證不能認列</b>；對法律：像<b>沒查到條文就不給意見</b>。Stage 1、2 都在做這件事。</div>
+      <div class="impact">今天你會親手做 → <b>Stage 2</b></div>
+    </div>
+    <div class="card">
+      <h3>工具 / Tool Calling</h3>
+      <div class="eng">tool calling · function calling</div>
+      <div class="analogy">🖐️ 讓 bot 除了「會講」，還能<b>去做事</b>——例如<b>查訂單、觸發轉真人</b>。</div>
+      <div class="desc">開書考只能答「文件裡寫的」；要查即時資料（訂單到哪了）就得給它「工具」。</div>
+      <div class="impact">示範段會看到 → <b>Stage 2 / 3</b></div>
+    </div>
+    <div class="card">
+      <h3>知識圖譜</h3>
+      <div class="eng">knowledge graph · GraphRAG</div>
+      <div class="analogy">👀 記住「誰跟誰有關係」。回答<b>「跟這個有關的還有哪些」</b>這種問題，一般作法會漏。</div>
+      <div class="desc">向量像 Google 找「相似句子」，圖譜像查「族譜 / 關係網」。多數公司用不到，看懂概念即可。</div>
+      <div class="impact">進階示範 → <b>Stage 3</b></div>
+    </div>
+  </div>
+
+  <!-- Stage 1 -->
+  <div class="section-bar" id="stage1"><span class="tag red">Stage 1 · No-Code：用 ChatGPT，親眼看它「亂編」</span></div>
+  <p class="lead"><span class="kicker">🖐️ 學員動手</span>　打開 ChatGPT，貼一段「你是一家餐廳客服」，然後問它「20 人包場多少錢、能不能幫我線上訂位付訂金」。</p>
+  <div class="callout red"><b>你會看到兩個問題：</b>① 它<b>很自信地編出一堆價格</b>（每人 500~800、包場 1.5~3 萬）——這些數字我們<b>從來沒給過</b>；② 它<b>根本不能真的幫你訂位、收訂金</b>。這就是天花板：<b>很會講，但不懂你公司、也不能做事。</b></div>
+  <div class="cards">
+    <div class="card">
+      <h3>Stage 1 的天花板</h3>
+      <div class="eng">where ChatGPT-only stops</div>
+      <div class="desc">
+        • 出不了 ChatGPT 視窗（<b>不能嵌到官網 / LINE</b>）<br>
+        • 不會查資料庫（<b>沒有工具呼叫</b>）<br>
+        • 大量文件會慢、會被截斷<br>
+        • 資料送到 OpenAI 伺服器</div>
+      <div class="impact">所以我們往下走 → <b>Dify</b></div>
+    </div>
+    <div class="card">
+      <div class="tags"><span class="pill now">好消息</span></div>
+      <h3>但「有放文件」就會準很多</h3>
+      <div class="eng">ChatGPT Project / Sources</div>
+      <div class="desc">實測：ChatGPT 專案<b>沒放檔</b>時把營業時間答錯、還自行加料；<b>把 FAQ 放進 Sources 後</b>，時間答對、寵物題老實說「資料沒有、請電洽」、還<b>附引用</b>。重點是<b>記得把文件放進去</b>，別靠它猜。</div>
+      <div class="impact">同場加映：NotebookLM、Gemini Gem 也能做開書考</div>
+    </div>
+  </div>
+
+  <!-- Stage 2 -->
+  <div class="section-bar" id="stage2"><span class="tag green">Stage 2 · Low-Code：用 Dify，給它公司文件就不亂編</span></div>
+  <p class="lead"><span class="kicker">🖐️ 學員動手 · 全場重點</span>　兩步：先做一個「<b>文件櫃</b>」（知識庫），再做一個「<b>照文件回答的機器人</b>」（Chatbot）。全程不用寫程式。</p>
+  <div class="cards">
+    <div class="card">
+      <h3>Part A · 文件櫃（知識庫）</h3>
+      <div class="eng">Knowledge Base</div>
+      <div class="desc">Knowledge → Create → 把兩份文件拖進去 → 下一頁<b>什麼都不用改、直接存</b> → 等它變 Available。那些設定是工程師在調的，今天用預設就好。</div>
+      <div class="impact"><b>Top K</b>＝白話「一次撈回幾段最相關的」給 AI 參考。今天不用動。</div>
+    </div>
+    <div class="card">
+      <h3>Part B · 機器人（Chatbot）</h3>
+      <div class="eng">Chatbot app</div>
+      <div class="desc">Studio → Create → 從空白 → 選 <b>Chatbot</b>（別選 Agent，那是進階）→ 貼一句指令、把文件櫃掛上去。問「退貨原則」→ 它<b>照文件回答、還列出出處</b>。</div>
+      <div class="impact">跟 Stage 1 亂編<b>完全不一樣</b>——差別就在有沒有給它文件</div>
+    </div>
+    <div class="card">
+      <div class="tags"><span class="pill soon">進階概念</span></div>
+      <h3>它怎麼「找到」對的那幾段？</h3>
+      <div class="eng">vector / embedding search</div>
+      <div class="analogy">不是比對<b>一模一樣的字</b>，是<b>比「意思像不像」</b>——問「退貨」，寫成「退款 / 退回商品」的段落它也找得到。</div>
+      <div class="desc">工程上叫「向量 / embedding」。你只要記：<b>比意思，不是比關鍵字。</b></div>
+      <div class="check"><span class="taglbl">新知 · 查證</span><div style="margin-top:6px;">2026 年多語系向量模型公開榜（MTEB）第一是 <b>Qwen3-Embedding-8B（70.58）</b>；<b>BGE-M3</b> 是production 最常見預設。經驗值：Recall@10 要 <b>&gt;0.80</b>，不然是在跟檢索器打架。<b>榜單常變、多為提交者自跑</b>，挑「有第三方複現」的用。</div></div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://awesomeagents.ai/leaderboards/embedding-model-leaderboard-mteb-march-2026/" target="_blank"><span class="ic">📐</span><span class="txt"><span class="where">MTEB Embedding Leaderboard 2026</span><span class="url">awesomeagents.ai/leaderboards/embedding-model-leaderboard-mteb-march-2026</span></span></a>
+      </div>
+    </div>
+  </div>
+  <div class="callout grn">🖐️ 👀 <b>還能更強（示範段，學員先不用做）：</b>① <b>會查訂單</b>（給它工具，會做事）；② <b>接到 LINE</b>（客人直接用 LINE 問）；③ <b>複雜關係</b>（下一段圖譜）。<b>多數公司停在 Stage 2 就非常夠用。</b></div>
+
+  <!-- Stage 3 -->
+  <div class="section-bar" id="stage3"><span class="tag">Stage 3 · Advanced：向量的盲區，用知識圖譜補</span></div>
+  <p class="lead"><span class="kicker">👀 看懂概念即可</span>　向量像「找相似句子」，遇到<b>「跟 X 有關係的還有哪些」</b>這種<b>多跳 / 關係</b>問題會漏；知識圖譜沿著「實體→關係」走，答得齊。</p>
+  <div class="tblwrap">
+  <table class="tbl">
+    <thead><tr><th>同一題</th><th>純向量 RAG</th><th>知識圖譜 / GraphRAG</th></tr></thead>
+    <tbody>
+      <tr><td>「耶加雪菲是什麼烘焙度？」（單點查詢）</td><td class="hit">✔ 答得出</td><td class="hit">✔ 答得出</td></tr>
+      <tr><td>「跟耶加雪菲<b>同一個供應商</b>的，還有哪些豆？」</td><td class="miss">✘ 常常漏</td><td class="hit">✔ 沿關係走、答得齊</td></tr>
+      <tr><td>需要跨 10 個以上實體、做彙總的查詢</td><td class="miss">✘ 準確度可能掉到 0</td><td class="hit">✔ 仍能維持 &gt;70%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="tags"><span class="pill soon">進階</span></div>
+      <h3>多跳題：圖譜大勝，但…</h3>
+      <div class="eng">multi-hop benchmark</div>
+      <div class="desc">企業評測：多跳題 <b>GraphRAG 86% vs 向量 32%</b>（差 54 個百分點）；需要複雜彙總時，向量可能<b>掉到 0%</b>、圖譜可到 90%。</div>
+      <div class="chart onwhite">
+        <div class="crow"><span class="clabel">GraphRAG（多跳）</span><span class="ctrack"><span class="cbar grn" style="width:86%"></span><span class="cval">86%</span></span></div>
+        <div class="crow"><span class="clabel">向量 RAG（多跳）</span><span class="ctrack"><span class="cbar lo" style="width:32%"></span><span class="cval">32%</span></span></div>
+        <div class="ccap">只在<b>「關係 / 多跳」這一類題</b>上差距這麼大。</div>
+      </div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://atlan.com/know/knowledge-graphs-vs-rag-for-ai/" target="_blank"><span class="ic">🕸️</span><span class="txt"><span class="where">Knowledge Graph vs RAG（2026）</span><span class="url">atlan.com/know/knowledge-graphs-vs-rag-for-ai</span></span></a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tags"><span class="pill note">別過度工程</span></div>
+      <h3>圖譜不是萬靈丹</h3>
+      <div class="eng">audit your query distribution first</div>
+      <div class="desc">研究也指出：<b>約 80% 企業查詢是簡單語意查詢</b>，用快速向量搜尋最划算。圖譜有<b>建置成本＋維護負擔</b>，只有當「問關係」的題佔可觀比例才值得。甚至有論文發現：<b>簡單接鄰居 &gt; 完整 GraphRAG</b>（單一資料集）。</div>
+      <div class="check"><span class="taglbl">查證</span><div style="margin-top:6px;">「先量你真實的問題分布，再決定要不要建圖」——<b>圖譜不是炫技，是補向量的盲區</b>；沒有那類問題就別上。</div></div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://tianpan.co/blog/2026-04-19-graphrag-vs-vector-rag-architecture-decision" target="_blank"><span class="ic">⚖️</span><span class="txt"><span class="where">GraphRAG vs Vector RAG: The Decision</span><span class="url">tianpan.co/blog/2026-04-19-graphrag-vs-vector-rag-architecture-decision</span></span></a>
+      </div>
+    </div>
+  </div>
+  <div class="callout"><b>架構白話：</b>同一個機器人，問<b>兩個資料來源</b>——① 向量（找相似）② 圖譜（走關係）。Dify 提供一個「標準插座」（外部知識 API），可以接任何圖譜服務。<b>工程細節，看懂概念即可。</b>自架者的實作在 <span class="mono">lab-assets/graphrag/</span>。</div>
+
+  <!-- 工具選型 -->
+  <div class="section-bar" id="tools"><span class="tag red">③ 工具選型 · Dify vs n8n vs Coze vs Flowise</span></div>
+  <p class="week-note">常有人問「Dify 和 n8n 有什麼不同」。一句話：<b>Dify 是做「會答的 AI 助理」的專門店；n8n 是把各種軟體串起來自動跑的萬用水電工。</b></p>
+  <div class="tblwrap">
+  <table class="tbl">
+    <thead><tr><th>工具</th><th>主角是</th><th>最擅長</th><th>什麼時候選它</th></tr></thead>
+    <tbody>
+      <tr><td><b>Dify</b></td><td>AI（大語言模型）</td><td>對話式 RAG、知識庫、附出處、開箱即用</td><td class="hit">要「一個會講話、會查文件的客服」← 本課主線</td></tr>
+      <tr><td><b>n8n</b></td><td>流程 / 資料搬運</td><td>串 500+ 軟體、自動化，AI 只是其中一步</td><td>要「這件事發生→自動做下一件事」的產線</td></tr>
+      <tr><td><b>Coze</b></td><td>Bot（ByteDance）</td><td>大量外掛、非工程師組 bot、多通路發佈</td><td>想快速拼一個多通路 bot</td></tr>
+      <tr><td><b>Flowise</b></td><td>LangChain 視覺畫布</td><td>LangChain 風格的視覺原型</td><td>工程團隊想在畫布上快速試 LangChain</td></tr>
+      <tr><td><b>LangGraph / CrewAI</b></td><td>程式碼</td><td>長時多代理、毫秒級延遲、CI 級測試</td><td>前面幾個撐不住規模時，才交給工程師寫</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout grn"><b>常常是兩個一起用：</b>Dify 當「腦」（理解＋查文件＋生成），n8n 當「手腳」（把 Dify 接到 LINE / CRM / 資料庫）。實務常見：<b>n8n 收到 LINE 訊息 → 呼叫 Dify API 拿答案 → n8n 回傳 LINE。</b></div>
+  <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+    <a class="srcbtn" href="https://jimmysong.io/blog/open-source-ai-agent-workflow-comparison/" target="_blank"><span class="ic">🧩</span><span class="txt"><span class="where">Open Source AI Agent Platform Comparison 2026</span><span class="url">jimmysong.io/blog/open-source-ai-agent-workflow-comparison</span></span></a>
+    <a class="srcbtn" href="https://rapidclaw.dev/blog/low-code-ai-agent-platforms-compared-2026" target="_blank"><span class="ic">🔧</span><span class="txt"><span class="where">n8n vs Dify vs Flowise（2026 UX Review）</span><span class="url">rapidclaw.dev/blog/low-code-ai-agent-platforms-compared-2026</span></span></a>
+  </div>
+
+  <!-- 預算 -->
+  <div class="section-bar" id="budget"><span class="tag">④ 要花多少 · 預算與回本</span></div>
+  <div class="tblwrap">
+  <table class="tbl">
+    <thead><tr><th>方案</th><th>做法</th><th>大致費用</th><th>適合</th></tr></thead>
+    <tbody>
+      <tr><td>A · MVP</td><td>ChatGPT 上傳文件</td><td>≈ 月費 $20 級距</td><td>試水溫、資料少</td></tr>
+      <tr><td class="hit">B · 正式（甜蜜點）</td><td>Dify（雲端或自架）＋向量 RAG</td><td>Dify Cloud <b>Pro $59/月</b>、Team $159/月；自架 Community <b>免費</b>（另計主機＋模型用量）</td><td class="hit">多數公司</td></tr>
+      <tr><td>C · 規模化</td><td>自架 Dify ＋自有向量庫</td><td>主機＋維運人力</td><td>量大、要資料落地</td></tr>
+      <tr><td>D · 企業級</td><td>完全自建 / 圖譜 / 合規</td><td>工程團隊</td><td>高量、法遵嚴、關係型問題多</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout"><b>回本感：</b>方案 B 第一年 ≈ 21.2 萬（示意），只要<b>省下 1 個客服人力，約 4 個月回本</b>。<b>平台免費 ≠ 全部免費</b>——背後的 AI 仍按用量計費。</div>
+  <div class="check"><span class="taglbl">查證</span><div style="margin-top:6px;">Dify Cloud 定價：免費 Sandbox、Pro $59/月、Team $159/月，年繳約省 17%，<b>對學生 / 教育者免費</b>；自架分 Community（免費開源）與 Enterprise（授權）。授權為<b>改良版 Apache</b>：不可拿去做多租戶 SaaS、不可移除 logo。<b>Pro 價自 2023/12 起未變。</b></div></div>
+  <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+    <a class="srcbtn" href="https://dify.ai/pricing" target="_blank"><span class="ic">💰</span><span class="txt"><span class="where">Dify 官方定價頁</span><span class="url">dify.ai/pricing</span></span></a>
+    <a class="srcbtn" href="https://dev.to/beton/dify-pricing-teardown-2026-42g5" target="_blank"><span class="ic">🧾</span><span class="txt"><span class="where">Dify Pricing Teardown 2026（DEV）</span><span class="url">dev.to/beton/dify-pricing-teardown-2026-42g5</span></span></a>
+  </div>
+
+  <!-- 決策 -->
+  <div class="section-bar" id="decide"><span class="tag red">⑤ 你該停在哪 · 像找地方住，先租別急著蓋</span></div>
+  <div class="cards">
+    <div class="card"><div class="tags"><span class="pill soon">最省事</span></div><h3>ChatGPT＝住飯店</h3><div class="desc">拎包入住、不能改。<b>試水溫用。</b></div></div>
+    <div class="card"><div class="tags"><span class="pill now">最划算</span></div><h3>Dify＝租屋自己佈置</h3><div class="desc">彈性大、CP 值最高。<b>多數公司的甜蜜點。</b></div></div>
+    <div class="card"><div class="tags"><span class="pill note">最自由</span></div><h3>全自建＝自己蓋房</h3><div class="desc">最貴最自由，<b>量大 / 法遵嚴</b>才需要。</div></div>
+  </div>
+  <div class="callout grn"><b>行動：</b>這週整理公司 FAQ/SOP → 一個月內用 Dify 做內部試用 → 三個月再決定要不要接通路、上進階。</div>
+
+  <!-- FAQ -->
+  <div class="section-bar" id="faq"><span class="tag">問與答 · FAQ（也是課後複習題）</span></div>
+  <div class="faq">
+    <details open><summary>RAG 到底是什麼？</summary><div class="a">白話就是「<b>AI 回答前，先去翻相關文件再作答</b>」——開書考。不是更大的模型、也不是接 LINE 的方法。</div></details>
+    <details><summary>「向量 / Embedding」檢索靠什麼找資料？</summary><div class="a">靠<b>「意思像不像」（語意相近）</b>，不是完全比對關鍵字一模一樣。問「退貨」，寫「退款」的段落也找得到。</div></details>
+    <details><summary>設定裡的「Top K」是什麼？</summary><div class="a"><b>一次撈回幾段最相關的內容</b>給 AI 參考。不是模型多大、也不是字數或費用上限。</div></details>
+    <details><summary>「工具呼叫 / Tool Calling」讓 bot 多了什麼？</summary><div class="a">能去<b>「做事」</b>，例如查訂單、觸發轉真人——補的是「不會查即時資料 / 不會動作」。</div></details>
+    <details><summary>課堂自架的 Dify 和官方雲端 cloud.dify.ai 一樣嗎？</summary><div class="a"><b>是同一套原始碼</b>，建 App 的操作幾乎一樣。差別在免費額度、資料落地，不在操作介面。所以回家可以直接用 Cloud 免費版繼續練。</div></details>
+    <details><summary>哪種問題純向量常答不齊、要靠知識圖譜？</summary><div class="a"><b>「關係 / 多跳」</b>問題，例如「跟耶加雪菲<b>同一個供應商</b>的還有哪些豆？」。單點題（是什麼烘焙度、運費怎麼算）純向量就夠。</div></details>
+    <details><summary>一家小店、資料很少，最快最省錢怎麼做？</summary><div class="a">直接用現成 AI 工具（如 ChatGPT）<b>上傳文件就開始問</b>。不必先請工程師寫整套、也不必先建很大的資料庫。<b>適合就好，別過度工程。</b></div></details>
+  </div>
+
+  <!-- 名詞速查 -->
+  <div class="section-bar" id="terms"><span class="tag">名詞速查 · 下次看到不陌生</span></div>
+  <div class="terms">
+    <div class="term"><span class="t">幻覺</span> <span class="e">hallucination</span><div class="d">AI 不確定時很有自信地「硬掰」。客服最怕這個。</div></div>
+    <div class="term"><span class="t">RAG / 開書考</span> <span class="e">retrieval-augmented</span><div class="d">回答前先檢索你的文件再作答，還能附出處。</div></div>
+    <div class="term"><span class="t">向量 / Embedding</span> <span class="e">vector search</span><div class="d">把文字變成「語意座標」，比意思像不像來找段落。</div></div>
+    <div class="term"><span class="t">Top K</span> <span class="e">top-k retrieval</span><div class="d">一次撈回最相關的前幾段。</div></div>
+    <div class="term"><span class="t">工具呼叫</span> <span class="e">tool / function calling</span><div class="d">讓 bot 會做事：查訂單、轉真人、觸發流程。</div></div>
+    <div class="term"><span class="t">知識圖譜</span> <span class="e">knowledge graph / GraphRAG</span><div class="d">記住實體與關係，答「跟 X 有關的還有哪些」。</div></div>
+    <div class="term"><span class="t">Chatbot vs Agent</span> <span class="e">Dify app types</span><div class="d">Chatbot 最單純（今天用）；Agent 是會用工具的進階版。</div></div>
+    <div class="term"><span class="t">混合檢索</span> <span class="e">hybrid retrieval</span><div class="d">向量＋關鍵字（＋圖譜）一起用，2026 企業主流方向。</div></div>
+  </div>
+
+  <!-- 課後 -->
+  <div class="section-bar" id="takehome"><span class="tag green">課後 · 回家繼續玩（都免費）</span></div>
+  <div class="cards">
+    <div class="card"><h3>Dify Cloud 免費版</h3><div class="eng">cloud.dify.ai</div><div class="desc">跟課堂自架<b>同一套</b>，Sandbox 免費、學生教育者免費。回家直接練。</div><div class="srcbox"><a class="srcbtn" href="https://dify.ai/pricing" target="_blank"><span class="ic">☁️</span><span class="txt"><span class="where">Dify Cloud</span><span class="url">dify.ai/pricing</span></span></a></div></div>
+    <div class="card"><h3>NotebookLM / Gemini Gem</h3><div class="eng">Google</div><div class="desc">最好上手的「開書考」示範，grounding 強、會附出處，適合文件問答。</div></div>
+    <div class="card"><h3>Coze / Botpress / Flowise</h3><div class="eng">其他免費 / 開源</div><div class="desc">想比較不同工具的手感，可以各建一個試試。完整清單見 <span class="mono">student-free-tools-menu.md</span>。</div></div>
+  </div>
+
+  <!-- 方法/查證 -->
+  <div class="section-bar" id="method"><span class="tag">這份手冊怎麼查證的</span></div>
+  <div class="callout"><b>原則：</b>①每個外部數字都附<b>可點的原始出處</b>；②老實標註哪些是廠商<b>自評 / 待第三方驗證</b>、哪些是<b>獨立來源</b>；③產業調查看<b>趨勢</b>不看單一小數點；④課程內的操作步驟與案例（綠野鮮蔬餐廳）以本 repo 教材為準。<b>看不懂的進階段落，滑過去就好——你已經拿到整張地圖。</b></div>
+  <p class="week-note">課程教材：<span class="mono">docs/student/</span>（學員）、<span class="mono">docs/instructor/</span>（講師）、<span class="mono">slides/easy.html</span>（超白話投影片）、<span class="mono">slides/index.html</span>（完整投影片）。</p>
+
+  <div class="footer">
+    <div class="mono">AI 客服工作坊 · 完整手冊（報紙版） · 2026</div>
+    <div>No-Code（ChatGPT） → Low-Code（Dify / 向量 RAG） → Advanced（知識圖譜）</div>
+    <div>你帶走的不是一隻 bot，是一張地圖。</div>
+  </div>
+
+</div>
+</body>
+</html>
