@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dify 特別報導・這個工具在社群裡是什麼角色</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf7f0; --card:#fff; --ink:#20211c; --ink-soft:#5c5a50; --rule:#20211c;
+    --vermillion:#c8341e; --green:#2c7a4b; --amber:#b9760c; --sky:#eaf3fb; --sky-line:#bcd9f2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.85;font-size:17px;}
+  .sheet{max-width:1240px;margin:0 auto;padding:24px 30px 90px;}
+  a{color:var(--vermillion);}
+
+  .topline{display:flex;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--rule);padding-bottom:6px;color:var(--ink-soft);}
+  .backlink{text-decoration:none;font-weight:700;}
+  .masthead{text-align:center;padding:18px 0 6px;border-bottom:3px double var(--rule);}
+  .masthead .brand{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.24em;color:var(--vermillion);text-transform:uppercase;}
+  .masthead h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:44px;letter-spacing:.02em;line-height:1.15;margin-top:6px;}
+  .masthead .sub{font-size:15px;color:var(--ink-soft);margin-top:8px;}
+
+  .ribbon{background:var(--vermillion);color:#fff;text-align:center;padding:10px 16px;margin:18px 0 0;border-radius:6px 6px 0 0;font-size:14.5px;font-weight:700;letter-spacing:.04em;}
+  .stance{background:#fff5ea;border:1px solid #f0c2b8;border-top:none;border-radius:0 0 6px 6px;padding:12px 18px;font-size:13.5px;color:#5a3b32;display:flex;gap:10px;align-items:flex-start;}
+  .stance b{color:var(--vermillion);} .stance .mark{font-size:18px;line-height:1.4;flex:none;}
+
+  .dateline{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding:8px 4px;margin:16px 0 8px;font-size:13px;letter-spacing:.05em;}
+  .dateline .mono{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);}
+
+  .hero{background:var(--sky);border:1px solid var(--sky-line);border-left:6px solid var(--vermillion);border-radius:8px;padding:22px 26px;margin:22px 0 8px;}
+  .hero h2{font-family:'Noto Serif TC',serif;font-size:24px;font-weight:900;margin-bottom:10px;line-height:1.3;}
+  .hero p{font-size:16.5px;} .hero b{color:var(--vermillion);}
+
+  .section-bar{display:flex;align-items:center;gap:14px;margin:52px 0 8px;}
+  .section-bar::after{content:'';flex:1;border-top:2px solid var(--rule);}
+  .section-bar .tag{background:var(--ink);color:var(--paper);font-family:'Noto Serif TC',serif;font-size:16px;font-weight:900;letter-spacing:.14em;text-indent:.14em;padding:5px 16px;border-radius:3px;}
+  .section-bar .tag.red{background:var(--vermillion);} .section-bar .tag.green{background:var(--green);}
+  .week-note{font-size:14px;color:var(--ink-soft);margin:2px 0 18px;}
+  .lead{font-size:16px;margin:10px 0 6px;}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;align-items:start;}
+  .card{background:var(--card);border:1px solid #e4dfd2;border-radius:12px;padding:20px 22px;box-shadow:0 1px 0 #e4dfd2,0 6px 18px -14px rgba(0,0,0,.4);display:flex;flex-direction:column;}
+  .card h3{font-size:19px;font-weight:900;margin:0 0 2px;line-height:1.3;}
+  .card .eng{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);margin-bottom:12px;}
+  .card .analogy{background:#fbf3e8;border-radius:8px;padding:10px 14px;font-size:15px;margin-bottom:12px;}
+  .card .analogy b{color:var(--vermillion);}
+  .card .desc{font-size:14.5px;color:#36352e;margin-bottom:14px;} .card .desc b{color:var(--ink);}
+  .card .impact{font-size:14px;color:var(--ink-soft);border-top:1px dashed #d8d2c2;padding-top:10px;margin-top:auto;} .card .impact b{color:var(--ink);}
+
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+  .pill{font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 11px;letter-spacing:.02em;}
+  .pill.now{background:#e3f3ea;color:var(--green);border:1px solid #b6ddc6;}
+  .pill.soon{background:#fbf0db;color:var(--amber);border:1px solid #ecd5a6;}
+  .pill.note{background:#fbe6e2;color:var(--vermillion);border:1px solid #f0c2b8;}
+
+  .chart{margin:6px 0 14px;padding:13px 15px;background:#faf7f0;border:1px solid #ece5d3;border-radius:10px;}
+  .chart.onwhite{background:#fff;border-color:#cfe0d4;}
+  .crow{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:9px;margin-bottom:8px;}
+  .crow:last-of-type{margin-bottom:0;}
+  .clabel{font-size:12px;color:var(--ink-soft);text-align:right;line-height:1.22;}
+  .ctrack{position:relative;background:#ece5d3;border-radius:5px;height:20px;overflow:hidden;}
+  .cbar{height:100%;border-radius:5px;min-width:2px;}
+  .cbar.hi{background:var(--vermillion);} .cbar.mid{background:#8a8474;} .cbar.lo{background:#cdbf9f;} .cbar.grn{background:var(--green);}
+  .cval{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.35);}
+  .ccap{font-size:11.5px;color:var(--ink-soft);margin-top:10px;line-height:1.5;} .ccap b{color:var(--vermillion);}
+
+  .check{background:#f2f7f3;border:1px solid #cfe0d4;border-radius:9px;padding:11px 14px;margin:12px 0 4px;font-size:13.5px;color:#2f3a32;}
+  .check .taglbl{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--green);font-weight:700;}
+  .check b{color:var(--ink);}
+
+  .srcbox{margin-top:12px;} .srcbox .srclabel{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:6px;}
+  .srcbtn+.srcbtn{margin-top:8px;}
+  .srcbtn{display:flex;align-items:center;gap:9px;text-decoration:none;background:#fff8f6;border:1.5px solid var(--vermillion);border-radius:8px;padding:9px 13px;transition:background .15s;}
+  .srcbtn:hover{background:var(--vermillion);} .srcbtn:hover *{color:#fff !important;}
+  .srcbtn .ic{font-size:16px;flex:none;}
+  .srcbtn .txt{display:flex;flex-direction:column;line-height:1.35;min-width:0;}
+  .srcbtn .where{font-size:13.5px;font-weight:700;color:var(--ink);}
+  .srcbtn .url{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--vermillion);word-break:break-all;}
+
+  .tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;background:#fff;border:1px solid #e4dfd2;border-radius:10px;overflow:hidden;}
+  .tbl th,.tbl td{border:1px solid #e8e2d4;padding:10px 12px;text-align:left;vertical-align:top;}
+  .tbl th{background:var(--ink);color:var(--paper);font-weight:700;font-size:13px;letter-spacing:.04em;}
+  .tbl tr:nth-child(even) td{background:#faf7f0;}
+  .tblwrap{overflow-x:auto;}
+
+  .callout{border-left:5px solid var(--amber);background:#fdf7ea;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:15px;}
+  .callout.red{border-color:var(--vermillion);background:#fdf1ef;} .callout.grn{border-color:var(--green);background:#f1f8f3;}
+  .callout b{color:var(--ink);}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--vermillion);font-weight:700;}
+
+  .logos{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 4px;}
+  .logo{background:#fff;border:1px solid #e4dfd2;border-radius:8px;padding:8px 14px;font-weight:700;font-size:15px;letter-spacing:.02em;}
+  .logo .k{display:block;font-size:11px;color:var(--ink-soft);font-weight:400;font-family:'IBM Plex Mono',monospace;}
+
+  .bignum{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:6px 0;}
+  .bignum .n{background:#fff;border:1px solid #e4dfd2;border-radius:12px;padding:16px 18px;text-align:center;}
+  .bignum .n .v{font-family:'Noto Serif TC',serif;font-size:30px;font-weight:900;color:var(--vermillion);line-height:1.1;}
+  .bignum .n .l{font-size:12.5px;color:var(--ink-soft);margin-top:4px;}
+
+  .footer{margin-top:60px;border-top:3px double var(--rule);padding-top:16px;font-size:12.5px;color:var(--ink-soft);text-align:center;line-height:1.9;}
+  .footer .mono{font-family:'IBM Plex Mono',monospace;}
+
+  @media print{ body{font-size:13px;} .sheet{max-width:none;padding:0;} .section-bar{margin-top:26px;} .card,.chart,.tbl{page-break-inside:avoid;} }
+  @media (max-width:560px){ .masthead h1{font-size:30px;} .crow{grid-template-columns:110px 1fr;} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="topline">
+    <span>AI 客服工作坊 · 特別報導</span>
+    <span>延伸閱讀 · 不上課也看得懂</span>
+    <a class="backlink" href="handbook.html">← 回主手冊</a>
+  </div>
+
+  <header class="masthead">
+    <div class="brand">SPECIAL REPORT · DIFY</div>
+    <h1>Dify 是什麼？在社群裡是什麼角色？</h1>
+    <div class="sub">為何被創建 · 誰在用 · 用在哪 · 為什麼這堂課選它 —— 一頁看懂這個「開源 LLM 應用平台」<br><span style="font-size:13px">（附 <b>n8n 伴讀</b>：另一個常被拿來比的名字，何時用誰、社群誰更活躍）</span></div>
+  </header>
+
+  <div class="ribbon">這是給所有人的延伸閱讀，不用寫程式、不用懂 AI，也看得懂。</div>
+  <div class="stance">
+    <span class="mark">🧭</span>
+    <div><b>怎麼讀：</b>這頁是「背景故事」，不是操作步驟。想快速上課的話，看完 <b>hero</b> 和第 ① 段就夠；想跟老闆/客戶說明「這工具靠不靠譜、誰在用」，往下滑到第 ③、④ 段。所有數字都附<b>原始出處</b>，也標了哪些是官方自報、哪些是第三方。</div>
+  </div>
+
+  <div class="dateline">
+    <span>langgenius / dify · 開源</span>
+    <span class="mono">SPECIAL REPORT · 2026</span>
+    <span>對象：老闆 / 主管 / 顧問</span>
+  </div>
+
+  <div class="hero">
+    <h2>一句話：Dify＝讓「不會寫程式的人」也能把 AI 做成正式產品的開源平台</h2>
+    <p>它把 <b>model 管理、向量資料庫、RAG、prompt 版本、觀測、上線部署</b> 這些「工程苦工」包起來，你用<b>拖拉點選</b>就能把一個想法變成能上線的 AI 應用。<br>
+    在整個社群裡，它是<b>最多星星的開源 LLM 應用開發平台</b>之一——也就是「這個領域最多人用來動手做東西的那個工具」。</p>
+  </div>
+
+  <!-- ① 為何被創建 -->
+  <div class="section-bar" id="why"><span class="tag red">① 它是什麼 · 為何被創建</span></div>
+  <div class="cards">
+    <div class="card">
+      <h3>2023 年 3 月，由 LangGenius 開始</h3>
+      <div class="eng">founded · Mar 2023 · LangGenius</div>
+      <div class="desc">創辦團隊來自<b>前騰訊雲 DevOps</b>（做大規模上線維運出身）。名字常被解讀為 <b>Define + Modify</b>——先定義、再修改，正好對應它「拖拉出一個 AI 應用、再慢慢調」的做法。</div>
+      <div class="impact">出身工程維運 → 難怪它強在「<b>從原型到上線</b>」</div>
+    </div>
+    <div class="card">
+      <h3>一個信念：這技術應該人人都能用</h3>
+      <div class="eng">why · accessibility</div>
+      <div class="analogy">「LLM 這麼強的技術，<b>不該只有工程師會用</b>。」</div>
+      <div class="desc">所以它把最難的那幾塊（接模型、建向量庫、管 prompt、評估、部署）都做成預設好的模組，讓非工程背景的人也能<b>幾小時</b>做出能用的東西。</div>
+      <div class="impact">這就是本課選它的理由 → 見第 ⑤ 段</div>
+    </div>
+    <div class="card">
+      <div class="tags"><span class="pill now">開源</span></div>
+      <h3>四種積木：Chatbot / Agent / 工作流 / 文字生成</h3>
+      <div class="eng">app types</div>
+      <div class="desc">同一個平台，可以做：<b>Chatbot</b>（今天做的）、<b>Agent</b>（會用工具）、<b>Workflow</b>（多步驟流程）、<b>Text Generator</b>。內建 <b>50+ 工具</b>（Google 搜尋、DALL·E、WolframAlpha…）。</div>
+      <div class="impact">2026 新增：MCP 雙向、Human Input、Supervisor 多代理</div>
+    </div>
+  </div>
+  <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+    <a class="srcbtn" href="https://github.com/langgenius/dify" target="_blank"><span class="ic">💻</span><span class="txt"><span class="where">langgenius/dify（官方 GitHub）</span><span class="url">github.com/langgenius/dify</span></span></a>
+    <a class="srcbtn" href="https://dify.ai/" target="_blank"><span class="ic">🌐</span><span class="txt"><span class="where">Dify 官網</span><span class="url">dify.ai</span></span></a>
+  </div>
+
+  <!-- ② 社群角色 -->
+  <div class="section-bar" id="community"><span class="tag">② 在社群裡的角色 · 有多大</span></div>
+  <p class="week-note">「開源專案的江湖地位」通常看：星星數、貢獻者、被多少機器裝、有沒有拿投資。Dify 四項都很前段。</p>
+  <div class="bignum">
+    <div class="n"><div class="v">~131K+</div><div class="l">GitHub 星數（全站約第 51 名）</div></div>
+    <div class="n"><div class="v">1,175+</div><div class="l">開源貢獻者</div></div>
+    <div class="n"><div class="v">140 萬</div><div class="l">部署裝置 · 橫跨 175 國</div></div>
+    <div class="n"><div class="v">$30M</div><div class="l">Series Pre-A（2026/3）</div></div>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h3>它在「開源 LLM 應用平台」這一格是龍頭</h3>
+      <div class="eng">category leader</div>
+      <div class="desc">同類工具（做「LLM 應用/agent 視覺化開發」）裡，Dify 是<b>星星最多、社群最大</b>的那個。這代表：出問題時<b>網路上找得到答案、外掛與教學多、不容易人去樓空</b>。</div>
+      <div class="chart onwhite">
+        <div class="crow"><span class="clabel">Dify 星數</span><span class="ctrack"><span class="cbar hi" style="width:100%"></span><span class="cval">~131K</span></span></div>
+        <div class="crow"><span class="clabel">貢獻者</span><span class="ctrack"><span class="cbar mid" style="width:60%"></span><span class="cval">1,175+</span></span></div>
+        <div class="ccap">星數是「有多少人收藏/看好」的粗略指標；<b>越多代表社群越活躍</b>。</div>
+      </div>
+      <div class="check"><span class="taglbl">查證</span><div style="margin-top:6px;">星數 131K～132K（各來源時間點不同、會持續變動）；「全站第 51」與「140 萬裝置 / 175 國」出自 Dify 官方與彙整報導，<b>屬官方自報數據</b>，看量級即可。</div></div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://insights.linuxfoundation.org/project/langgenius-dify" target="_blank"><span class="ic">📈</span><span class="txt"><span class="where">Dify · LFX Insights（Linux 基金會）</span><span class="url">insights.linuxfoundation.org/project/langgenius-dify</span></span></a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tags"><span class="pill now">拿到投資</span></div>
+      <h3>2026 年 3 月募得 3,000 萬美元</h3>
+      <div class="eng">Series Pre-A · $30M</div>
+      <div class="desc">拿投資代表<b>有錢繼續開發、短期不會停擺</b>——對「要不要壓身家在這工具上」是個安心訊號。這輪定位是「支撐企業級的 agentic workflow」。</div>
+      <div class="impact">開源可自架 + 有商業公司在養 → 進可攻退可守</div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://www.businesswire.com/news/home/20260309511426/en/Dify-Raises-$30-million-Series-Pre-A-to-Power-Enterprise-Grade-Agentic-Workflows" target="_blank"><span class="ic">📰</span><span class="txt"><span class="where">Dify Raises $30M Series Pre-A（BusinessWire）</span><span class="url">businesswire.com/news/home/20260309511426</span></span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 誰在用 -->
+  <div class="section-bar" id="who"><span class="tag red">③ 誰在用 · 不是玩具，是企業在跑</span></div>
+  <p class="lead"><b>30+ 家財星 500 大、280+ 家企業、2,000+ 團隊</b>在用商業版。這些名字你多半聽過：</p>
+  <div class="logos">
+    <span class="logo">Maersk<span class="k">全球航運</span></span>
+    <span class="logo">Novartis<span class="k">製藥</span></span>
+    <span class="logo">Panasonic<span class="k">電子</span></span>
+    <span class="logo">RICOH<span class="k">辦公設備</span></span>
+    <span class="logo">Deloitte<span class="k">顧問</span></span>
+    <span class="logo">NTT<span class="k">電信</span></span>
+    <span class="logo">ETS<span class="k">測驗（TOEFL）</span></span>
+    <span class="logo">Anker<span class="k">消費電子</span></span>
+  </div>
+  <div class="cards" style="margin-top:16px;">
+    <div class="card">
+      <h3>案例：航運巨頭 Maersk</h3>
+      <div class="eng">case study</div>
+      <div class="analogy">「Dify 讓我們<b>真正把 AI 流程搬進正式營運</b>，而不是永遠停在原型；把真實業務流程變成<b>可維護的系統</b>，而且不用每次都重建基礎設施。」<br><span style="font-size:12px;color:var(--ink-soft)">— Mark Sear，Maersk AI 解決方案工程總監</span></div>
+      <div class="impact">關鍵詞：<b>從原型 → 可維護的正式系統</b></div>
+    </div>
+    <div class="card">
+      <h3>案例：省下的工時很有感</h3>
+      <div class="eng">productivity</div>
+      <div class="desc">日本 <b>Kakaku.com</b>：第一個應用 <b>3 小時</b>上線、一個月內做了 <b>70+ 個</b>應用。一家歐洲物流公司：部署週期從 <b>4 位工程師 × 4 個月 → 1 位工程師 × 2 週</b>。</div>
+      <div class="chart onwhite">
+        <div class="crow"><span class="clabel">原本（自建）</span><span class="ctrack"><span class="cbar lo" style="width:100%"></span><span class="cval">4人×4月</span></span></div>
+        <div class="crow"><span class="clabel">改用 Dify</span><span class="ctrack"><span class="cbar grn" style="width:12%"></span><span class="cval">1人×2週</span></span></div>
+        <div class="ccap">同一家歐洲物流公司的部署成本對比。<b>這就是「Low-Code」的價值。</b></div>
+      </div>
+      <div class="check"><span class="taglbl">查證</span><div style="margin-top:6px;">企業名單與案例出自 Dify 官方企業頁與 AWS/TiDB 案例研究。<b>案例數字多為客戶自述</b>，情境不同不保證複製；看「量級」與方向即可。</div></div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://dify.ai/enterprise" target="_blank"><span class="ic">🏢</span><span class="txt"><span class="where">Dify Enterprise（官方，含客戶名單）</span><span class="url">dify.ai/enterprise</span></span></a>
+        <a class="srcbtn" href="https://aws.amazon.com/solutions/case-studies/dify-lambda-case-study/" target="_blank"><span class="ic">☁️</span><span class="txt"><span class="where">AWS × Dify Case Study</span><span class="url">aws.amazon.com/solutions/case-studies/dify-lambda-case-study</span></span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 應用領域 -->
+  <div class="section-bar" id="domains"><span class="tag">④ 用在哪 · 應用領域</span></div>
+  <div class="tblwrap">
+  <table class="tbl">
+    <thead><tr><th>領域</th><th>典型應用</th><th>為什麼適合 Dify</th></tr></thead>
+    <tbody>
+      <tr><td><b>客服 / 支援</b></td><td>FAQ 客服、下單/退款處理、自動路由、轉真人</td><td>內建 RAG＋工具＋多通路，正是本課主線</td></tr>
+      <tr><td><b>內部知識助手</b></td><td>員工問公司規章/SOP 的 copilot、文件問答</td><td>知識庫 grounding、附出處、可控權限</td></tr>
+      <tr><td><b>文件處理</b></td><td>合約/文件審閱、發票稽核、資料抽取</td><td>工作流可串多步驟、批次處理</td></tr>
+      <tr><td><b>內容生成</b></td><td>行銷文案、社群貼文草稿、翻譯</td><td>Text Generator＋模型管理</td></tr>
+      <tr><td><b>醫療 / 專業</b></td><td>臨床指引、病歷、研究文獻查詢輔助</td><td>RAG 接內部/專業資料庫（需嚴格把關）</td></tr>
+      <tr><td><b>研究 / 自動化</b></td><td>研究助理、資料檢索、任務自動化</td><td>Agent＋50+ 工具、可接外部 API</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout grn"><b>共通點：</b>凡是「<b>要 AI 讀你自己的資料、答得準、還能做點事</b>」的場景，Dify 都在守備範圍。它最不適合的，反而是<b>不需要 AI、純資料搬運</b>的自動化——那是 n8n 的地盤（見主手冊「工具選型」）。</div>
+
+  <!-- ⑤ 為什麼這課選它 -->
+  <div class="section-bar" id="whyclass"><span class="tag green">⑤ 為什麼這堂課選 Dify</span></div>
+  <div class="cards">
+    <div class="card"><div class="tags"><span class="pill now">門檻低</span></div><h3>不用寫程式就能做出正式的東西</h3><div class="desc">拖拉點選就能建知識庫、掛文件、上線 Chatbot——正好給非技術學員「親手做成功」的體驗。</div></div>
+    <div class="card"><div class="tags"><span class="pill now">CP 值高</span></div><h3>自架免費、雲端也便宜</h3><div class="desc">開源 Community 版<b>免費自架</b>；雲端有免費 Sandbox。多數公司的「甜蜜點」。</div></div>
+    <div class="card"><div class="tags"><span class="pill note">同一套</span></div><h3>課堂自架＝官方雲端</h3><div class="desc">課堂自架的 Dify 和 <span style="font-family:monospace">cloud.dify.ai</span> 是<b>同一套原始碼</b>，回家用免費版繼續練，操作一模一樣。</div></div>
+  </div>
+  <div class="callout"><b>回到主線：</b>今天你在 Stage 2 做的，就是這些企業在做的事的<b>最小版本</b>——給 AI 公司文件、讓它答得準、附出處。差別只在規模，不在概念。<a href="handbook.html">← 回主手冊繼續</a></div>
+
+  <!-- ⑥ n8n 伴讀 -->
+  <div class="section-bar" id="n8n"><span class="tag red">⑥ 伴讀 · n8n：另一個你會聽到的名字</span></div>
+  <p class="week-note">很多人會把 Dify 和 n8n 放一起問。它們<b>其實不搶同一個位子</b>——一句話：<b>Dify 是「做會答的 AI 助理」的專門店；n8n 是「把各種軟體串起來自動跑」的萬用水電工。</b></p>
+  <div class="cards">
+    <div class="card">
+      <h3>n8n 是什麼</h3>
+      <div class="eng">n8n · since 2019 · Berlin</div>
+      <div class="desc">2019 年由 <b>Jan Oberhauser</b>（柏林；有趣的是他是<b>前好萊塢 VFX 特效師</b>，做過《黑魔女》）創立。採 <b>fair-code</b> 授權（可免費用/改，但不能拿去做託管轉售）。核心是 <b>400+ 現成軟體接頭</b>（Slack、HubSpot、PostgreSQL、Google Sheets、HTTP、甚至 JS/Python 節點）。</div>
+      <div class="impact">主角是<b>流程與事件</b>，AI 只是其中<b>一個節點</b></div>
+    </div>
+    <div class="card">
+      <div class="tags"><span class="pill now">兩邊都很活躍</span></div>
+      <h3>社群活躍度：Dify vs n8n</h3>
+      <div class="eng">community activity</div>
+      <div class="desc">兩個都是各自領域裡<b>社群最大、還在拿投資</b>的頭部專案，長期維護的風險都低。差別在「主場不同」。</div>
+      <div class="check"><span class="taglbl">查證</span><div style="margin-top:6px;">GitHub 星數各來源差很大（n8n 被引用到 90K～180K 都有、Dify ~131K），<b>會持續變動、口徑不一</b>，別拿單一數字比高低；看「同屬頭部、社群活躍」這個量級就好。</div></div>
+      <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+        <a class="srcbtn" href="https://github.com/n8n-io/n8n" target="_blank"><span class="ic">💻</span><span class="txt"><span class="where">n8n-io/n8n（官方 GitHub）</span><span class="url">github.com/n8n-io/n8n</span></span></a>
+      </div>
+    </div>
+  </div>
+  <div class="tblwrap">
+  <table class="tbl">
+    <thead><tr><th>比較</th><th>Dify</th><th>n8n</th></tr></thead>
+    <tbody>
+      <tr><td>主角是</td><td>AI（大語言模型）</td><td>流程 / 事件</td></tr>
+      <tr><td>最擅長</td><td>對話式 RAG、知識庫、附出處、AI 助理</td><td>串 400+ 軟體、自動化，AI 只是一步</td></tr>
+      <tr><td>成立</td><td>2023（LangGenius）</td><td>2019（Jan Oberhauser）</td></tr>
+      <tr><td>授權</td><td>改良版 Apache（不可多租戶 SaaS）</td><td>fair-code（不可託管轉售）</td></tr>
+      <tr><td>自架社群版</td><td>免費（只付模型用量）</td><td>免費、且無執行次數/流程數上限</td></tr>
+      <tr><td>社群規模</td><td>~131K★、280+ 企業</td><td>~100K★+（各源不一）、約 23 萬活躍用戶、3,000+ 企業</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout"><b>何時 Dify、何時 n8n？</b><br>
+    • 事情從「<b>使用者問問題</b>」開始、你要一個會講話會查文件的助理 → <b>Dify</b>（本課主線）。<br>
+    • 事情從「<b>某事件發生</b>」開始、要自動做下一件事，AI 只是流程中一步 → <b>n8n</b>。</div>
+  <div class="callout grn"><b>而且常常兩個一起用：</b>Dify 當「腦」（理解＋查文件＋生成），n8n 當「手腳」（接 LINE / CRM / 資料庫）。實務常見：<b>n8n 收到 LINE 訊息 → 呼叫 Dify API 拿答案 → n8n 回傳 LINE。</b></div>
+  <div class="srcbox"><div class="srclabel">原始出處 · 自己查</div>
+    <a class="srcbtn" href="https://jimmysong.io/blog/open-source-ai-agent-workflow-comparison/" target="_blank"><span class="ic">🧩</span><span class="txt"><span class="where">Open Source AI Agent Platform Comparison 2026</span><span class="url">jimmysong.io/blog/open-source-ai-agent-workflow-comparison</span></span></a>
+    <a class="srcbtn" href="https://dify-hosting.com/en/guides/dify-vs-n8n/" target="_blank"><span class="ic">⚖️</span><span class="txt"><span class="where">Dify vs n8n（2026 Guide）</span><span class="url">dify-hosting.com/en/guides/dify-vs-n8n</span></span></a>
+  </div>
+
+  <!-- 查證 -->
+  <div class="section-bar"><span class="tag">這頁怎麼查證的</span></div>
+  <div class="callout"><b>原則：</b>①每個數字都附<b>可點原始出處</b>；②老實標註哪些是<b>官方自報 / 客戶自述</b>（星數、裝置數、案例省時），哪些是<b>第三方</b>（BusinessWire 募資、AWS 案例、Linux 基金會 LFX）；③星數/排名會持續變動，看<b>量級</b>不看小數點。</div>
+
+  <div class="footer">
+    <div class="mono">AI 客服工作坊 · Dify 特別報導 · 2026</div>
+    <div><a href="handbook.html">← 回主手冊（完整工作坊手冊）</a></div>
+    <div>開源可自架 · 企業在跑 · 非技術也能上手 —— 這就是我們選它的原因。</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -53,7 +53,8 @@ low-code-rag-lab/
 │       ├── stage-3-lab-takehome.md
 │       └── student-free-tools-menu.md  ← 課後免費 no-code 工具清單（NotebookLM / Gemini Gem / Coze…）
 ├── slides/
-│   └── index.html                ← 上課用投影片（深色科技風，鍵盤翻頁）
+│   ├── handbook.html             ← 上課主檔：報紙格式滾動手冊（合併全三階段＋產業數據/評測，附出處連結）
+│   └── dify.html                 ← Dify 特別報導（社群角色/為何被創建/企業採用/應用領域）
 ├── lab-assets/
 │   ├── knowledge-base/           ← 範例知識庫（餐廳 FAQ / 電商 SOP / 關係資料）
 │   ├── prompts/                  ← system prompt 範本（哪支對應哪 Stage 見 prompts/README.md）
@@ -76,7 +77,7 @@ low-code-rag-lab/
 ### 給講師
 1. 講師教案（時間表、口白、demo 備援、備品 checklist）保留在本機 `docs/instructor/`，**未公開**。
 2. 課前依各 stage 教案準備帳號與素材。
-3. 投影片：用瀏覽器打開 `slides/index.html`，左右方向鍵翻頁。
+3. 上課主檔：用瀏覽器打開 `slides/handbook.html`（報紙格式，直接滾動帶過全場）；延伸閱讀見 `slides/dify.html`。
 
 ### 給學員
 - Stage 0 開場先看 `docs/student/student-stage-0-concepts.md`（RAG／專有名詞白話地圖，動手卡關時回來查）。
@@ -107,7 +108,7 @@ python ingest.py              # 把 knowledge-base 灌入圖譜
 
 ## 授權與用途
 
-**雙授權**（見 [`LICENSE`](LICENSE)）：程式碼（`lab-assets/graphrag/`、`slides/index.html`）採 **MIT**；
+**雙授權**（見 [`LICENSE`](LICENSE)）：程式碼（`lab-assets/graphrag/`、`slides/*.html`）採 **MIT**；
 課程內容（文件、知識庫、prompt）採 **CC BY 4.0**（可自由分享/改作，需署名）。
 
 範例公司（綠野鮮蔬餐廳、手沖咖啡電商等）皆為虛構。
