@@ -8,9 +8,10 @@
 或用 Docker（見 Dockerfile）。
 """
 import json
+import os
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException
 
 app = FastAPI(
     title="醇焙手沖咖啡 — Mock 訂單 API",
@@ -20,13 +21,24 @@ app = FastAPI(
 
 ORDERS = json.loads((Path(__file__).parent / "orders.json").read_text(encoding="utf-8"))
 
+# 選用式 Bearer 驗證：有設 API_TOKEN 環境變數才啟用（課堂自架不設＝無驗證；雲端設了＝要驗證）。
+API_TOKEN = os.environ.get("API_TOKEN")
+
+
+def require_token(authorization: str = Header(default=None)):
+    if not API_TOKEN:
+        return  # 未設 token → 不驗證（維持課堂/本機原行為）
+    if authorization != f"Bearer {API_TOKEN}":
+        raise HTTPException(status_code=401, detail="unauthorized: missing or invalid Bearer token")
+
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "orders_loaded": len(ORDERS)}
+    # 健康檢查不需 token，方便 Cloud Run/監控探測。
+    return {"status": "ok", "orders_loaded": len(ORDERS), "auth": bool(API_TOKEN)}
 
 
-@app.get("/order/{order_id}")
+@app.get("/order/{order_id}", operation_id="get_order_status", dependencies=[Depends(require_token)])
 def get_order_status(order_id: str):
     """查詢單一訂單狀態。order_id 例：A1001。"""
     order = ORDERS.get(order_id.upper().strip())
