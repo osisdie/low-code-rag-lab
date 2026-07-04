@@ -261,6 +261,23 @@
   </div>
   <div class="callout grn"><b>共通點：</b>凡是「<b>要 AI 讀你自己的資料、答得準、還能做點事</b>」的場景，Dify 都在守備範圍。它最不適合的，反而是<b>不需要 AI、純資料搬運</b>的自動化——那是 n8n 的地盤（見主手冊「工具選型」）。</div>
 
+  <!-- App 類型 -->
+  <div class="section-bar" id="apptypes"><span class="tag red">Dify 的 App 類型 · 本課用哪個</span></div>
+  <p class="week-note">建 App 要先選「類型」，選錯會卡關——最常見的是想裝工具卻選了沒有「工具」區的 Chatbot。</p>
+  <div class="tblwrap">
+  <table class="tbl">
+    <thead><tr><th>類型</th><th>是什麼</th><th>有工具區？</th><th>什麼時候用</th></tr></thead>
+    <tbody>
+      <tr><td><b>Chatbot</b><br>（聊天助手·基礎）</td><td>最單純的對話 App：掛知識庫做 RAG、貼 system prompt</td><td>❌ 無</td><td>只做「照文件回答」的客服；本課<b>超白話/非技術版</b>用這個</td></tr>
+      <tr><td><b>Agent</b></td><td>會自主決定要不要用「工具」的助手（function calling）</td><td>✅ 有</td><td class="hit"><b>本課完整動手版用這個</b>——因為要裝查訂單 <code>get_order_status</code></td></tr>
+      <tr><td><b>Chatflow</b></td><td>對話式工作流：用節點（知識檢索/工具/條件/LLM）自己拼</td><td>✅（節點）</td><td>要精細控制流程、多步驟分支（最彈性也最複雜）</td></tr>
+      <tr><td><b>Text Generator</b><br>（文本生成）</td><td>單次生成，不是對話</td><td>—</td><td>寫文案、翻譯、摘要這種一次性任務</td></tr>
+      <tr><td><b>Workflow</b></td><td>非對話的多步驟自動化編排</td><td>✅（節點）</td><td>批次處理、後台自動化流程</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout red"><b>本課結論：</b>Stage 2 完整動手版（要查訂單）→ <b>Agent</b>（Create from Blank → More basic app types → Agent）；只做知識庫客服的超白話版 → <b>Chatbot</b>。<br><b>選錯的症狀</b>：選了 Chatbot 卻找不到「工具」區、裝不了查訂單 → 改建 Agent 即可。（課堂自架與 Dify Cloud 一律用 Agent 以保持一致。）</div>
+
   <!-- ⑤ 為什麼這課選它 -->
   <div class="section-bar" id="whyclass"><span class="tag green">⑤ 為什麼這堂課選 Dify</span></div>
   <div class="cards">

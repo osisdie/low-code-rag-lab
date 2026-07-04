@@ -27,8 +27,9 @@
 
 ## B. 建客服 app
 
-1. 新增「聊天助手」或「Chatflow」。
-2. System Prompt：貼 `lab-assets/prompts/advanced-prompt.txt`，公司名改「醇焙手沖咖啡」。
+1. Studio → Create from Blank → More basic app types → 選 **Agent**。
+   > ⚠️ 這隻 bot 要裝「查訂單」工具，**必須選 Agent**（只有 Agent 有「工具」區；Chatbot 沒有）。只做知識庫客服、不查訂單的超白話版才用 Chatbot。
+2. System Prompt / Instructions：貼 `lab-assets/prompts/advanced-prompt.txt`，公司名改「醇焙手沖咖啡」。
 3. 加「知識檢索」節點 → 掛上剛才的知識庫。
 4. （進階）加工具：`get_order_status`、`escalate_to_human`。
 - ✅ **檢核點**：在預覽視窗問「你們運費怎麼算？」能引用知識庫回答。
@@ -82,7 +83,7 @@
 
 1. 到 `cloud.dify.ai` 註冊免費帳號。
 2. 「知識庫」→ 上傳今天同一份 `ecommerce-return-sop.md`，索引選高品質。
-3. 建聊天助手 → 貼今天同一套 `advanced-prompt.txt` → 掛知識庫。**你會發現畫面跟課堂幾乎一樣。**
+3. 建 **Agent** app（Create from Blank → More basic app types → Agent）→ 貼今天同一套 `advanced-prompt.txt` → 掛知識庫。**你會發現畫面跟課堂幾乎一樣。**
 
 - ✅ **檢核點**：在預覽視窗問「你們運費怎麼算？」能引用知識庫回答，就等於把課堂成果搬到雲端了。
 
