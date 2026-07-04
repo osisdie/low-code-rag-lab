@@ -15,6 +15,7 @@ LINE webhook 設成： https://<你的Dify網域>/line/webhook
 import base64
 import hashlib
 import hmac
+import json
 import os
 
 import httpx
@@ -40,21 +41,40 @@ def _verify_signature(body: bytes, signature: str | None) -> bool:
 
 
 async def _ask_dify(user_id: str, text: str) -> str:
+    # 用 streaming：Agent Chat App 不支援 blocking mode（一般 Chatbot 才支援）。
     payload = {
         "inputs": {},
         "query": text,
-        "response_mode": "blocking",
+        "response_mode": "streaming",
         "user": user_id,
         "conversation_id": _conversations.get(user_id, ""),
     }
     headers = {"Authorization": f"Bearer {DIFY_APP_KEY}"}
+    answer_parts: list[str] = []
+    conv_id = ""
     async with httpx.AsyncClient(timeout=60) as client:
-        r = await client.post(f"{DIFY_API_BASE}/chat-messages", json=payload, headers=headers)
-        r.raise_for_status()
-        data = r.json()
-    if data.get("conversation_id"):
-        _conversations[user_id] = data["conversation_id"]
-    return data.get("answer", "（目前無法回覆，請稍候）")
+        async with client.stream(
+            "POST", f"{DIFY_API_BASE}/chat-messages", json=payload, headers=headers
+        ) as r:
+            r.raise_for_status()
+            async for line in r.aiter_lines():
+                if not line.startswith("data:"):
+                    continue
+                chunk = line[5:].strip()
+                if not chunk or chunk == "[DONE]":
+                    continue
+                try:
+                    ev = json.loads(chunk)
+                except json.JSONDecodeError:
+                    continue
+                # message / agent_message 事件會帶 answer 片段
+                if ev.get("answer"):
+                    answer_parts.append(ev["answer"])
+                if ev.get("conversation_id"):
+                    conv_id = ev["conversation_id"]
+    if conv_id:
+        _conversations[user_id] = conv_id
+    return "".join(answer_parts) or "（目前無法回覆，請稍候）"
 
 
 async def _reply_line(reply_token: str, text: str):
