@@ -24,6 +24,7 @@ Dify app
 | `dify_retrieval_adapter.py` | FastAPI：實作 Dify `POST /retrieval` 契約 |
 | `docker-compose.yml` / `Dockerfile` | 一鍵起跑 |
 | `sample-queries.md` | 向量 vs 圖譜 對照題組（demo 用） |
+| `cypher-examples.cypher` | Neo4j Browser 用：(A) 檢視 LightRAG 建的圖、(B) 手工建模版＋Q2–Q5 多跳 Cypher（教學示範） |
 
 ---
 
