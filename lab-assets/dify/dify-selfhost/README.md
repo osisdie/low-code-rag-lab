@@ -29,7 +29,7 @@ Dify Console → 設定 → 模型供應商 → **OpenAI-API-compatible**：
   - Text Embedding：`bge-m3`（維度 1024）
 
 ## 3. 建知識庫（向量 RAG）
-上傳 `../../knowledge-base/restaurant-faq.md`、`ecommerce-return-sop.md`，索引選高品質，embedding 用 `bge-m3`。
+上傳 `../../knowledge-base/ecommerce-return-sop.md`（醇焙咖啡；Stage 3 才把 `coffee-catalog-relationships.md` 灌進圖譜庫），索引選高品質，embedding 用 `bge-m3`。
 
 ## 4. 建客服 app
 - 匯入 `../customer-bot.dify.yml`（範本骨架）或手動建，貼 `../../prompts/advanced-prompt.txt`。

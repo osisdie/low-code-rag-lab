@@ -78,7 +78,8 @@
 
 ### 步驟 2-1：上傳文件
 上方 **Knowledge（知識）→ Create（建立）→「Create a ready-to-use knowledge base」**。
-在上傳區把講師給的 2 份文件（`restaurant-faq.md`、`ecommerce-return-sop.md`）拖進去，或點 **Browse** 選檔，按 **Next**：
+在上傳區把講師給的 `ecommerce-return-sop.md`（醇焙手沖咖啡的退換貨/客服 SOP）拖進去，或點 **Browse** 選檔，按 **Next**：
+（截圖示意可能顯示多份；本課這隻咖啡 bot **只需這一份**——`restaurant-faq.md` 是 Stage 1 的餐廳、別放這裡。）
 
 ![上傳知識庫文件](img/onboarding/04-kb-upload.png)
 
@@ -90,7 +91,7 @@
 
 ![知識庫設定：High Quality + bge-m3](img/onboarding/05-kb-index-settings.png)
 
-### 步驟 2-3：等兩份文件都變 **Available（可用）**
+### 步驟 2-3：等文件變 **Available（可用）**
 出現綠色 / 「Available」就代表文件已經被機器人「讀懂存好」了：
 
 ![兩份文件都 Available](img/onboarding/06-kb-documents-available.png)

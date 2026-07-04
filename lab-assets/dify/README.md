@@ -7,7 +7,7 @@
 ## Stage 2 — 建一個向量 RAG 客服 app
 
 ### 1. 建知識庫（向量）
-1. Dify →「知識庫」→「建立知識庫」→ 上傳 `../knowledge-base/restaurant-faq.md` 與 `ecommerce-return-sop.md`。
+1. Dify →「知識庫」→「建立知識庫」→ 上傳 `../knowledge-base/ecommerce-return-sop.md`（醇焙咖啡；Stage 3 才把 `coffee-catalog-relationships.md` 灌進圖譜庫）。
 2. 索引方式：**高品質（High Quality）**（用 embedding 向量檢索）。
 3. 檢索設定（這就是 Stage 2 要現場對比的旋鈕）：
    - **分段長度 chunk size**：500 vs 1000 字

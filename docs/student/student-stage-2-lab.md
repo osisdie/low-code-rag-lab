@@ -8,7 +8,8 @@
 ## A. 建知識庫（向量 RAG）
 
 1. Dify →「知識庫」→「建立知識庫」。
-2. 上傳 `restaurant-faq.md` 與 `ecommerce-return-sop.md`。
+2. 上傳 `ecommerce-return-sop.md`（＝本 bot 的公司「醇焙手沖咖啡」的退換貨/客服 SOP）。
+   > 這隻 bot 人設是醇焙咖啡，所以只餵它自家文件。`restaurant-faq.md` 是 Stage 1 的另一家公司（綠野鮮蔬餐廳），不放這裡。Stage 3 才會再加咖啡的關係表 `coffee-catalog-relationships.md`（灌進圖譜庫）。
 3. 索引方式選 **高品質（High Quality）**。
 4. **Embedding 模型選 `bge-m3`**（老師已設定好，維度 **1024**）——課堂就用這個，**免費**、資料不外送。
 - ✅ **檢核點**：知識庫狀態變「可用」，能在「召回測試」搜到內容。
@@ -80,7 +81,7 @@
 ### 回家 3 步就接得回今天
 
 1. 到 `cloud.dify.ai` 註冊免費帳號。
-2. 「知識庫」→ 上傳今天同一份 `restaurant-faq.md`、`ecommerce-return-sop.md`，索引選高品質。
+2. 「知識庫」→ 上傳今天同一份 `ecommerce-return-sop.md`，索引選高品質。
 3. 建聊天助手 → 貼今天同一套 `advanced-prompt.txt` → 掛知識庫。**你會發現畫面跟課堂幾乎一樣。**
 
 - ✅ **檢核點**：在預覽視窗問「你們運費怎麼算？」能引用知識庫回答，就等於把課堂成果搬到雲端了。
