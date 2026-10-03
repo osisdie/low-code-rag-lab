@@ -4,7 +4,7 @@
 + 每人一台 learner VM（Dify + graphrag + mock API + LINE 橋接 ，Dify 走 HTTP，LINE 由 Cloud Function 處理 HTTPS）。
 
 ```
-terraform/   Terraform：VM、網路、IAM、預算、每日自動關機（student_count 控制人數）
+terraform/   Terraform：VM、網路、IAM、預算（student_count 控制人數；不設自動關機，課後請手動停機/拆除）
 provision/   開機啟動腳本（svc-setup.sh / learner-setup.sh，Terraform 注入）
 svc/         共用服務 docker-compose（LiteLLM + Neo4j + TEI）
 litellm/     LiteLLM config（Vertex gemini-2.5-flash/-lite + bge-m3）
@@ -19,17 +19,17 @@ gcloud auth application-default login        # Terraform 用
 cd infra/terraform
 cp terraform.tfvars.example terraform.tfvars # 填 project_id / litellm_master_key / hf_token / neo4j_password
 terraform init
-terraform apply -var student_count=1         # 彩排先 1 人省錢，正式改 8
+terraform apply -var student_count=1         # 試跑先 1 人省錢，正式開課再依人數調整
 terraform output                             # 拿各人外部 IP / Neo4j db
 ```
 
 ## 成本與護欄
-- 9× e2-standard-4 + 1× e2-standard-8 ≈ **$1.5/hr**；每日 20:00 自動關機。
-- 籌備+彩排+上課 ~40hr ≈ **$45–60**；Vertex token 量小。遠低於 $300。
+- 9× e2-standard-4 + 1× e2-standard-8 ≈ **$1.5/hr**；**不會自動關機**，不用時請手動停 VM 或 `terraform destroy`。
+- 籌備+試跑+上課 ~40hr ≈ **$45–60**；Vertex token 量小。遠低於 $300。
 - 預算告警（填 `billing_account` 才啟用）50/80/100%。
 - **拆除**：`terraform destroy`。
 
 ## 注意
 - 機密（LiteLLM/Neo4j/HF）經 instance metadata 傳遞，屬短期教學環境作法；正式環境請改 Secret Manager。
 - UI 步驟（Dify 模型供應商、知識庫、app、LINE 綁定）無法腳本化，開機後寫在各 VM 的 `/etc/motd`。
-- 詳細維運見 `../docs/instructor/env-operations.md`（講師用）。
+- 詳細維運見 [`../docs/instructor-template/env-operations.md`](../docs/instructor-template/env-operations.md)（講師用範本）。

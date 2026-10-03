@@ -3,6 +3,9 @@
 > 半天（下午）就能跟著做的 AI 客服建置課程。
 > 從 **No-Code → Low-Code → Advanced（向量 + 圖譜 RAG）** 三階段，循序漸進。
 > 對象：**老闆 / PM / 客服主管** — 不用會寫程式也能開始。
+>
+> **狀態**：首梯次已開課完畢（2026/7）。本 repo 現為可**重複開課的素材庫**：學員手冊、投影片、實驗環境、
+> 以及去敏後的講師教案範本（`docs/instructor-template/`）都在這裡，直接套用即可開下一梯。
 
 這個 repo 同時是**教學素材庫**（講師教案、學員手冊、投影片）與**可實跑的 RAG 實驗室**
 （Stage 3 的向量 vs 圖譜 RAG demo）。
@@ -15,10 +18,9 @@
 > 這堂課帶你從最簡單的 ChatGPT 做法，一路走到能處理「關聯式、多跳問題」的進階 RAG，
 > 並且**每一步都是你自己動手做出來的，不是看 demo**。
 
-- **時間**：2026/6/27（六）13:30–17:30｜半日
+- **形式**：半日（約 4 小時，13:30–17:30）｜建議 20 人內
 - **講師**：Kevin Wu（AI 顧問）
-- **場地**：B-Time Empower Hub
-- **限額**：20 人
+- **首梯**：2026 年 7 月，B-Time Empower Hub（日期、場地、人數下梯次請重填）
 
 ---
 
@@ -44,47 +46,56 @@
 low-code-rag-lab/
 ├── README.md                     ← 你在這
 ├── docs/
-│   ├── instructor/               ← 講師教案（不對外公開，未納入 public repo；見 .gitignore）
+│   ├── instructor-template/      ← 講師教案「去敏範本」（時間表、教案、口白稿、彩排 checklist、環境維運；見其 README）
+│   ├── instructor/               ← （本機專用，被 .gitignore 忽略）實際版：含名單、憑證，不進版控
 │   └── student/                  ← 學員 Lab 手冊（步驟清楚、可重複）
-│       ├── worksheet-self-assessment.md
+│       ├── student-worksheet-self-assessment.md
 │       ├── student-stage-0-concepts.md  ← Stage 0 名詞地圖（RAG 科普，給非技術學員）
-│       ├── stage-1-lab.md
-│       ├── stage-2-lab.md          ← 含「課後：用 Dify Cloud 免費版繼續練習」
-│       ├── stage-3-lab-takehome.md
-│       └── student-free-tools-menu.md  ← 課後免費 no-code 工具清單（NotebookLM / Gemini Gem / Coze…）
+│       ├── student-stage-1-lab.md
+│       ├── student-stage-2-lab.md  ← 含「課後：用 Dify Cloud 免費版繼續練習」
+│       ├── student-stage-3-lab-takehome.md
+│       ├── student-free-tools-menu.md  ← 課後免費 no-code 工具清單（NotebookLM / Gemini Gem / Coze…）
+│       ├── student-onboarding-illustrated.*  ← 圖文操作手冊（md/html/pdf，含實機截圖）
+│       ├── student-line-setup.*    ← LINE 串接逐步教學（md/html/pdf）
+│       └── simple/                 ← 超白話版：開場名詞卡 + Stage 1/2 速查卡（md/html/pdf）
 ├── slides/
 │   ├── handbook.html             ← 上課主檔：報紙格式滾動手冊（合併全三階段＋產業數據/評測，附出處連結）
 │   ├── dify.html                 ← Dify 特別報導（社群角色/為何被創建/企業採用/應用領域＋n8n 伴讀）
 │   ├── graphrag.html             ← GraphRAG 特別報導（來不及教時的科普：知識圖譜是什麼、何時該用）
 │   └── obsidian.html             ← Obsidian 特別報導（graph view 平民版知識圖；AI 加持需算力）
+├── index.html, .nojekyll         ← GitHub Pages 入口（導向 slides/handbook.html）
 ├── lab-assets/
-│   ├── knowledge-base/           ← 範例知識庫（餐廳 FAQ / 電商 SOP / 關係資料）
+│   ├── knowledge-base/           ← 範例知識庫（Stage 1：餐廳 FAQ；Stage 2/3：咖啡電商 SOP + 關係資料）
 │   ├── prompts/                  ← system prompt 範本（哪支對應哪 Stage 見 prompts/README.md）
 │   ├── dify/                     ← Dify app 設定、self-host 指引、DSL 骨架
 │   ├── mock-order-api/           ← Lab 2 訂單查詢工具（tool calling demo）
 │   ├── line-bridge/              ← Lab 2 LINE OA ↔ Dify 橋接（真接 LINE）
-│   └── graphrag/                 ← Stage 3 核心：向量 vs 圖譜 RAG（檔案式/Neo4j 雙模式）
-├── obsidian/                     ← 「只答 vault」AI 客服 vault 範本 + 內部試用指南（NotebookLM／Claude Panel）
-├── scripts/                      ← start-all / stop-all / preflight（彩排煙霧測試）
-└── infra/                        ← GCP 授課環境（老師+8學員）：Terraform + LiteLLM + Neo4j + 佈署腳本
+│   └── graphrag/                 ← Stage 3 核心：向量 vs 圖譜 RAG（檔案式/Neo4j 雙模式，含 Cypher 範例）
+├── functions/line-webhook/       ← LINE ↔ Dify 的 Cloud Function（HTTPS webhook，streaming）
+├── obsidian/                     ← 「只答 vault」AI 客服 vault：coffee / newsoft / 台鋼集團 圖譜示範 + your-company 範本 + 內部試用指南
+├── scripts/                      ← start-all / stop-all / preflight（開課前煙霧測試）/ deploy-line-webhook
+└── infra/                        ← GCP 授課環境（共用服務 + 老師 + 學員機）：Terraform + LiteLLM + Neo4j + 佈署腳本
 ```
 
-> **授課環境（GCP 多租戶）**：見 `infra/README.md`。一鍵建出共用服務（LiteLLM→Vertex Gemini、
-> Neo4j、BGE-M3）+ 每人一台 Dify VM。彩排見 `docs/instructor/`（講師專用，未公開）。
+> **授課環境（GCP）**：見 `infra/README.md`。一鍵建出共用服務（LiteLLM→Vertex Gemini、
+> Neo4j、BGE-M3）+ Dify VM。首梯實際採「全班共用一台 Dify」（外部 IP 配額限制，省成本）；
+> 試跑／彩排 checklist 見 `docs/instructor-template/`（去敏範本）。
 
 ---
 
 ## 快速開始
 
 ### 給講師
-1. 講師教案（時間表、口白、demo 備援、備品 checklist）保留在本機 `docs/instructor/`，**未公開**。
-2. 課前依各 stage 教案準備帳號與素材。
+1. 講師教案（時間表、口白、demo 備援、彩排 checklist）的**去敏範本**在 [`docs/instructor-template/`](docs/instructor-template/)；
+   複製到本機 `docs/instructor/`（已被 `.gitignore` 忽略）填入實際值使用。**學員名單、帳密、金鑰、QR 不進版控。**
+2. 開課前依各 stage 教案準備帳號與素材；`scripts/preflight.sh` 可做煙霧測試。
 3. 上課主檔：用瀏覽器打開 `slides/handbook.html`（報紙格式，直接滾動帶過全場）；延伸閱讀見 `slides/dify.html`。
 
 ### 給學員
 - Stage 0 開場先看 `docs/student/student-stage-0-concepts.md`（RAG／專有名詞白話地圖，動手卡關時回來查）。
-- Stage 1 / 2 在課堂跟著 `docs/student/stage-1-lab.md`、`stage-2-lab.md` 做（圖文版見 `student-onboarding-illustrated.md`）。
-- Stage 3 課堂看講師 demo，回家照 `docs/student/stage-3-lab-takehome.md` 自架練習。
+- Stage 1 / 2 在課堂跟著 `docs/student/student-stage-1-lab.md`、`student-stage-2-lab.md` 做（圖文版見 `student-onboarding-illustrated.md`；想要更白話的見 `docs/student/simple/`）。
+- Stage 3 課堂看講師 demo，回家照 `docs/student/student-stage-3-lab-takehome.md` 自架練習。
+- 想把機器人接上 LINE：`docs/student/student-line-setup.md`。
 - 課後想繼續玩：見 `docs/student/student-free-tools-menu.md`（免費 no-code 工具清單）；想要一個「只答自家文件」的本地 bot，見 `obsidian/`（`internal-trial-guide` 有 NotebookLM／Claude Panel 兩條路）。
 
 ### 跑 Stage 3 的 GraphRAG 實驗室（進階 / take-home）
@@ -95,7 +106,7 @@ docker compose up -d          # 啟動 LightRAG + Dify 相容 retrieval adapter
 python ingest.py              # 把 knowledge-base 灌入圖譜
 # 之後在 Dify 以 External Knowledge 連到 http://<host>:8000
 ```
-細節見 `lab-assets/graphrag/README.md`。
+細節見 `lab-assets/graphrag/README.md`。⚠️ 範例 `.env` 內的 `lab-graphrag-secret` 只是教學用預設值，真實部署請改掉。
 
 ---
 

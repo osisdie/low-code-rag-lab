@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 彩排前煙霧測試：逐一檢查所有服務，並斷言 Stage 3 圖譜對照題的關鍵答案。
+# 開課前／試跑前煙霧測試：逐一檢查所有服務，並斷言 Stage 3 圖譜對照題的關鍵答案。
 # 跑全部檢查（不會一失敗就停），最後給總結；有任一失敗則 exit 1。
 #
 # 用法：scripts/preflight.sh            # 讀 infra/learner/.env
@@ -69,4 +69,4 @@ if [[ "$code" =~ ^(200|302|307)$ ]]; then ok "Dify 回應 $code"; else no "Dify 
 echo; echo "════════════════════════"
 echo "  PASS=$PASS  FAIL=$FAIL"
 echo "════════════════════════"
-[[ $FAIL -eq 0 ]] && { echo "✔ 全綠，可以彩排"; exit 0; } || { echo "✗ 有項目未過，見上方"; exit 1; }
+[[ $FAIL -eq 0 ]] && { echo "✔ 全綠，可以開課"; exit 0; } || { echo "✗ 有項目未過，見上方"; exit 1; }

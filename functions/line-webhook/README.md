@@ -22,7 +22,8 @@ gcloud services enable cloudfunctions.googleapis.com cloudbuild.googleapis.com \
   run.googleapis.com artifactregistry.googleapis.com --project $PROJECT
 
 # 從 .env 帶入 LINE 憑證
-set -a; . /mnt/c/writable/git/osisdie/low-code-rag-lab/.env; set +a
+# （在 functions/line-webhook/ 目錄執行，.env 在 repo 根目錄）
+set -a; . ../../.env; set +a
 
 gcloud functions deploy line-webhook \
   --gen2 --runtime=python311 --region=$REGION \

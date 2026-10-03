@@ -1,5 +1,5 @@
 # 預算告警，涵蓋 folder 下所有教學專案（shared + learners）。
-# 在 50/80/100% 門檻通知；搭配每日自動關機保護 $300 credit。
+# 在 50/80/100% 門檻通知；搭配手動停機/拆除保護 credit。
 resource "google_billing_budget" "lab" {
   count           = var.create_budget ? 1 : 0
   billing_account = var.billing_account

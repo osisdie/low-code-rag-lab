@@ -25,7 +25,7 @@
 
 ## 試玩：驗證它真的只答 vault
 
-vault 裡已放了三份範例筆記（`knowledge-base/`）。開面板後可以這樣測：
+vault 的 `knowledge-base/` 內建多組範例：三份原始範例筆記（餐廳 FAQ／退貨 SOP／咖啡關係）、`coffee/`（約 33 篇原子化咖啡筆記）、`newsoft/`（14 篇軟體公司圖譜示範）、`台鋼集團/`（約 39 篇集團圖譜示範）與 `your-company/`（學員自填範本）。開面板後可以這樣測：
 
 **應該答得出（vault 裡有）：**
 - 「綠野鮮蔬餐廳的營業時間？」→ 應引用 `knowledge-base/restaurant-faq.md`

@@ -6,7 +6,7 @@ folder_name        = "low-code-rag-lab"
 region             = "asia-east1"
 zone               = "asia-east1-b"
 
-student_count      = 1                        # 彩排先 1（= shared + teacher + student1 共 3 專案），通過再改 8
+student_count      = 1                        # 試跑先 1（= shared + teacher + student1 共 3 專案），通過再依人數調整
 ssh_user           = "lab"
 ssh_pubkey_path    = "~/.ssh/id_ed25519.pub"
 repo_url           = "https://github.com/osisdie/low-code-rag-lab.git"

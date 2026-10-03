@@ -43,6 +43,3 @@
 
 > 這份規則檔會被 Claude Panel（它把 `claude` CLI 開在本 vault 當工作目錄）自動讀取。
 > 想調整助理行為，直接改這個檔即可。範例資料在 `knowledge-base/`，可自行刪除換成你自己的筆記。
-
-
-<hr class="__chatgpt_plugin">
