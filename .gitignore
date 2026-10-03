@@ -36,8 +36,15 @@ Thumbs.db
 .playwright-mcp/
 tmp/
 
-# --- 講師教案：不對學員/外界公開，僅保留本機 ---
+# --- 講師教案：實際版（含名單/憑證）僅保留本機；去敏範本在 docs/instructor-template/ ---
 docs/instructor/
+# 範本資料夾的保險：名單、憑證、QR、產生檔一律不進版控
+docs/instructor-template/**/*名單*
+docs/instructor-template/**/*roster*
+docs/instructor-template/qr.html
+docs/instructor-template/img/qa-sheet-qr.*
+docs/instructor-template/**/*.pdf
+docs/instructor-template/dify/README.md
 
 # --- Terraform / infra secrets ---
 .terraform/
